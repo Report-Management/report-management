@@ -2,6 +2,7 @@ import './App.css'
 import { useEffect, useState } from "react";
 import { Loading, PagesRoute } from "./xcore";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import {ToastContainer} from "react-toastify";
 
 function App() {
     const [loading, setLoading] = useState(true)
@@ -14,6 +15,9 @@ function App() {
 
     return (
         <BrowserRouter>
+            <ToastContainer
+                autoClose={2000}
+            />
             <main>
                 <Routes>
                     {PagesRoute.routeConfig.map((route, index) => (

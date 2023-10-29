@@ -6,9 +6,6 @@ import 'react-toastify/dist/ReactToastify.min.css';
 export const AuthView = () => {
     return (
         <div className="md:flex md:flex-row dark:bg-gray-900 h-screen">
-            <ToastContainer
-                autoClose={2000}
-            />
             <div
                 className="w-[60%] bg-cover relative md:block hidden"
                 style={{
