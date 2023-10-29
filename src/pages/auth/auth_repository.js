@@ -5,16 +5,13 @@ export class AuthRepository extends BaseRepository {
         super("Authentications");
     }
 
-    async getLogin() {
+    async getLogin(email, password) {
         const body = {
-            "username": "string",
-            "password": "string"
+            "username": email,
+            "password": password,
         };
         const response = await this.post('/login', body);
-        if (response !== null) {
-            return response;
-        }
-        return null;
+        return await this.checkError(response)
     }
 }
 

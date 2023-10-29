@@ -1,19 +1,23 @@
 import ruppLogo from "../../assets/rupp.jpg";
-import {Outlet} from "react-router-dom";
+import { Outlet } from "react-router-dom";
+import {ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.min.css';
 
 export const AuthView = () => {
     return (
         <div className="md:flex md:flex-row dark:bg-gray-900 h-screen">
+            <ToastContainer
+                autoClose={2000}
+            />
             <div
                 className="w-[60%] bg-cover relative md:block hidden"
                 style={{
                     backgroundImage: `url(${ruppLogo})`,
                 }}
-            >
-            </div>
+            ></div>
             <div className="flex-auto">
                 <Outlet />
             </div>
         </div>
-    )
-}
+    );
+};

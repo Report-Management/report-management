@@ -1,4 +1,5 @@
 import axios from "axios";
+import {toast} from "react-toastify";
 
 export class BaseRepository {
     constructor(path) {
@@ -11,6 +12,15 @@ export class BaseRepository {
             config.headers["Authorization"] = "Bearer ";
             return config;
         });
+    }
+
+    async checkError(response) {
+        console.log(response.status);
+        if (response.code >= 400 && response.code < 600) {
+            toast.error(response.status);
+            return null
+        }
+        return response.result;
     }
 
     async get(url, config) {

@@ -4,7 +4,6 @@ import { Loading, PagesRoute } from "./xcore";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
-
     const [loading, setLoading] = useState(true)
     useEffect(() => {
         setTimeout(() => setLoading(false), 3300)
