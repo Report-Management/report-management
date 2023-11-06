@@ -1,4 +1,4 @@
-import { AuthView, LoginForm, ForgetForm } from "./pages";
+import {AuthView, LoginForm, ForgetForm, FirebaseView} from "./pages";
 
 export class PagesRoute {
     static root = "/";
@@ -15,6 +15,10 @@ export class PagesRoute {
                 { path: PagesRoute.forget, element: <ForgetForm /> },
             ],
         },
+        {
+            path: PagesRoute.all_report,
+            element: <FirebaseView />
+        }
     ];
 }
 

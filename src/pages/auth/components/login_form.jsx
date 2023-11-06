@@ -1,25 +1,43 @@
 import {Button, Label, TextInput, Checkbox, Spinner} from 'flowbite-react';
 import {motion} from "framer-motion";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {PagesRoute} from "../../../xcore";
 import {useDispatch, useSelector} from "react-redux";
 import {setEmail, setLoading, setPassword} from "../auth_slice.js";
 import {AuthRepository} from "../auth_repository.js";
+import {BsMicrosoft} from "react-icons/bs";
+import {supabaseSession} from "../../../core/index.js";
+import {useEffect, useState} from "react";
 
 export const LoginForm = () => {
-    const { email, password, error, loading} = useSelector((state) => state.auth);
+    const {email, password, error, loading} = useSelector((state) => state.auth);
     const dispatch = useDispatch()
+    const [session, setSession] = useState(null)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         dispatch(setLoading(true))
-        const authRepo = new AuthRepository();
-        const result = await authRepo.getLogin(email, password);
+        const authRepository = new AuthRepository();
+        const result = await authRepository.getLogin(email, password)
+        if(result === null) {
+            console.log("Failed to login")
+            dispatch(setLoading(false))
+            return
+        }
+        console.log("Login success")
         console.log(result)
         dispatch(setLoading(false))
     };
 
+    const onMicrosoft = async (e) => {
+        e.preventDefault();
+        await supabaseSession.auth.signInWithOAuth({
+            provider: 'azure',
+        });
+    }
+
     return (
+
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
             <div
                 className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
@@ -68,7 +86,8 @@ export const LoginForm = () => {
                                     </Label>
                                 </div>
                             </div>
-                            <Link to={PagesRoute.forget} className="dark:text-primary-500 text-primary-600"> Forgot password? </Link>
+                            <Link to={PagesRoute.forget} className="dark:text-primary-500 text-primary-600"> Forgot
+                                password? </Link>
                         </div>
                         <motion.div
                             className="relative"
@@ -85,9 +104,28 @@ export const LoginForm = () => {
                                 disabled={loading}
                                 onClick={handleSubmit}
                             >
-                                {loading ? <Spinner color="success" /> : <p> Submit </p>}
+                                {loading ? <Spinner color="success"/> : <p> Submit </p>}
                             </Button>
                         </motion.div>
+                        <div className="border-t border-gray-300 my-4"></div>
+                        <motion.div
+                            className="relative"
+                            whileHover={{
+                                scale: 1.025,
+                                transition: {duration: 0.3}
+                            }}
+                            whileTap={{scale: 0.95}}
+                        >
+                            <Button
+                                type="submit"
+                                className="w-full justify-center bg-black"
+                                size="md"
+                                onClick={onMicrosoft}
+                            >
+                                <div className="flex flex-row justify-center items-center space-x-3"><BsMicrosoft /> <p>Sign in with Microsoft</p> </div>
+                            </Button>
+                        </motion.div>
+
                         <p className="text-sm font-light text-gray-500">
                             Don’t have an account yet?{" "}
                             <a href="#" className="font-medium text-primary-600 hover:underline dark:text-primary-500">

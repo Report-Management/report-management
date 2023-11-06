@@ -14,6 +14,14 @@ export class BaseRepository {
         });
     }
 
+    async checkSupabaseError(response) {
+        if (response.error) {
+            toast.error(response.error.message);
+            return null
+        }
+        return response.data;
+    }
+
     async checkError(response) {
         console.log(response.status);
         if (response.code >= 400 && response.code < 600) {

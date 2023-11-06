@@ -1,0 +1,1 @@
+export {FirebaseView} from "./supabase_view.jsx"
