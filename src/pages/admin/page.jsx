@@ -11,7 +11,7 @@ export const AdminView = () => {
 
                 <div className="w-screen">
                     <div className="relative">
-                        <div className="overflow-scroll max-h-screen min-h-screen">
+                        <div className="overflow-scroll h-screen">
                             <Outlet />
                         </div>
                     </div>
