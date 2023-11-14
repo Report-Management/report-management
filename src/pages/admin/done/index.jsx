@@ -1,0 +1,1 @@
+export { AdminDoneView } from './page.jsx';

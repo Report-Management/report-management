@@ -1,12 +1,12 @@
 import {Button, Label, TextInput, Checkbox, Spinner} from 'flowbite-react';
 import {motion} from "framer-motion";
 import {Link, useNavigate} from "react-router-dom";
-import {PagesRoute} from "../../../xcore";
+import {PagesRoute} from "../../xcore.jsx";
 import {useDispatch, useSelector} from "react-redux";
-import {setEmail, setLoading, setPassword} from "../auth_slice.js";
-import {AuthRepository} from "../auth_repository.js";
+import {setEmail, setLoading, setPassword} from "../../pages/auth/auth_slice.js";
+import {AuthRepository} from "../../pages/auth/auth_repository.js";
 import {BsMicrosoft} from "react-icons/bs";
-import {supabaseSession} from "../../../core/index.js";
+import {supabaseSession} from "../../core/index.js";
 import {useEffect, useState} from "react";
 
 export const LoginForm = () => {
@@ -37,10 +37,8 @@ export const LoginForm = () => {
     }
 
     return (
-
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-            <div
-                className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+            <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                 <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                     <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                         Sign in to your account
@@ -107,25 +105,6 @@ export const LoginForm = () => {
                                 {loading ? <Spinner color="success"/> : <p> Submit </p>}
                             </Button>
                         </motion.div>
-                        <div className="border-t border-gray-300 my-4"></div>
-                        <motion.div
-                            className="relative"
-                            whileHover={{
-                                scale: 1.025,
-                                transition: {duration: 0.3}
-                            }}
-                            whileTap={{scale: 0.95}}
-                        >
-                            <Button
-                                type="submit"
-                                className="w-full justify-center bg-black"
-                                size="md"
-                                onClick={onMicrosoft}
-                            >
-                                <div className="flex flex-row justify-center items-center space-x-3"><BsMicrosoft /> <p>Sign in with Microsoft</p> </div>
-                            </Button>
-                        </motion.div>
-
                         <p className="text-sm font-light text-gray-500">
                             Don’t have an account yet?{" "}
                             <a href="#" className="font-medium text-primary-600 hover:underline dark:text-primary-500">

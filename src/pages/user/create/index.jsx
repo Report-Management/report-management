@@ -1,0 +1,1 @@
+export { CreateReportView } from "./page.jsx"

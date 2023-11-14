@@ -1,9 +1,10 @@
 import './App.css'
 import {useEffect, useState} from "react";
 import {Loading, PagesRoute} from "./xcore";
-import {Route, Routes, useNavigate} from "react-router-dom";
+import {redirect, Route, Routes, useNavigate} from "react-router-dom";
 import {ToastContainer} from "react-toastify";
 import {supabaseSession} from "./core/index.js";
+import {AuthRepository} from "./pages/auth/auth_repository.js";
 
 function App() {
     const [loading, setLoading] = useState(true);
@@ -11,27 +12,43 @@ function App() {
         setTimeout(() => setLoading(false), 3300);
     }, []);
     const [session, setSession] = useState(null)
+
     const navigate = useNavigate()
+    const authRepo = new AuthRepository();
     useEffect(() => {
-        supabaseSession.auth.getSession().then(({ data: { session } }) => {
+
+        // const fetchUserRole = async () => {
+        //     if(session) {
+        //         const role = await authRepo.getUserRole(session.user.id);
+        //         console.log(role);
+        //         if(role === "Admin") navigate(PagesRoute.admin, { replace: true });
+        //         else navigate(PagesRoute.user, { replace: true });
+        //     }
+        // }
+
+        supabaseSession.auth.getSession().then( async ({ data: { session } }) => {
             setSession(session)
             if (session) {
-                navigate('/reports'); // Change '/dashboard' to the desired route
+                console.log(session.user.id);
+                let role = await authRepo.getUserRole(session.user.id);
+                console.log(await authRepo.getUserRole(session.user.id));
+                if(role === "Admin") navigate(PagesRoute.admin, { replace: true });
+                else navigate(PagesRoute.user, { replace: true });
             } else {
-
-                navigate('/');
+                navigate(PagesRoute.root, { replace: true });
             }
         })
 
-        const {
-            data: { subscription },
-        } = supabaseSession.auth.onAuthStateChange((_event, session) => {
+        const {data: { subscription },} = supabaseSession.auth.onAuthStateChange( async (_event, session) => {
             setSession(session)
             if (session) {
-                navigate('/reports');
+                console.log(session.user.id);
+                let role = await authRepo.getUserRole(session.user.id);
+                console.log(role);
+                if(role === "Admin") navigate(PagesRoute.admin, { replace: true });
+                else navigate(PagesRoute.user, { replace: true });
             } else {
-
-                navigate('/');
+                navigate(PagesRoute.root, { replace: true });
             }
         })
 

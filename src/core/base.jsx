@@ -1,15 +1,17 @@
 import axios from "axios";
 import {toast} from "react-toastify";
+import {useSelector} from "react-redux";
 
 export class BaseRepository {
     constructor(path) {
-        this.baseURL = "https://test-api-602w.onrender.com/";
+        this.baseURL = "http://0.0.0.0:8000/";
         this.base = axios.create({
             baseURL: this.baseURL + path,
         });
-        this.base.defaults.timeout = 30000;
+        this.base.defaults.timeout = 60000;
         this.base.interceptors.request.use((config) => {
-            config.headers["Authorization"] = "Bearer ";
+            const token = JSON.parse(localStorage.getItem('sb-uazzhgvzukwpifcufyfg-auth-token'));
+            config.headers["Authorization"] = "Bearer " + token.access_token;
             return config;
         });
     }
@@ -23,9 +25,9 @@ export class BaseRepository {
     }
 
     async checkError(response) {
-        console.log(response.status);
-        if (response.code >= 400 && response.code < 600) {
-            toast.error(response.status);
+        console.log(response.status_code);
+        if (response.status_code >= 400 && response.status_code < 600) {
+            toast.error(response.detail);
             return null
         }
         return response.result;

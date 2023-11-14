@@ -1,9 +1,22 @@
 import {Button, Checkbox, Label, TextInput} from "flowbite-react";
 import {LuArrowLeft} from "react-icons/lu";
 import {useNavigate} from "react-router-dom";
+import {supabaseSession} from "../../core/index.js";
 
 export const ForgetForm = () => {
     const navigate = useNavigate();
+
+    supabaseSession.auth.onAuthStateChange(async (event, session) => {
+        if (event === "PASSWORD_RECOVERY") {
+            const newPassword = prompt("What would you like your new password to be?");
+            const { data, error } = await supabaseSession.auth.update({
+                password: newPassword,
+            })
+
+            if (data) alert("Password updated successfully!")
+            if (error) alert("There was an error updating your password.")
+        }
+    })
     return (
         <section className="bg-gray-50 dark:bg-gray-900">
             <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">

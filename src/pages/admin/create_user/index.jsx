@@ -1,0 +1,1 @@
+export { AdminCreateUserView } from './page.jsx';

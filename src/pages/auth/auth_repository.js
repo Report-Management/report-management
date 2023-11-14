@@ -20,9 +20,18 @@ export class AuthRepository extends BaseRepository {
         return await this.checkSupabaseError(response)
     }
 
+    async getUserRole(id) {
+
+        const response = await this.get("/check?id=" + id)
+        return response.detail
+    }
+
     async getMicrosoftLogin() {
         const response = await supabaseSession.auth.signIn({
             provider: 'microsoft',
+            options: {
+                scopes: 'email',
+            },
         })
         return await this.checkSupabaseError(response)
     }

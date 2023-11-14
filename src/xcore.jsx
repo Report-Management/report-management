@@ -1,3 +1,3 @@
 export * from "./routes.jsx";
-export * from "./pages";
-export * from "./components";
+export * from "./pages/user/index.jsx";
+export * from "./components/user/index.jsx";
