@@ -16,6 +16,7 @@ export class BaseRepository {
         });
     }
 
+
     async checkSupabaseError(response) {
         if (response.error) {
             toast.error(response.error.message);
