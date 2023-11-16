@@ -83,6 +83,17 @@ export const AdminSideBar = () => {
                             Create Account
                         </Sidebar.Item>
                         <Sidebar.Item
+                            icon={BiMessageSquareAdd}
+                            as={NavLink}
+                            to={PagesRoute.spam_report}
+                            active={PagesRoute.admin.concat('/', PagesRoute.spam_report) === location.pathname}
+                            className={`font-medium ${PagesRoute.admin.concat('/', PagesRoute.spam_report) === location.pathname ? 'text-purple-600' : ''}`}
+                        >
+                            Spam
+                        </Sidebar.Item>
+
+
+                        <Sidebar.Item
                             icon={BiLogOut}
                             className="font-medium"
                             onClick={() => setOpenModal(true)}

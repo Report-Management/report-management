@@ -1,0 +1,1 @@
+export { AdminSpamView } from "./page.jsx"

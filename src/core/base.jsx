@@ -4,7 +4,7 @@ import {useSelector} from "react-redux";
 
 export class BaseRepository {
     constructor(path) {
-        this.baseURL = "http://0.0.0.0:8000/";
+        this.baseURL = "https://report-management-api-8ef0940ce088.herokuapp.com/";
         this.base = axios.create({
             baseURL: this.baseURL + path,
         });

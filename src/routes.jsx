@@ -5,6 +5,7 @@ import {AdminShowReportView} from "./pages/admin/show_report/page.jsx";
 import {AdminDashboardView} from "./pages/admin/dashboard/index.jsx";
 import {AdminCreateUserView} from "./pages/admin/create_user/index.jsx";
 import {AdminDoneView} from "./pages/admin/done/index.jsx";
+import {AdminSpamView} from "./pages/admin/spam/index.jsx";
 
 export class PagesRoute {
     static root = "/";
@@ -21,6 +22,7 @@ export class PagesRoute {
     static dashboard = "dashboard";
     static create_user = "create_user";
     static done_report = "done_report";
+    static spam_report = "spam_report";
 
 
     static routeConfig = [
@@ -49,7 +51,8 @@ export class PagesRoute {
                 {path: PagesRoute.admin, element: <AdminShowReportView/>},
                 {path: PagesRoute.dashboard, element: <AdminDashboardView/>},
                 {path: PagesRoute.create_user, element: <AdminCreateUserView/>},
-                {path: PagesRoute.done_report, element: <AdminDoneView/>}
+                {path: PagesRoute.done_report, element: <AdminDoneView/>},
+                {path: PagesRoute.spam_report, element: <AdminSpamView/>}
             ],
         }
     ];
