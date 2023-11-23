@@ -1,6 +1,5 @@
 import axios from "axios";
 import {toast} from "react-toastify";
-import {useSelector} from "react-redux";
 
 export class BaseRepository {
     constructor(path) {
@@ -26,31 +25,57 @@ export class BaseRepository {
     }
 
     async checkError(response) {
-        console.log(response.status_code);
-        if (response.status_code >= 400 && response.status_code < 600) {
-            toast.error(response.detail);
+        if(response === null) {
             return null
         }
-        return response.result;
+        return response.detail;
     }
 
     async get(url, config) {
-        const response = await this.base.get(url, config);
-        return response.data;
+        const response = await this.base.get(url, config).catch((error) => {
+            toast.error(error.response.data.detail)
+            return null
+        })
+        if (response !== null) {
+            return response.data;
+        }
+
+        return null;
     }
 
     async post(url, data, config) {
-        const response = await this.base.post(url, data, config);
-        return response.data;
+        const response = await this.base.post(url, data, config).catch((error) => {
+            toast.error(error.response.data.detail)
+            return null
+        })
+        if (response !== null) {
+            return response.data;
+        }
+
+        return null;
     }
 
     async put(url, data, config) {
-        const response = await this.base.put(url, data, config);
-        return response.data;
+        const response = await this.base.put(url, data, config).catch((error) => {
+            toast.error(error.response.data.detail)
+            return null
+        })
+        if (response !== null) {
+            return response.data;
+        }
+
+        return null;
     }
 
     async delete(url, config) {
-        const response = await this.base.delete(url, config);
-        return response.data;
+        const response = await this.base.delete(url, config).catch((error) => {
+            toast.error(error.response.data.detail)
+            return null
+        })
+        if (response !== null) {
+            return response.data;
+        }
+
+        return null;
     }
 }

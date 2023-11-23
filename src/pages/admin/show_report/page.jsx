@@ -1,19 +1,27 @@
 import {postCardData} from "./constant.js";
-import {AdminPostCard} from "../../../components/admin/post_card.jsx";
-import {Button} from "flowbite-react";
-
+import {AdminPostCard} from "../../../components/index.jsx";
+import Masonry from "react-masonry-css";
 
 export const AdminShowReportView = () => {
+    const breakpointColumnsObj = {
+        default: 3,
+        1024: 3,
+        768: 1,
+        640: 1,
+    };
     return (
         <>
-            <div className="grid-container space-y-5 h-screen">
-                <div className="grid grid-cols-3 gap-4 p-6">
+            <div className="p-3">
+                <Masonry
+                    breakpointCols={breakpointColumnsObj}
+                    className="flex w-auto"
+                    columnClassName="px-2">
                     {postCardData.map((item, index) => (
-                        <div key={index} className="relative aspect-w-1 aspect-h-1 rounded-md overflow-hidden">
-                            <AdminPostCard key={index} {...item} />
+                        <div key={index} className="w-full mb-6">
+                            <AdminPostCard {...item} />
                         </div>
                     ))}
-                </div>
+                </Masonry>
             </div>
         </>
     );

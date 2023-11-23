@@ -1,18 +1,21 @@
 import { useState, useEffect } from 'react';
-import {Button, Modal, Sidebar} from 'flowbite-react';
+import { Sidebar} from 'flowbite-react';
 import { TbReportAnalytics } from 'react-icons/tb';
 import { AiOutlineFileDone } from 'react-icons/ai';
-import {BiLogOut, BiMessageSquareAdd, BiSearchAlt} from 'react-icons/bi';
+import { Button, Modal } from 'flowbite-react';
+import { BiMessageSquareAdd, BiSearchAlt} from 'react-icons/bi';
 import logo from '../../assets/seo-report.png';
-import {NavLink, useLocation} from "react-router-dom";
+import {NavLink, useLocation, useNavigate} from "react-router-dom";
 import {PagesRoute} from "../../routes.jsx";
 import {supabaseSession} from "../../core/index.js";
+import {CiLogout} from "react-icons/ci";
 import {HiOutlineExclamationCircle} from "react-icons/hi";
 
 export const UserSideBar = () => {
     const [isCollapsed, setCollapsed] = useState(window.innerWidth < 768);
     const [openModal, setOpenModal] = useState(false);
     const location = useLocation();
+    const navigate = useNavigate();
     useEffect(() => {
         const handleResize = () => {
             setCollapsed(window.innerWidth < 768);
@@ -29,6 +32,7 @@ export const UserSideBar = () => {
 
     const onLogout = async () => {
         const {error} = await supabaseSession.auth.signOut()
+        navigate(PagesRoute.root, { replace: true });
         setOpenModal(false)
         if (error) {
             console.log(error)
@@ -82,21 +86,15 @@ export const UserSideBar = () => {
                             Done
                         </Sidebar.Item>
                         <Sidebar.Item
-                            icon={BiLogOut}
-                            className="font-medium"
+                            icon={CiLogout}
                             onClick={() => setOpenModal(true)}
                         >
-                            Sign Out
+                            Logout
                         </Sidebar.Item>
                     </Sidebar.ItemGroup>
                 </Sidebar.Items>
             </Sidebar>
-            <Modal
-                show={openModal}
-                size="md"
-                onClose={() => setOpenModal(false)}
-                position="center"
-                popup>
+            <Modal show={openModal} size="md" onClose={() => setOpenModal(false)} popup>
                 <Modal.Header />
                 <Modal.Body>
                     <div className="text-center">

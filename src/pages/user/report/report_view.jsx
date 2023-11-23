@@ -1,7 +1,5 @@
 import {PostCard} from "../../../components/user/index.jsx";
 import {motion} from "framer-motion";
-import {Button} from "flowbite-react";
-import {AiOutlinePlus} from "react-icons/ai";
 
 export const ReportView = () => {
     const postCardData = [
@@ -86,12 +84,6 @@ export const ReportView = () => {
                     />
                 </motion.div>
             ))}
-            <Button className="md:hidden fixed bottom-5 right-5 uppercase font-bold" size="md" color={"blue"}>
-                <div className="space-x-3 flex flex-row justify-center items-center">
-                    <AiOutlinePlus/>
-                    <span>create report</span>
-                </div>
-            </Button>
         </div>
     );
 }

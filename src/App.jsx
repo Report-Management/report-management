@@ -1,10 +1,18 @@
 import './App.css'
 import {useEffect, useState} from "react";
-import {Loading, PagesRoute} from "./xcore";
-import {redirect, Route, Routes, useNavigate} from "react-router-dom";
+import {AuthView, ForgetForm, Loading, LoginForm, PagesRoute, ReportView, SearchView, UserView} from "./xcore";
+import {Route, Routes, useNavigate} from "react-router-dom";
 import {ToastContainer} from "react-toastify";
 import {supabaseSession} from "./core/index.js";
 import {AuthRepository} from "./pages/auth/auth_repository.js";
+import {DoneView} from "./pages/user/done/pages.jsx";
+import {CreateReportView} from "./pages/user/create/index.jsx";
+import {AdminView} from "./pages/index.jsx";
+import {AdminShowReportView} from "./pages/admin/show_report/page.jsx";
+import {AdminDoneView} from "./pages/admin/done/index.jsx";
+import {AdminCreateUserView} from "./pages/admin/create_user/index.jsx";
+import {AdminDashboardView} from "./pages/admin/dashboard/index.jsx";
+import {AdminSpamView} from "./pages/admin/spam/index.jsx";
 
 function App() {
     const [loading, setLoading] = useState(true);
@@ -17,38 +25,29 @@ function App() {
     const authRepo = new AuthRepository();
     useEffect(() => {
 
-        // const fetchUserRole = async () => {
-        //     if(session) {
-        //         const role = await authRepo.getUserRole(session.user.id);
-        //         console.log(role);
-        //         if(role === "Admin") navigate(PagesRoute.admin, { replace: true });
-        //         else navigate(PagesRoute.user, { replace: true });
-        //     }
-        // }
-
-        supabaseSession.auth.getSession().then( async ({ data: { session } }) => {
+        supabaseSession.auth.getSession().then(async ({data: {session}}) => {
             setSession(session)
             if (session) {
                 console.log(session.user.id);
                 let role = await authRepo.getUserRole(session.user.id);
                 console.log(await authRepo.getUserRole(session.user.id));
-                if(role === "Admin") navigate(PagesRoute.admin, { replace: true });
-                else navigate(PagesRoute.user, { replace: true });
+                if (role === "Admin") navigate(PagesRoute.admin, {replace: true});
+                else navigate(PagesRoute.user, {replace: true});
             } else {
-                navigate(PagesRoute.root, { replace: true });
+                navigate(PagesRoute.root, {replace: true});
             }
         })
 
-        const {data: { subscription },} = supabaseSession.auth.onAuthStateChange( async (_event, session) => {
+        const {data: {subscription},} = supabaseSession.auth.onAuthStateChange(async (_event, session) => {
             setSession(session)
             if (session) {
                 console.log(session.user.id);
                 let role = await authRepo.getUserRole(session.user.id);
                 console.log(role);
-                if(role === "Admin") navigate(PagesRoute.admin, { replace: true });
-                else navigate(PagesRoute.user, { replace: true });
+                if (role === "Admin") navigate(PagesRoute.admin, {replace: true});
+                else navigate(PagesRoute.user, {replace: true});
             } else {
-                navigate(PagesRoute.root, { replace: true });
+                navigate(PagesRoute.root, {replace: true});
             }
         })
 
@@ -64,18 +63,23 @@ function App() {
                 autoClose={2000}
             />
             <Routes>
-                {PagesRoute.routeConfig.map((route, index) => (
-                    <Route key={index} path={route.path} element={route.element}>
-                        {route.routes &&
-                            route.routes.map((subRoute, subIndex) => (
-                                <Route
-                                    key={subIndex}
-                                    path={subRoute.path}
-                                    element={subRoute.element}
-                                />
-                            ))}
-                    </Route>
-                ))}
+                <Route path={PagesRoute.root} element={<AuthView/>}>
+                    <Route path={PagesRoute.root} element={<LoginForm/>}/>
+                    <Route path={PagesRoute.forget} element={<ForgetForm/>}/>
+                </Route>
+                <Route path={PagesRoute.user} element={<UserView/>}>
+                    <Route path={PagesRoute.user} element={<ReportView />}/>
+                    <Route path={PagesRoute.done} element={<DoneView/>}/>
+                    <Route path={PagesRoute.create} element={<CreateReportView/>}/>
+                    <Route path={PagesRoute.search} element={<SearchView />} />
+                </Route>
+                <Route path={PagesRoute.admin} element={<AdminView/>}>
+                    <Route path={PagesRoute.admin} element={<AdminShowReportView />} />
+                    <Route path={PagesRoute.done_report} element={<AdminDoneView />}/>
+                    <Route path={PagesRoute.create_user} element={<AdminCreateUserView />}/>
+                    <Route path={PagesRoute.dashboard} element={<AdminDashboardView />}/>
+                    <Route path={PagesRoute.spam_report} element={<AdminSpamView />} />
+                </Route>
             </Routes>
         </main>
     );

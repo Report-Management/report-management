@@ -1,13 +1,10 @@
-import {Button, Label, TextInput, Checkbox, Spinner} from 'flowbite-react';
+import {Button, Label, TextInput, Spinner} from 'flowbite-react';
 import {motion} from "framer-motion";
-import {Link, useNavigate} from "react-router-dom";
-import {PagesRoute} from "../../xcore.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import {setEmail, setLoading, setPassword} from "../../pages/auth/auth_slice.js";
 import {AuthRepository} from "../../pages/auth/auth_repository.js";
-import {BsMicrosoft} from "react-icons/bs";
 import {supabaseSession} from "../../core/index.js";
-import {useEffect, useState} from "react";
+import { useState } from "react";
 
 export const LoginForm = () => {
     const {email, password, error, loading} = useSelector((state) => state.auth);
@@ -73,20 +70,19 @@ export const LoginForm = () => {
                                 onChange={(e) => dispatch(setPassword(e.target.value))}
                             />
                         </div>
-                        <div className="flex items-center justify-between">
-                            <div className="flex items-start">
-                                <div className="flex items-center h-5">
-                                    <Checkbox id="remember"/>
-                                </div>
-                                <div className="ml-3 text-sm">
-                                    <Label htmlFor="remember">
-                                        Remember me
-                                    </Label>
-                                </div>
-                            </div>
-                            <Link to={PagesRoute.forget} className="dark:text-primary-500 text-primary-600"> Forgot
-                                password? </Link>
-                        </div>
+                        {/*<div className="flex items-center justify-between">*/}
+                        {/*    <div className="flex items-start">*/}
+                        {/*        <div className="flex items-center h-5">*/}
+                        {/*            <Checkbox id="remember"/>*/}
+                        {/*        </div>*/}
+                        {/*        <div className="ml-3 text-sm">*/}
+                        {/*            <Label htmlFor="remember">*/}
+                        {/*                Remember me*/}
+                        {/*            </Label>*/}
+                        {/*        </div>*/}
+                        {/*    </div>*/}
+                        {/*    <Link to={PagesRoute.forget} className="dark:text-primary-500 text-primary-600"> Forgot password? </Link>*/}
+                        {/*</div>*/}
                         <motion.div
                             className="relative"
                             whileHover={{
@@ -105,12 +101,12 @@ export const LoginForm = () => {
                                 {loading ? <Spinner color="success"/> : <p> Submit </p>}
                             </Button>
                         </motion.div>
-                        <p className="text-sm font-light text-gray-500">
-                            Don’t have an account yet?{" "}
-                            <a href="#" className="font-medium text-primary-600 hover:underline dark:text-primary-500">
-                                Request Now
-                            </a>
-                        </p>
+                        {/*<p className="text-sm font-light text-gray-500">*/}
+                        {/*    Don’t have an account yet?{" "}*/}
+                        {/*    <a href="#" className="font-medium text-primary-600 hover:underline dark:text-primary-500">*/}
+                        {/*        Request Now*/}
+                        {/*    </a>*/}
+                        {/*</p>*/}
                     </form>
                 </div>
             </div>

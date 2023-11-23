@@ -2,12 +2,13 @@ import {useState, useEffect} from 'react';
 import {Button, Modal, Sidebar} from 'flowbite-react';
 import {TbReportAnalytics} from 'react-icons/tb';
 import {AiOutlineFileDone} from 'react-icons/ai';
-import {BiLogOut, BiMessageSquareAdd, BiSearchAlt, BiSolidDashboard} from 'react-icons/bi';
+import {BiLogOut, BiMessageSquareAdd, BiSolidDashboard} from 'react-icons/bi';
 import logo from '../../assets/seo-report.png';
 import {NavLink, useLocation, useNavigate} from "react-router-dom";
 import {PagesRoute} from "../../routes.jsx";
 import {supabaseSession} from "../../core/index.js";
 import {HiOutlineExclamationCircle} from "react-icons/hi";
+import {RiSpam2Fill} from "react-icons/ri";
 
 export const AdminSideBar = () => {
     const [isCollapsed, setCollapsed] = useState(window.innerWidth < 768);
@@ -62,7 +63,7 @@ export const AdminSideBar = () => {
                             active={PagesRoute.admin === location.pathname}
                             className={`font-medium ${PagesRoute.admin === location.pathname ? 'text-purple-600' : ''}`}
                         >
-                            Show Reports
+                            Reports
                         </Sidebar.Item>
                         <Sidebar.Item
                             icon={AiOutlineFileDone}
@@ -83,7 +84,7 @@ export const AdminSideBar = () => {
                             Create Account
                         </Sidebar.Item>
                         <Sidebar.Item
-                            icon={BiMessageSquareAdd}
+                            icon={RiSpam2Fill}
                             as={NavLink}
                             to={PagesRoute.spam_report}
                             active={PagesRoute.admin.concat('/', PagesRoute.spam_report) === location.pathname}

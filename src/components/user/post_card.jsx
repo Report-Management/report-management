@@ -1,46 +1,64 @@
-import {Avatar, Button, Card} from "flowbite-react";
+import {Avatar, Card} from "flowbite-react";
 import PropTypes from 'prop-types';
-import {motion} from "framer-motion";
 
-export const PostCard = ({ username, timestamp, title, content, status, avatarUrl, imageUrl }) => {
+export const PostCard = (props) => {
     return (
         <Card className="max-w-max min-w-md">
-            <div className="flex justify-start items-center space-x-3">
-                { avatarUrl ? <Avatar alt="User settings" img={avatarUrl} rounded/> : <Avatar alt="User settings" img="https://cdn-icons-png.flaticon.com/512/9131/9131478.png" rounded/> }
-                <div className="flex flex-col justify-center items-start">
-                    <div className="text-center font-medium text-lg dark:text-white">
-                        { username }
+            <div className="flex flex-row justify-between">
+                <div className="flex justify-start items-center space-x-3">
+                    { props.avatarUrl ? <Avatar alt="User settings" img={props.avatarUrl} rounded/> : <Avatar alt="User settings" img="https://cdn-icons-png.flaticon.com/512/9131/9131478.png" rounded/> }
+                    <div className="flex flex-col justify-center items-start">
+                        <div className="text-center font-medium text-md md:text-lg dark:text-white">
+                            { props.username }
+                        </div>
+                        <div className="text-center font-light text-sm dark:text-gray-400">
+                            { props.timestamp }
+                        </div>
                     </div>
-                    <div className="text-center font-light text-sm dark:text-gray-400">
-                        { timestamp }
+                </div>
+                <div className="hidden md:block">
+                    <div className="bg-green-600 text-white p-1.5 rounded-lg px-5 text-md md:text-lg font-semibold">
+                        { props.status }
                     </div>
-                    <hrs/>
                 </div>
             </div>
             <div className="max-w-6xl">
-                <div className="text-start text-md font-bold dark:text-white">
-                    { title }
+                <div className="flex flex-row space-x-2 pb-2" >
+                    <div className="bg-gray-100 dark:bg-white text-black text-center p-1.5 rounded-lg px-3 font-medium font-sans text-sm md:text-md">FacultyEnv</div>
+                    <div className="bg-gray-100 dark:bg-whit text-black text-center p-1.5 rounded-lg px-3 font-medium font-sans text-sm md:text-md">High</div>
                 </div>
-                <div className="text-start text-md font-normal dark:text-white">
-                    { content }
+                <div className="text-start text-sm md:text-md font-bold dark:text-white">
+                    { props.title }
+                </div>
+                <div className="text-start text-sm md:text-md font-normal dark:text-white">
+                    { props.content }
                 </div>
             </div>
-            { imageUrl ? <img src={imageUrl} alt="Post image" className="w-full h-auto rounded-lg"/> : null }
-            <div className="flex flex-row justify-end items-center">
-                <Button className="mr-3 bg-green-600" size="sm">
-                    <span className="font-bold"> { status }</span>
-                </Button>
+            { props.imageUrl ? <img src={props.imageUrl} alt="Post image" className="w-full h-auto rounded-lg"/> : null }
+            <div className="md:hidden">
+                <div className="bg-green-600 text-white p-1.5 rounded-lg px-5 text-md md:text-lg text-center  font-semibold">
+                    { props.status }
+                </div>
             </div>
         </Card>
     );
 }
 
 PostCard.propTypes = {
-    username: PropTypes.string.isRequired,
-    timestamp: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    content: PropTypes.string.isRequired,
-    status: PropTypes.string.isRequired,
+    username: PropTypes.string,
+    timestamp: PropTypes.string,
+    title: PropTypes.string,
+    content: PropTypes.string,
+    status: PropTypes.string,
     avatarUrl: PropTypes.string,
     imageUrl: PropTypes.string,
 };
+
+PostCard.defaultProps = {
+    username: "Username",
+    timestamp: "Just Now",
+    title: "Title",
+    content: "Content",
+    status: "APPROVED",
+    avatarUrl: "https://cdn-icons-png.flaticon.com/512/9131/9131478.png",
+}

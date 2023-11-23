@@ -1,1 +1,0 @@
-export { AdminApprovedView } from './page';

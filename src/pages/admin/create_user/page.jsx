@@ -1,4 +1,4 @@
-import {Button, Checkbox, Dropdown, Label, Modal, Spinner, Table, TextInput} from "flowbite-react";
+import {Button, Label, Modal, Select, Spinner, Table, TextInput} from "flowbite-react";
 import {AdminCreateUserRepository, userData} from "./repository.js";
 import {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
@@ -7,7 +7,7 @@ import {toast} from "react-toastify";
 
 export const AdminCreateUserView = () => {
     const [openModal, setOpenModal] = useState(false);
-    const { email, password, error, loading, userRole, username} = useSelector((state) => state.create_user);
+    const {email, password, loading, userRole, username} = useSelector((state) => state.create_user);
     const dispatch = useDispatch()
 
     function onCloseModal() {
@@ -34,9 +34,14 @@ export const AdminCreateUserView = () => {
         }
     };
 
+    function handleRoleChange(e) {
+        dispatch(setUserRole(e.target.value))
+        console.log(userRole)
+    }
+
     return (
         <div className="p-5 px-10">
-            <div className="py-3 font-bold flex flex-row justify-between">
+            <div className="py-2 font-bold flex flex-row justify-between">
                 <h1 className="text-2xl font-bold uppercase text-gray-900 dark:text-white">Create Account</h1>
                 <Button
                     onClick={() => setOpenModal(true)}
@@ -68,13 +73,13 @@ export const AdminCreateUserView = () => {
                 </Table.Body>
             </Table>
             <Modal show={openModal} size="md" onClose={onCloseModal} popup>
-                <Modal.Header />
+                <Modal.Header/>
                 <Modal.Body>
                     <div className="space-y-4">
                         <h3 className="text-xl font-medium text-gray-900 dark:text-white">Create Account</h3>
                         <div>
                             <div className="mb-2 block">
-                                <Label htmlFor="username" value="Username" />
+                                <Label htmlFor="username" value="Username"/>
                             </div>
                             <TextInput
                                 id="username"
@@ -86,7 +91,7 @@ export const AdminCreateUserView = () => {
                         </div>
                         <div>
                             <div className="mb-2 block">
-                                <Label htmlFor="email" value="Email" />
+                                <Label htmlFor="email" value="Email"/>
                             </div>
                             <TextInput
                                 id="email"
@@ -98,7 +103,7 @@ export const AdminCreateUserView = () => {
                         </div>
                         <div>
                             <div className="mb-2 block">
-                                <Label htmlFor="password" value="Password" />
+                                <Label htmlFor="password" value="Password"/>
                             </div>
                             <TextInput
                                 id="password"
@@ -106,16 +111,14 @@ export const AdminCreateUserView = () => {
                                 placeholder="********"
                                 value={password}
                                 onChange={(e) => dispatch(setPassword(e.target.value))}
-                                required />
+                                required/>
                         </div>
-                        <div className="flex flex-row justify-between items-center bg-gray-100 dark:bg-gray-300 py-1.5 px-1.5 rounded-xl">
-                            <Label>
-                                Account Type
-                            </Label>
-                            <Button.Group  aria-disabled={true}>
-                                <Button color="gray" onClick={() => dispatch(setUserRole('User'))}>User</Button>
-                                <Button color="gray" onClick={() => dispatch(setUserRole('Admin'))}>Admin</Button>
-                            </Button.Group>
+                        <div>
+                            <Label htmlFor="role" value="Role"/>
+                            <Select id="role" value={userRole} onChange={handleRoleChange}>
+                                <option value="User">User</option>
+                                <option value="Admin">Admin</option>
+                            </Select>
                         </div>
                         <Button
                             type="submit"
@@ -124,7 +127,7 @@ export const AdminCreateUserView = () => {
                             disabled={loading}
                             onClick={handleSubmit}
                         >
-                            {loading ? <Spinner color="success" /> : <p> Submit </p>}
+                            {loading ? <Spinner color="success"/> : <p> Submit </p>}
                         </Button>
                     </div>
                 </Modal.Body>
