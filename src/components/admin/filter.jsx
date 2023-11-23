@@ -23,6 +23,7 @@ export const AdminFilter = () => {
 
         const query = queryParams.join('&');
         const queryString = query ? `?${query}` : '';
+        if(queryString === '') return;
         navigator(`${baseURL}${queryString}`);
     }, [type, category, priority, date]);
 
