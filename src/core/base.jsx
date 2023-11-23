@@ -21,6 +21,7 @@ export class BaseRepository {
             toast.error(response.error.message);
             return null
         }
+        console.log(response.data)
         return response.data;
     }
 

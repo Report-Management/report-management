@@ -15,7 +15,7 @@ export const LoginForm = () => {
         e.preventDefault();
         dispatch(setLoading(true))
         const authRepository = new AuthRepository();
-        const result = await authRepository.getLogin(email, password)
+        const result = await authRepository.getLogin(email, password);
         if(result === null) {
             console.log("Failed to login")
             dispatch(setLoading(false))
@@ -25,13 +25,6 @@ export const LoginForm = () => {
         console.log(result)
         dispatch(setLoading(false))
     };
-
-    const onMicrosoft = async (e) => {
-        e.preventDefault();
-        await supabaseSession.auth.signInWithOAuth({
-            provider: 'azure',
-        });
-    }
 
     return (
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">

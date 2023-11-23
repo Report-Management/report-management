@@ -1,11 +1,29 @@
-import {Outlet, useLocation} from "react-router-dom";
+import {Outlet, useLocation, useNavigate} from "react-router-dom";
 import {AdminSideBar} from "../../components/index.jsx";
 import {AdminNavigationBar} from "../../components/index.jsx";
 import {AdminFilter} from "../../components/index.jsx";
+import {AuthRepository} from "../auth/auth_repository.js";
+import {useEffect, useState} from "react";
+import {supabaseSession} from "../../core/index.js";
+import {PagesRoute} from "../../routes.jsx";
 
 export const AdminView = () => {
     const location = useLocation();
     const isAdminPath = location.pathname === '/admin';
+    const [user, setUser] = useState(null)
+    useEffect(() => {
+        async function getAdmin() {
+            await supabaseSession.auth.getSession().then(({data: {session}}) => {
+                console.log(session)
+                setUser(session)
+            })
+            await supabaseSession.auth.getUser().then(({data: {user}}) => {
+                console.log(user)
+            })
+        }
+
+        getAdmin()
+    }, []);
     return (
         <div>
             <div className="flex h-screen">

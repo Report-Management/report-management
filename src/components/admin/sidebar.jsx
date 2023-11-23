@@ -28,6 +28,7 @@ export const AdminSideBar = () => {
         };
     }, []);
     const navigate = useNavigate()
+
     const onLogout = async () => {
         const {error} = await supabaseSession.auth.signOut()
         navigate(PagesRoute.root, { replace: true });

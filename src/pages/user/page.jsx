@@ -1,15 +1,17 @@
 import {useEffect, useState} from "react";
 import {supabaseSession} from "../../core/index.js";
-import {Outlet} from "react-router-dom";
-import {UserSideBar} from "../../components/user/sidebar.jsx";
-import {ButtonNavigationBar, NavigationBar} from "../../components/user/index.jsx";
+import {Outlet, useNavigate} from "react-router-dom";
+import {UserSideBar} from "../../components/index.jsx";
+import {ButtonNavigationBar, NavigationBar} from "../../components/index.jsx";
+import {PagesRoute} from "../../routes.jsx";
+import {AuthRepository} from "../auth/auth_repository.js";
 
 export const UserView = () => {
-    const [user, setUser] = useState(null);
-
+    const [user, setUser] = useState(null)
     useEffect(() => {
         async function getUser() {
             await supabaseSession.auth.getSession().then(({data: {session}}) => {
+                console.log(session)
                 setUser(session)
             })
             await supabaseSession.auth.getUser().then(({data: {user}}) => {
