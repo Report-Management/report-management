@@ -8,6 +8,7 @@ export class PagesRoute {
     static create = "create_report";
     static search = "search";
 
+
     // Admin Route
     static admin = "/admin";
     static dashboard = "dashboard";
