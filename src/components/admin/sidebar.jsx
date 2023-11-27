@@ -31,7 +31,7 @@ export const AdminSideBar = () => {
 
     const onLogout = async () => {
         const {error} = await supabaseSession.auth.signOut()
-        navigate(PagesRoute.root, { replace: true });
+        navigate(PagesRoute.root, {replace: true});
         setOpenModal(false)
         if (error) {
             console.log(error)
@@ -41,17 +41,20 @@ export const AdminSideBar = () => {
     return (
         <>
             <Sidebar aria-label="Sidebar with logo branding example" collapsed={isCollapsed}>
-                <Sidebar.Logo href="#" img={logo} imgAlt="Report" className="font-bold font-mono text-purple-600">
+                <Sidebar.Logo href={PagesRoute.admin} img={logo} imgAlt="Report" className="font-bold font-mono text-purple-600" onClick={() => {
+                    navigate(PagesRoute.admin, {replace: true});
+                }}>
                     ADMIN
                 </Sidebar.Logo>
                 <Sidebar.Items>
                     <Sidebar.ItemGroup>
                         <Sidebar.Item
                             icon={BiSolidDashboard}
-                            as={NavLink}
-                            to={PagesRoute.dashboard}
                             active={PagesRoute.admin.concat('/', PagesRoute.dashboard) === location.pathname}
                             className={`font-medium ${PagesRoute.admin.concat('/', PagesRoute.dashboard) === location.pathname ? 'text-purple-600' : ''}`}
+                            onClick={() => {
+                                navigate(PagesRoute.dashboard, {replace: true})
+                            }}
                         >
                             Dashboard
                         </Sidebar.Item>
@@ -59,37 +62,41 @@ export const AdminSideBar = () => {
                             icon={
                                 TbReportAnalytics
                             }
-                            as={NavLink}
-                            to={PagesRoute.admin}
                             active={PagesRoute.admin === location.pathname}
                             className={`font-medium ${PagesRoute.admin === location.pathname ? 'text-purple-600' : ''}`}
+                            onClick={() => {
+                                navigate(PagesRoute.admin, {replace: true})
+                            }}
                         >
                             Reports
                         </Sidebar.Item>
                         <Sidebar.Item
                             icon={AiOutlineFileDone}
-                            as={NavLink}
-                            to={PagesRoute.done_report}
                             active={PagesRoute.admin.concat('/', PagesRoute.done_report) === location.pathname}
                             className={`font-medium ${PagesRoute.admin.concat('/', PagesRoute.done_report) === location.pathname ? 'text-purple-600' : ''}`}
+                            onClick={() => {
+                                navigate(PagesRoute.done_report, {replace: true})
+                            }}
                         >
                             Done
                         </Sidebar.Item>
                         <Sidebar.Item
                             icon={BiMessageSquareAdd}
-                            as={NavLink}
-                            to={PagesRoute.create_user}
                             active={PagesRoute.admin.concat('/', PagesRoute.create_user) === location.pathname}
                             className={`font-medium ${PagesRoute.admin.concat('/', PagesRoute.create_user) === location.pathname ? 'text-purple-600' : ''}`}
+                            onClick={() => {
+                                navigate(PagesRoute.create_user, {replace: true})
+                            }}
                         >
                             Create Account
                         </Sidebar.Item>
                         <Sidebar.Item
                             icon={RiSpam2Fill}
-                            as={NavLink}
-                            to={PagesRoute.spam_report}
                             active={PagesRoute.admin.concat('/', PagesRoute.spam_report) === location.pathname}
                             className={`font-medium ${PagesRoute.admin.concat('/', PagesRoute.spam_report) === location.pathname ? 'text-purple-600' : ''}`}
+                            onClick={() => {
+                                navigate(PagesRoute.spam_report, {replace: true})
+                            }}
                         >
                             Spam
                         </Sidebar.Item>

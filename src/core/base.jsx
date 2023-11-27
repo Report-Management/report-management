@@ -29,24 +29,31 @@ export class BaseRepository {
         if(response === null) {
             return null
         }
-        return response.detail;
+        return response.result;
     }
 
     async get(url, config) {
         const response = await this.base.get(url, config).catch((error) => {
-            toast.error(error.response.data.detail)
+            if (error.response && error.response.data && error.response.data.detail) {
+                toast.error(error.response.data.detail);
+            } else {
+                toast.error("An error occurred");
+            }
             return null
         })
         if (response !== null) {
             return response.data;
         }
-
         return null;
     }
 
     async post(url, data, config) {
         const response = await this.base.post(url, data, config).catch((error) => {
-            toast.error(error.response.data.detail)
+            if (error.response && error.response.data && error.response.data.detail) {
+                toast.error(error.response.data.detail);
+            } else {
+                toast.error("An error occurred");
+            }
             return null
         })
         if (response !== null) {
@@ -58,7 +65,11 @@ export class BaseRepository {
 
     async put(url, data, config) {
         const response = await this.base.put(url, data, config).catch((error) => {
-            toast.error(error.response.data.detail)
+            if (error.response && error.response.data && error.response.data.detail) {
+                toast.error(error.response.data.detail);
+            } else {
+                toast.error("An error occurred");
+            }
             return null
         })
         if (response !== null) {
@@ -70,7 +81,11 @@ export class BaseRepository {
 
     async delete(url, config) {
         const response = await this.base.delete(url, config).catch((error) => {
-            toast.error(error.response.data.detail)
+            if (error.response && error.response.data && error.response.data.detail) {
+                toast.error(error.response.data.detail);
+            } else {
+                toast.error("An error occurred");
+            }
             return null
         })
         if (response !== null) {

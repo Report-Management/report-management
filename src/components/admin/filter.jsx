@@ -24,7 +24,7 @@ export const AdminFilter = () => {
         const query = queryParams.join('&');
         const queryString = query ? `?${query}` : '';
         if(queryString === '') return;
-        navigator(`${baseURL}${queryString}`);
+        navigator(`${baseURL}${queryString}`, {replace: true});
     }, [type, category, priority, date]);
 
     const handleTypeChange = (e) => {

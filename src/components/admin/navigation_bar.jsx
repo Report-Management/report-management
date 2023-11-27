@@ -8,10 +8,12 @@ export const AdminNavigationBar = (props) => {
     return (
         <nav className="h-1/2 w-full">
             <Navbar className="w-full px-0 md:px-6 bg-gray-50 dark:bg-gray-800">
-                <Navbar.Brand as={NavLink} to={PagesRoute.user} className="md:hidden">
-                    <div className="flex flex-row justify-center items-center">
+                <Navbar.Brand className="md:hidden">
+                    <div className="flex flex-row justify-center items-center" onClick={() => {
+                        console.log('clicked');
+                    }}>
                         <div className="h-9 sm:h-9">
-                            <img src={logo} className="mr-3 h-10 sm:h-9 mb-3.5" alt="Report"/>
+                            <img src={logo} className="mr-3 h-10 sm:h-9 mb-3.5" alt="Report" />
                         </div>
                         <span className="font-bold font-mono text-xl text-purple-600">ADMIN</span>
                     </div>

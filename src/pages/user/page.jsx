@@ -7,27 +7,19 @@ import {PagesRoute} from "../../routes.jsx";
 import {AuthRepository} from "../auth/auth_repository.js";
 
 export const UserView = () => {
-    const [user, setUser] = useState(null)
+    const navigate = useNavigate();
     useEffect(() => {
-        async function getUser() {
-            await supabaseSession.auth.getSession().then(({data: {session}}) => {
-                console.log(session)
-                setUser(session)
-            })
-            await supabaseSession.auth.getUser().then(({data: {user}}) => {
-                console.log(user)
-            })
-        }
-
-        getUser()
+        supabaseSession.auth.getSession().then(async ({data: {session}}) => {
+            if (!session) {
+                navigate(PagesRoute.root, {replace: true});
+            }
+        })
     }, []);
-
     const profile = {
         username: 'Jane Cooper',
         email: 'lim.phanith.2821@rupp.edu.kh',
         img: 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'
     }
-
     return (
         <div className="container mx-auto max-w-7xl">
             <div className="flex h-screen">

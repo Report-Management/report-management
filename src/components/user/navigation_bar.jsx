@@ -1,6 +1,6 @@
 import {Avatar, Button, Dropdown, Modal, Navbar} from 'flowbite-react';
 import logo from '../../assets/seo-report.png';
-import {NavLink } from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import {PagesRoute} from "../../routes.jsx";
 import PropTypes from "prop-types";
 import {supabaseSession} from "../../core/index.js";
@@ -8,8 +8,10 @@ import {useEffect, useState} from "react";
 import {HiOutlineExclamationCircle} from "react-icons/hi";
 
 export const NavigationBar = (props) => {
+    const navigator = useNavigate();
     const onLogout = async () => {
-        const {error} = await supabaseSession.auth.signOut()
+        const {error} = await supabaseSession.auth.signOut();
+        navigator(PagesRoute.root, {replace: true});
         if (error) {
             console.log(error)
         }
@@ -30,7 +32,7 @@ export const NavigationBar = (props) => {
         <nav className="h-1/2 w-full">
             <Navbar className="w-full px-8 bg-gray-50 dark:bg-gray-800">
                 <div className="md:hidden">
-                    <Navbar.Brand as={NavLink} to={PagesRoute.user}>
+                    <Navbar.Brand>
                         <div className="flex flex-row justify-center items-center">
                             <div className="h-10 sm:h-9">
                                 <img src={logo} className="mr-3 h-10 sm:h-9 mb-3.5" alt="Report"/>

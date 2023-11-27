@@ -35,7 +35,7 @@ export const userData = [
 
 export class AdminCreateUserRepository extends BaseRepository {
     constructor() {
-        super("Authentications");
+        super("authentications");
     }
 
     async createAccount(username, email, password, role) {
@@ -45,7 +45,32 @@ export class AdminCreateUserRepository extends BaseRepository {
             "password": password,
             "role": role,
         };
-        const response = await this.post('/create', body, );
+        const response = await this.post('/create', body,);
         return await this.checkError(response)
+    }
+}
+
+export class AdminUserRepository extends BaseRepository {
+    constructor() {
+        super("users");
+    }
+
+    async getUsers() {
+        const response = await this.get("/users")
+        const data = await this.checkError(response)
+        const list_users = []
+        if (data !== null) {
+            data.forEach((user) => {
+                list_users.push({
+                    id: user.id,
+                    name: user.username,
+                    email: user.email,
+                    role: user.role,
+                    profilePhoto: user.profilePhoto,
+                })
+            })
+            return list_users
+        }
+        return []
     }
 }

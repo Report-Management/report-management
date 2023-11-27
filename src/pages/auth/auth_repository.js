@@ -2,7 +2,7 @@ import {BaseRepository, supabaseSession} from "../../core/index";
 
 export class AuthRepository extends BaseRepository {
     constructor() {
-        super("Authentications");
+        super("authentications");
     }
 
     async getLogin(email, password) {
@@ -21,9 +21,8 @@ export class AuthRepository extends BaseRepository {
     }
 
     async getUserRole(id) {
-
-        const response = await this.get("/check?id=" + id)
-        return response.detail
+        const response = await this.get("/check/" + id)
+        return await this.checkError(response)
     }
 
     async getMicrosoftLogin() {
@@ -34,6 +33,6 @@ export class AuthRepository extends BaseRepository {
             },
         })
         return await this.checkSupabaseError(response)
-    }
+    }response
 }
 

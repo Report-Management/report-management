@@ -42,26 +42,32 @@ export const UserSideBar = () => {
     return (
         <>
             <Sidebar aria-label="Sidebar with logo branding example" collapsed={isCollapsed}>
-                <Sidebar.Logo href="#" img={logo} imgAlt="Report" className="font-bold font-mono text-purple-600">
+                <Sidebar.Logo href={PagesRoute.user} img={logo} imgAlt="Report" className="font-bold font-mono text-purple-600" onClick={
+                    () => {
+                        navigate(PagesRoute.user, { replace: true });
+                    }
+                }>
                     REPORTS
                 </Sidebar.Logo>
                 <Sidebar.Items>
                     <Sidebar.ItemGroup>
                         <Sidebar.Item
                             icon={BiSearchAlt}
-                            as={NavLink}
-                            to={PagesRoute.search}
                             active={PagesRoute.user.concat('/', PagesRoute.search) === location.pathname}
                             className={`font-medium ${PagesRoute.user.concat('/', PagesRoute.search) === location.pathname ? 'text-purple-600' : ''}`}
+                            onClick={() => {
+                                navigate(PagesRoute.search, { replace: true })
+                            }}
                         >
                             Search
                         </Sidebar.Item>
                         <Sidebar.Item
                             icon={BiMessageSquareAdd}
-                            as={NavLink}
-                            to={PagesRoute.create}
                             active={PagesRoute.user.concat('/', PagesRoute.create) === location.pathname}
                             className={`font-medium ${PagesRoute.user.concat('/', PagesRoute.create) === location.pathname ? 'text-purple-600' : ''}`}
+                            onClick={() => {
+                                navigate(PagesRoute.create, { replace: true })
+                            }}
                         >
                             Create
                         </Sidebar.Item>
@@ -69,19 +75,21 @@ export const UserSideBar = () => {
                             icon={
                                 TbReportAnalytics
                             }
-                            as={NavLink}
-                            to={PagesRoute.user}
                             active={PagesRoute.user === location.pathname}
                             className={`font-medium ${PagesRoute.home === location.pathname ? 'text-purple-600' : ''}`}
+                            onClick={() => {
+                                navigate(PagesRoute.user, { replace: true })
+                            }}
                         >
                             Reports
                         </Sidebar.Item>
                         <Sidebar.Item
                             icon={AiOutlineFileDone}
-                            as={NavLink}
-                            to={PagesRoute.done}
                             active={PagesRoute.user.concat('/', PagesRoute.done) === location.pathname}
                             className={`font-medium ${PagesRoute.user.concat('/', PagesRoute.done) === location.pathname ? 'text-purple-600' : ''}`}
+                            onClick={() => {
+                                navigate(PagesRoute.done, { replace: true })
+                            }}
                         >
                             Done
                         </Sidebar.Item>
