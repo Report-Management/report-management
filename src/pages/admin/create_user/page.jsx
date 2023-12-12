@@ -1,4 +1,4 @@
-import {Avatar, Badge, Button, Card, Label, Modal, Select, Spinner, Table, TextInput} from "flowbite-react";
+import { Badge, Button, Card, Label, Modal, Select, Spinner, TextInput} from "flowbite-react";
 import {AdminCreateUserRepository, AdminUserRepository,} from "./repository.js";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
@@ -110,7 +110,7 @@ export const AdminCreateUserView = () => {
                             <div className="relative">
                                 <div className="h-60">
                                     <img
-                                        className={`w-full h-full object-cover rounded-lg ${user.profilePhoto ? '' : 'bg-gray-100 p-3'}`}
+                                        className={`w-full h-full object-cover rounded-lg ${user.profilePhoto ? '' : 'bg-gray-50 p-3'}`}
                                         src={user.profilePhoto ?? man}
                                         alt="profile"
                                     />

@@ -53,7 +53,7 @@ export const AdminFilter = () => {
                 <Label htmlFor="type" value="Type" className="hidden md:block"/>
                 <Select id="type" required value={type} onChange={handleTypeChange}>
                     <option value="all">All</option>
-                    <option value="approve">Approved</option>
+                    <option value="approved">Approved</option>
                     <option value="notapproved">Not Approved</option>
                 </Select>
             </div>
@@ -61,7 +61,7 @@ export const AdminFilter = () => {
                 <Label htmlFor="category" value="Category"/>
                 <Select id="category" value={category} onChange={handleCategoryChange}>
                     <option value="all">All</option>
-                    <option value="FacultyAndEnv">FacultyAndEnv</option>
+                    <option value="FacilityAndEnv">FacultyAndEnv</option>
                     <option value="AdministrativeAndStuff">AdministrativeAndStuff</option>
                     <option value="HealthAndSafety">HealthAndSafety</option>
                     <option value="BehavioralIssues">BehavioralIssues</option>

@@ -13,7 +13,6 @@ import {AdminDoneView} from "./pages/admin/done/index.jsx";
 import {AdminCreateUserView} from "./pages/admin/create_user/index.jsx";
 import {AdminDashboardView} from "./pages/admin/dashboard/index.jsx";
 import {AdminSpamView} from "./pages/admin/spam/index.jsx";
-import { motion, AnimatePresence } from 'framer-motion';
 
 function App() {
     const [loading, setLoading] = useState(true);
@@ -64,14 +63,14 @@ function App() {
                     <Route path={PagesRoute.root} element={<LoginForm/>}/>
                     <Route path={PagesRoute.forget} element={<ForgetForm/>}/>
                 </Route>
-                <Route exact path={PagesRoute.user} element={<UserView/>}>
+                <Route path={PagesRoute.user} element={<UserView/>}>
                     <Route path={PagesRoute.user} element={<ReportView />}/>
                     <Route path={PagesRoute.done} element={<DoneView/>}/>
                     <Route path={PagesRoute.create} element={<CreateReportView/>}/>
                     <Route path={PagesRoute.search} element={<SearchView />} />
                 </Route>
-                <Route exact path={PagesRoute.admin} element={<AdminView/>}>
-                    <Route path={PagesRoute.admin} element={<AdminShowReportView />} />
+                <Route path={PagesRoute.admin} element={<AdminView/>}>
+                    <Route exact path={PagesRoute.admin + "/:type?"} element={<AdminShowReportView />} />
                     <Route path={PagesRoute.done_report} element={<AdminDoneView />}/>
                     <Route path={PagesRoute.create_user} element={<AdminCreateUserView />}/>
                     <Route path={PagesRoute.dashboard} element={<AdminDashboardView />}/>

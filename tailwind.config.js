@@ -8,10 +8,15 @@ export default {
     ],
     darkMode: "media",
     theme: {
-        extend: {},
+        extend: {
+            fontFamily: {
+                nunito: ['Nunito', 'sans-serif']
+            }
+        },
     },
     plugins: [
         flowbite,
+        require("daisyui")
     ],
 }
 

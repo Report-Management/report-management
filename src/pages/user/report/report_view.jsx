@@ -1,4 +1,4 @@
-import {PostCard} from "../../../components/user/index.jsx";
+import {PostCard} from "../../../components/index.jsx";
 import {motion} from "framer-motion";
 
 export const ReportView = () => {
@@ -62,28 +62,30 @@ export const ReportView = () => {
     ];
 
     return (
-        <div className="container flex flex-col justify-start items-center space-y-5 h-screen">
-            {postCardData.map((data, index) => (
-                <motion.div
-                    key={index}
-                    className="max-w-[90%] lg:max-w-[80%] min-w-lg"
-                    initial={{opacity: 0}}
-                    animate={{opacity: 1}}
-                    transition={{
-                        duration: 0.5,
-                    }}
-                >
-                    <PostCard
+        <>
+            <div className="container flex flex-col justify-start items-center space-y-5 h-screen">
+                {postCardData.map((data, index) => (
+                    <motion.div
                         key={index}
-                        username={data.username}
-                        timestamp={data.timestamp}
-                        title={data.title}
-                        content={data.content}
-                        status={data.status}
-                        imageUrl={data.image}
-                    />
-                </motion.div>
-            ))}
-        </div>
+                        className="max-w-[90%] lg:max-w-[80%] min-w-lg"
+                        initial={{opacity: 0}}
+                        animate={{opacity: 1}}
+                        transition={{
+                            duration: 0.5,
+                        }}
+                    >
+                        <PostCard
+                            key={index}
+                            username={data.username}
+                            timestamp={data.timestamp}
+                            title={data.title}
+                            content={data.content}
+                            status={data.status}
+                            imageUrl={data.image}
+                        />
+                    </motion.div>
+                ))}
+            </div>
+        </>
     );
 }

@@ -15,5 +15,9 @@ export class PagesRoute {
     static create_user = "create_user";
     static done_report = "done_report";
     static spam_report = "spam_report";
+
+
+
+
 }
 

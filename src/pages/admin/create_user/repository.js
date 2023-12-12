@@ -52,11 +52,11 @@ export class AdminCreateUserRepository extends BaseRepository {
 
 export class AdminUserRepository extends BaseRepository {
     constructor() {
-        super("users");
+        super("user");
     }
 
     async getUsers() {
-        const response = await this.get("/users")
+        const response = await this.get("/all_user")
         const data = await this.checkError(response)
         const list_users = []
         if (data !== null) {
