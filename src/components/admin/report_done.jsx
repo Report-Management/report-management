@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {motion} from "framer-motion";
 import {FileDisplay} from "./filedisplay.jsx";
 
-export const AdminPostCard = (props) => {
+export const AdminDoneReport = (props) => {
     return (<div className="h-auto max-w-full">
         <motion.div
             whileHover={{scale: 1.025}}
@@ -13,11 +13,10 @@ export const AdminPostCard = (props) => {
                 <div>
                     <div className="flex flex-row justify-between">
                         <div className="flex justify-start items-center space-x-3">
-                            {props.profile ? <Avatar alt="User settings object-cover" img={props.profile} rounded/> :
-                                <Avatar
-                                    alt="User settings"
-                                    size="xs"
-                                    img="https://cdn-icons-png.flaticon.com/512/9131/9131478.png" rounded/>}
+                            {props.profile ? <Avatar alt="User settings object-cover" img={props.profile} rounded/> : <Avatar
+                                alt="User settings"
+                                size="xs"
+                                img="https://cdn-icons-png.flaticon.com/512/9131/9131478.png" rounded/>}
                             <div className="flex flex-col justify-center items-start">
                                 <div className="text-center font-medium text-sm md:text-md dark:text-white">
                                     {props.view === "Public" ? props.username : "Anonymous"}
@@ -29,8 +28,7 @@ export const AdminPostCard = (props) => {
                         </div>
                         <div className="text-white rounded-lg text-sm md:text-md font-semibold flex">
                             {
-                                props.isLoading ? <span
-                                    className="loading loading-spinner text-primary"></span> : props.approval === true ? <button className="btn btn-xs btn-success text-white" onClick={props.onApproved}>Approved</button> :  <button className="btn btn-xs text-white bg-red-500" onClick={props.onApproved}>Unapproved</button>
+                                props.isLoading ? <span className="loading loading-spinner text-primary"></span> : props.completed === true ? <button className="btn btn-xs btn-success text-white" onClick={props.onCompleted}>Completed</button> : <button className="btn btn-xs text-white bg-red-500" onClick={props.onApproved}>In Progress</button>
                             }
 
                         </div>
@@ -51,39 +49,34 @@ export const AdminPostCard = (props) => {
                     </div>
                     <div className="text-start text-sm md:text-md font-normal dark:text-white">
                         <div className="text-start text-sm md:text-md font-normal dark:text-white">
-                                <span>{props.information}
-                                    {props.information.length > 50 ?
-                                        <span className="link text-blue-500 pl-2" onClick={() => {
-                                            console.log("HelloWordl");
-                                        }}>summary</span> : null}
-                                </span>
+                            <span>{props.information}</span>
                         </div>
 
                     </div>
                 </div>
-                {props.file ? <FileDisplay fileUrl={props.file}/> : null}
+                {props.file ? <FileDisplay fileUrl={props.file} /> : null}
             </Card>
         </motion.div>
     </div>);
 }
 
-AdminPostCard.propTypes = {
+AdminDoneReport.propTypes = {
     id: PropTypes.string,
     category: PropTypes.string,
     priority: PropTypes.string,
     header: PropTypes.string,
     information: PropTypes.string,
-    approval: PropTypes.bool,
+    completed: PropTypes.bool,
     view: PropTypes.string,
     file: PropTypes.string,
     time: PropTypes.string,
     username: PropTypes.string,
     profile: PropTypes.string,
-    onApproved: PropTypes.func,
+    onCompleted: PropTypes.func,
     isLoading: PropTypes.bool,
 };
 
-AdminPostCard.defaultProps = {
+AdminDoneReport.defaultProps = {
     username: "Username",
     timestamp: "Just Now",
     title: "Title",

@@ -4,11 +4,12 @@ import {TbReportAnalytics} from 'react-icons/tb';
 import {AiOutlineFileDone} from 'react-icons/ai';
 import {BiLogOut, BiMessageSquareAdd, BiSolidDashboard} from 'react-icons/bi';
 import logo from '../../assets/seo-report.png';
-import {NavLink, useLocation, useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {PagesRoute} from "../../routes.jsx";
 import {supabaseSession} from "../../core/index.js";
 import {HiOutlineExclamationCircle} from "react-icons/hi";
 import {RiSpam2Fill} from "react-icons/ri";
+import {FaStickyNote} from "react-icons/fa";
 
 export const AdminSideBar = () => {
     const [isCollapsed, setCollapsed] = useState(window.innerWidth < 768);
@@ -51,7 +52,7 @@ export const AdminSideBar = () => {
                         <Sidebar.Item
                             icon={BiSolidDashboard}
                             active={PagesRoute.admin.concat('/', PagesRoute.dashboard) === location.pathname}
-                            className={`font-medium ${PagesRoute.admin.concat('/', PagesRoute.dashboard) === location.pathname ? 'text-purple-600' : ''}`}
+                            className={`font-medium cursor-pointer ${PagesRoute.admin.concat('/', PagesRoute.dashboard) === location.pathname ? 'text-purple-600' : ''}`}
                             onClick={() => {
                                 navigate(PagesRoute.dashboard, {replace: true})
                             }}
@@ -63,7 +64,7 @@ export const AdminSideBar = () => {
                                 TbReportAnalytics
                             }
                             active={PagesRoute.admin === location.pathname}
-                            className={`font-medium ${PagesRoute.admin === location.pathname ? 'text-purple-600' : ''}`}
+                            className={`font-medium cursor-pointer ${PagesRoute.admin === location.pathname ? 'text-purple-600' : ''}`}
                             onClick={() => {
                                 navigate(PagesRoute.admin, {replace: true})
                             }}
@@ -71,9 +72,19 @@ export const AdminSideBar = () => {
                             Reports
                         </Sidebar.Item>
                         <Sidebar.Item
+                            icon={FaStickyNote}
+                            active={PagesRoute.admin.concat('/', PagesRoute.approved) === location.pathname}
+                            className={`font-medium cursor-pointer ${PagesRoute.admin.concat('/', PagesRoute.approved) === location.pathname ? 'text-purple-600' : ''}`}
+                            onClick={() => {
+                                navigate(PagesRoute.approved, {replace: true})
+                            }}
+                        >
+                            Approved
+                        </Sidebar.Item>
+                        <Sidebar.Item
                             icon={AiOutlineFileDone}
                             active={PagesRoute.admin.concat('/', PagesRoute.done_report) === location.pathname}
-                            className={`font-medium ${PagesRoute.admin.concat('/', PagesRoute.done_report) === location.pathname ? 'text-purple-600' : ''}`}
+                            className={`font-medium cursor-pointer ${PagesRoute.admin.concat('/', PagesRoute.done_report) === location.pathname ? 'text-purple-600' : ''}`}
                             onClick={() => {
                                 navigate(PagesRoute.done_report, {replace: true})
                             }}
@@ -83,7 +94,7 @@ export const AdminSideBar = () => {
                         <Sidebar.Item
                             icon={BiMessageSquareAdd}
                             active={PagesRoute.admin.concat('/', PagesRoute.create_user) === location.pathname}
-                            className={`font-medium ${PagesRoute.admin.concat('/', PagesRoute.create_user) === location.pathname ? 'text-purple-600' : ''}`}
+                            className={`font-medium cursor-pointer ${PagesRoute.admin.concat('/', PagesRoute.create_user) === location.pathname ? 'text-purple-600' : ''}`}
                             onClick={() => {
                                 navigate(PagesRoute.create_user, {replace: true})
                             }}
@@ -93,7 +104,7 @@ export const AdminSideBar = () => {
                         <Sidebar.Item
                             icon={RiSpam2Fill}
                             active={PagesRoute.admin.concat('/', PagesRoute.spam_report) === location.pathname}
-                            className={`font-medium ${PagesRoute.admin.concat('/', PagesRoute.spam_report) === location.pathname ? 'text-purple-600' : ''}`}
+                            className={`font-medium cursor-pointer ${PagesRoute.admin.concat('/', PagesRoute.spam_report) === location.pathname ? 'text-purple-600' : ''}`}
                             onClick={() => {
                                 navigate(PagesRoute.spam_report, {replace: true})
                             }}
@@ -104,7 +115,7 @@ export const AdminSideBar = () => {
 
                         <Sidebar.Item
                             icon={BiLogOut}
-                            className="font-medium"
+                            className="font-medium cursor-pointer"
                             onClick={() => setOpenModal(true)}
                         >
                             Sign Out

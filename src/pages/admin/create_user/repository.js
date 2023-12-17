@@ -1,37 +1,4 @@
-import {BaseRepository} from "../../../core/index.js";
-
-export const userData = [
-    {
-        id: 1,
-        name: "John Doe",
-        email: "phanith.lim@rupp.edu.kh",
-        role: "User"
-    },
-    {
-        id: 2,
-        name: "Phanith",
-        email: "lim.phanith.2821@rupp.edu.kh",
-        role: "User"
-    },
-    {
-        id: 3,
-        name: "Heng",
-        email: "lim.heng.2821@rupp.edu.kh",
-        role: "User"
-    },
-    {
-        id: 3,
-        name: "Sing Sing",
-        email: "doung.sing.2821@rupp.edu.kh",
-        role: "User"
-    },
-    {
-        id: 4,
-        name: "Manith",
-        email: "you.somanith.2821@rupp.edu.kh",
-        role: "User"
-    },
-]
+import {BaseRepository} from "../../../core";
 
 export class AdminCreateUserRepository extends BaseRepository {
     constructor() {
@@ -72,5 +39,21 @@ export class AdminUserRepository extends BaseRepository {
             return list_users
         }
         return []
+    }
+
+    async onUpdateUser(id, userRole) {
+        if (userRole === "Admin"){
+            const response = await this.put(`/to_admin/${id}`)
+            const data = await this.checkError(response)
+            return data != null;
+        }else if (userRole === "User") {
+            const response = await this.put(`/to_normal/${id}`)
+            const data = await this.checkError(response)
+            return data != null;
+        }
+    }
+
+    async onDeleteUser(id) {
+        const response = await this.delete("/")
     }
 }

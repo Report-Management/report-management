@@ -2,7 +2,7 @@ import { Badge, Button, Card, Label, Modal, Select, Spinner, TextInput} from "fl
 import {AdminCreateUserRepository, AdminUserRepository,} from "./repository.js";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {setEmail, setLoading, setPassword, setUserRole, setUsername, setListUsers, setImage} from "./slice.js";
+import {setEmail, setLoading, setPassword, setUserRole, setUsername, setListUsers, setImage, setUserId} from "./slice.js";
 import {toast} from "react-toastify";
 import {Loading} from "../../../components/index.jsx";
 import man from "../../../assets/user.png";
@@ -13,7 +13,7 @@ import {motion} from "framer-motion";
 export const AdminCreateUserView = () => {
     const [openModal, setOpenModal] = useState(false);
     const [isShowPass, setShowPassword] = useState(true);
-    const {email, password, loading, userRole, username, listUsers, image} = useSelector((state) => state.create_user);
+    const {email, password, loading, userRole, username, listUsers, image, userId} = useSelector((state) => state.create_user);
     const dispatch = useDispatch();
     const [openUser, setUserModal] = useState(false);
 
@@ -65,6 +65,7 @@ export const AdminCreateUserView = () => {
 
 
     function onOpenUserModal(index) {
+        dispatch(setUserId(listUsers[index].id))
         dispatch(setEmail(listUsers[index].email))
         dispatch(setUsername(listUsers[index].name))
         dispatch(setUserRole(listUsers[index].role))
@@ -74,6 +75,7 @@ export const AdminCreateUserView = () => {
 
     function onOpenModal() {
         setOpenModal(true)
+        dispatch(setUserId(null))
         dispatch(setEmail(''))
         dispatch(setUsername(''))
         dispatch(setPassword(''))
@@ -85,7 +87,19 @@ export const AdminCreateUserView = () => {
         fetchUsers();
     }, []);
 
+    async function onUpdateUser(e) {
+        e.preventDefault();
+        const adminRepo = new AdminUserRepository();
+        const result = await adminRepo.onUpdateUser(userId, userRole);
+        if (result === true){
+            toast.success("Updated")
+            fetchUsers()
+        }
+    }
 
+    async function onDeleteUser(e) {
+        e.preventDefault()
+    }
 
     if(loading) return (
         <Loading />
@@ -103,6 +117,7 @@ export const AdminCreateUserView = () => {
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                 {listUsers.map((user, index) => (
                     <motion.div
+                        key={user.id}
                         whileHover={{scale: 1.05}}
                         transition={{duration: 0.2}}
                     >
@@ -152,7 +167,7 @@ export const AdminCreateUserView = () => {
                             <Button className="bg-red-500 w-1/4" color="none">
                                 <MdDelete size="24" color="white" />
                             </Button>
-                            <Button className="w-full">
+                            <Button className="w-full" type="submit" onClick={onUpdateUser}>
                                 Update
                             </Button>
                         </div>

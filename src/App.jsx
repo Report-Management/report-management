@@ -13,6 +13,7 @@ import {AdminDoneView} from "./pages/admin/done/index.jsx";
 import {AdminCreateUserView} from "./pages/admin/create_user/index.jsx";
 import {AdminDashboardView} from "./pages/admin/dashboard/index.jsx";
 import {AdminSpamView} from "./pages/admin/spam/index.jsx";
+import {AdminApprovedView} from "./pages/admin/approved/index.jsx";
 
 function App() {
     const [loading, setLoading] = useState(true);
@@ -51,7 +52,10 @@ function App() {
     }, [])
 
     if (loading) {
-        return <Loading/>;
+
+        return <div className="container mx-auto max-h-screen h-screen overflow-hidden">
+            <Loading/>;
+        </div>
     }
     return (
         <main>
@@ -71,7 +75,8 @@ function App() {
                 </Route>
                 <Route path={PagesRoute.admin} element={<AdminView/>}>
                     <Route exact path={PagesRoute.admin + "/:type?"} element={<AdminShowReportView />} />
-                    <Route path={PagesRoute.done_report} element={<AdminDoneView />}/>
+                    <Route path={PagesRoute.approved} element={<AdminApprovedView />} />
+                    <Route path={PagesRoute.done_report} element={<AdminDoneView />} />
                     <Route path={PagesRoute.create_user} element={<AdminCreateUserView />}/>
                     <Route path={PagesRoute.dashboard} element={<AdminDashboardView />}/>
                     <Route path={PagesRoute.spam_report} element={<AdminSpamView />} />

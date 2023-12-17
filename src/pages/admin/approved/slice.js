@@ -5,8 +5,8 @@ const initialState = {
     listReports: [],
 };
 
-export const createAdminReportSlice = createSlice({
-    name: 'admin_report',
+export const createAdminApprovedReportSlice = createSlice({
+    name: 'approved_report',
     initialState,
     reducers: {
         setLoading: (state, action) => {
@@ -30,5 +30,5 @@ export const createAdminReportSlice = createSlice({
     },
 });
 
-export const { setLoading, setListReport, setLoadingIndex, removeReport} = createAdminReportSlice.actions;
-export default createAdminReportSlice.reducer;
+export const { setLoading, setListReport, setLoadingIndex, removeReport} = createAdminApprovedReportSlice.actions;
+export default createAdminApprovedReportSlice.reducer;

@@ -1,14 +1,14 @@
 import Masonry from "react-masonry-css";
-import {AdminSpamReport, Loading} from "../../../components/index.jsx";
+import {AdminApprovedReport, Loading} from "../../../components/index.jsx";
 import {useDispatch, useSelector} from "react-redux";
-import {removeReport, setListReport, setLoading, setLoadingIndex} from "../done/slice.js";
+import {removeReport, setListReport, setLoading, setLoadingIndex} from "./slice.js";
 import {useEffect} from "react";
-import {SpamReportRepository} from "./repository.js";
+import {ApprovedReportRepository} from "./repository.js";
 
-export const AdminSpamView = () => {
-    const { loading, listReports } = useSelector((state) => state.done_report);
+export const AdminApprovedView = () => {
+    const { loading, listReports } = useSelector((state) => state.approved_report);
     const dispatch = useDispatch()
-    const repository = new SpamReportRepository()
+    const repository = new ApprovedReportRepository()
     const breakpointColumnsObj = {
         default: 3,
         1024: 3,
@@ -18,7 +18,7 @@ export const AdminSpamView = () => {
 
     async function getReports() {
         dispatch(setLoading(true));
-        const result = await repository.getSpamReportCompleted()
+        const result = await repository.getReportApproved()
         if (result != null) {
             console.log(result)
             dispatch(setListReport(result))
@@ -29,9 +29,19 @@ export const AdminSpamView = () => {
     }
 
 
-    async function onHam(index) {
+    async function onCompleted(index) {
         dispatch(setLoadingIndex({isLoading: true, index}))
-        const result = await repository.updateHam(listReports[index].id)
+        const result = await repository.updateCompleted(listReports[index].id)
+        if (result != null) {
+            dispatch(setLoadingIndex({isLoading: false, index}))
+            dispatch(removeReport(index))
+        }
+        dispatch(setLoadingIndex({isLoading: false, index}))
+    }
+
+    async function onApproved(index) {
+        dispatch(setLoadingIndex({isLoading: true, index}))
+        const result = await repository.updateUnapproved(listReports[index].id)
         if (result != null) {
             dispatch(setLoadingIndex({isLoading: false, index}))
             dispatch(removeReport(index))
@@ -56,9 +66,10 @@ export const AdminSpamView = () => {
                         columnClassName="px-2">
                         {listReports.map((item, index) => (
                             <div key={item.id} className="w-full mb-6">
-                                <AdminSpamReport
+                                <AdminApprovedReport
                                     {...item}
-                                    onHam={() => onHam(index)}/>
+                                    onApproved={() => onApproved(index)}
+                                    onCompleted={() => onCompleted(index)}/>
                             </div>
                         ))}
                     </Masonry>

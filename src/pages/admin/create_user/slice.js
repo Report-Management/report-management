@@ -10,6 +10,7 @@ const initialState = {
     image: '',
     listUsers: [],
     isShowPassword: false,
+    userId: null,
 };
 
 export const createUserSlice = createSlice({
@@ -45,8 +46,11 @@ export const createUserSlice = createSlice({
         setShowPassword: (state, action) => {
             state.isShowPassword = action.payload;
         },
+        setUserId: (state, action) => {
+            state.userId = action.payload;
+        }
     },
 });
 
-export const { setEmail, setPassword, setLoading, setUserRole, setUsername, setListUsers, setImage, setShowPassword} = createUserSlice.actions;
+export const { setEmail, setPassword, setLoading, setUserRole, setUsername, setListUsers, setImage, setShowPassword, setUserId} = createUserSlice.actions;
 export default createUserSlice.reducer;

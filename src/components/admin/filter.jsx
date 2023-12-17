@@ -16,14 +16,16 @@ export const AdminFilter = () => {
 
     useEffect(() => {
         const queryParams = [];
-        if (type !== 'all') queryParams.push(`type=${type}`);
+        if (type !== 'all') queryParams.push(`types=${type}`);
         if (category !== 'all') queryParams.push(`category=${category}`);
         if (priority !== 'all') queryParams.push(`priority=${priority}`);
         if (date !== 'all') queryParams.push(`date=${date}`);
 
         const query = queryParams.join('&');
         const queryString = query ? `?${query}` : '';
-        if(queryString === '') return;
+        if(queryString === '') {
+            navigator(`${baseURL}`, {replace: true});
+        }
         navigator(`${baseURL}${queryString}`, {replace: true});
     }, [type, category, priority, date]);
 
@@ -53,8 +55,8 @@ export const AdminFilter = () => {
                 <Label htmlFor="type" value="Type" className="hidden md:block"/>
                 <Select id="type" required value={type} onChange={handleTypeChange}>
                     <option value="all">All</option>
-                    <option value="approved">Approved</option>
-                    <option value="notapproved">Not Approved</option>
+                    <option value="Public">Public</option>
+                    <option value="Anonymous">Anonymous</option>
                 </Select>
             </div>
             <div className="w-full hidden md:block md:w-64 space-y-2">
@@ -84,8 +86,8 @@ export const AdminFilter = () => {
                 <Label htmlFor="date" value="Date"/>
                 <Select id="date" value={date} onChange={handleDateChange}>
                     <option value="all">All</option>
+                    <option value="today">Today</option>
                     <option value="yestersday">Yesterday</option>
-                    <option value="lastweek">Last Week</option>
                     <option value="lastmonth">Last Month</option>
                     <option value="lastyear">Last Year</option>
                 </Select>
@@ -97,7 +99,7 @@ export const AdminFilter = () => {
                     <Label htmlFor="category" value="Category"/>
                     <Select id="category" value={category} onChange={handleCategoryChange}>
                         <option value="all">All</option>
-                        <option value="FacultyAndEnv">FacultyAndEnv</option>
+                        <option value="FacilityAndEnv">FacultyAndEnv</option>
                         <option value="AdministrativeAndStuff">AdministrativeAndStuff</option>
                         <option value="HealthAndSafety">HealthAndSafety</option>
                         <option value="BehavioralIssues">BehavioralIssues</option>
@@ -120,8 +122,8 @@ export const AdminFilter = () => {
                     <Label htmlFor="date" value="Date"/>
                     <Select id="date" value={date} onChange={handleDateChange}>
                         <option value="all">All</option>
+                        <option value="today">Today</option>
                         <option value="yestersday">Yesterday</option>
-                        <option value="lastweek">Last Week</option>
                         <option value="lastmonth">Last Month</option>
                         <option value="lastyear">Last Year</option>
                     </Select>

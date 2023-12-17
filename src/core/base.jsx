@@ -29,6 +29,9 @@ export class BaseRepository {
         if(response === null) {
             return null
         }
+        if(typeof response == "boolean"){
+            return response
+        }
         return response.result;
     }
 
@@ -72,11 +75,7 @@ export class BaseRepository {
             }
             return null
         })
-        if (response !== null) {
-            return response.data;
-        }
-
-        return null;
+        return response !== null;
     }
 
     async delete(url, config) {
@@ -88,10 +87,6 @@ export class BaseRepository {
             }
             return null
         })
-        if (response !== null) {
-            return response.data;
-        }
-
-        return null;
+        return response !== null;
     }
 }
