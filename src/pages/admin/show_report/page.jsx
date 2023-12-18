@@ -78,6 +78,7 @@ export const AdminShowReportView = () => {
     if (loading) return (
         <Loading/>
     )
+
     return (
         <>
             <div className="p-3 container mx-auto max-h-screen h-full">
