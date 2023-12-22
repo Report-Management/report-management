@@ -1,4 +1,4 @@
-import { Label, Select} from "flowbite-react";
+import { Label } from "flowbite-react";
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 
@@ -46,58 +46,29 @@ export const AdminFilter = () => {
     };
 
     return (
-        <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-2 mx-6 flex flex-col md:flex-row space-x-2 justify-between items-center pb-3">
+        <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-2 mx-6 flex flex-col md:flex-row space-x-2 justify-between items-center">
             <div className="w-full md:w-64 space-y-2">
                 <div className="md:hidden flex flex-row justify-between">
                     <Label htmlFor="type" value="Type"/>
                     <Label onClick={toggleFilters} className="md:hidden text-blue-400"> {showFilters ? 'Hide Filter' : 'Show Filter'} </Label>
                 </div>
-                <Label htmlFor="type" value="Type" className="hidden md:block"/>
-                <Select id="type" required value={type} onChange={handleTypeChange}>
-                    <option value="all">All</option>
-                    <option value="Public">Public</option>
-                    <option value="Anonymous">Anonymous</option>
-                </Select>
+                <label className="form-control w-full">
+                    <div className="label">
+                        <span className="label-text font-semibold hidden md:block">Type</span>
+                    </div>
+                    <select id="type" required value={type} onChange={handleTypeChange} className="select select-bordered">
+                        <option value="all">All</option>
+                        <option value="Public">Public</option>
+                        <option value="Anonymous">Anonymous</option>
+                    </select>
+                </label>
             </div>
             <div className="w-full hidden md:block md:w-64 space-y-2">
-                <Label htmlFor="category" value="Category"/>
-                <Select id="category" value={category} onChange={handleCategoryChange}>
-                    <option value="all">All</option>
-                    <option value="FacilityAndEnv">FacultyAndEnv</option>
-                    <option value="AdministrativeAndStuff">AdministrativeAndStuff</option>
-                    <option value="HealthAndSafety">HealthAndSafety</option>
-                    <option value="BehavioralIssues">BehavioralIssues</option>
-                    <option value="Academic">Academic</option>
-                    <option value="Community">Community</option>
-                    <option value="SpecialRequest">SpecialRequest</option>
-                    <option value="Other">Other</option>
-                </Select>
-            </div>
-            <div className="w-full hidden md:block md:w-64 space-y-2">
-                <Label htmlFor="priority" value="Priority"/>
-                <Select id="priority" value={priority} onChange={handlePriorityChange}>
-                    <option value="all">All</option>
-                    <option value="High">High</option>
-                    <option value="Medium">Medium</option>
-                    <option value="Low">Low</option>
-                </Select>
-            </div>
-            <div className="w-full hidden md:block md:w-64 space-y-2">
-                <Label htmlFor="date" value="Date"/>
-                <Select id="date" value={date} onChange={handleDateChange}>
-                    <option value="all">All</option>
-                    <option value="today">Today</option>
-                    <option value="yestersday">Yesterday</option>
-                    <option value="lastmonth">Last Month</option>
-                    <option value="lastyear">Last Year</option>
-                </Select>
-            </div>
-
-
-            <div className={`${showFilters ? 'block' : 'hidden'} md:hidden w-full space-y-2`}>
-                <div className="w-full md:w-64 space-y-2">
-                    <Label htmlFor="category" value="Category"/>
-                    <Select id="category" value={category} onChange={handleCategoryChange}>
+                <label className="form-control w-full max-w-xs">
+                    <div className="label">
+                        <span className="label-text font-semibold">Category</span>
+                    </div>
+                    <select id="category" value={category} onChange={handleCategoryChange} className="select select-bordered">
                         <option value="all">All</option>
                         <option value="FacilityAndEnv">FacultyAndEnv</option>
                         <option value="AdministrativeAndStuff">AdministrativeAndStuff</option>
@@ -107,26 +78,82 @@ export const AdminFilter = () => {
                         <option value="Community">Community</option>
                         <option value="SpecialRequest">SpecialRequest</option>
                         <option value="Other">Other</option>
-                    </Select>
-                </div>
-                <div className="w-full md:w-64 space-y-2">
-                    <Label htmlFor="priority" value="Priority"/>
-                    <Select id="priority" value={priority} onChange={handlePriorityChange}>
+                    </select>
+                </label>
+            </div>
+            <div className="w-full hidden md:block md:w-64 space-y-2">
+                <label className="form-control w-full max-w-xs">
+                    <div className="label">
+                        <span className="label-text font-semibold">Priority</span>
+                    </div>
+                    <select id="priority" value={priority} onChange={handlePriorityChange} className="select select-bordered">
                         <option value="all">All</option>
                         <option value="High">High</option>
                         <option value="Medium">Medium</option>
                         <option value="Low">Low</option>
-                    </Select>
-                </div>
-                <div className="w-full md:w-64 space-y-2">
-                    <Label htmlFor="date" value="Date"/>
-                    <Select id="date" value={date} onChange={handleDateChange}>
+                    </select>
+                </label>
+            </div>
+            <div className="w-full hidden md:block md:w-64 space-y-2">
+                <label className="form-control w-full max-w-xs">
+                    <div className="label">
+                        <span className="label-text font-semibold">Date</span>
+                    </div>
+                    <select id="date" value={date} onChange={handleDateChange} className="select select-bordered">
                         <option value="all">All</option>
                         <option value="today">Today</option>
                         <option value="yestersday">Yesterday</option>
                         <option value="lastmonth">Last Month</option>
                         <option value="lastyear">Last Year</option>
-                    </Select>
+                    </select>
+                </label>
+
+            </div>
+            <div className={`${showFilters ? 'block' : 'hidden'} md:hidden w-full space-y-2`}>
+                <div className="w-full md:w-64 space-y-2">
+                    <label className="form-control w-full">
+                        <div className="label">
+                            <span className="label-text font-semibold">Category</span>
+                        </div>
+                        <select id="category" value={category} onChange={handleCategoryChange} className="select select-bordered">
+                            <option value="all">All</option>
+                            <option value="FacilityAndEnv">FacultyAndEnv</option>
+                            <option value="AdministrativeAndStuff">AdministrativeAndStuff</option>
+                            <option value="HealthAndSafety">HealthAndSafety</option>
+                            <option value="BehavioralIssues">BehavioralIssues</option>
+                            <option value="Academic">Academic</option>
+                            <option value="Community">Community</option>
+                            <option value="SpecialRequest">SpecialRequest</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </label>
+                </div>
+                <div className="w-full md:w-64 space-y-2">
+                    <label className="form-control w-full">
+                        <div className="label">
+                            <span className="label-text font-semibold">Priority</span>
+                        </div>
+                        <select id="priority" value={priority} onChange={handlePriorityChange} className="select select-bordered">
+                            <option value="all">All</option>
+                            <option value="High">High</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Low">Low</option>
+                        </select>
+                    </label>
+                </div>
+                <div className="w-full md:w-64 space-y-2">
+                    <label className="form-control w-full">
+                        <div className="label">
+                            <span className="label-text font-semibold">Date</span>
+                        </div>
+                        <select id="date" value={date} onChange={handleDateChange} className="select select-bordered">
+                            <option value="all">All</option>
+                            <option value="today">Today</option>
+                            <option value="yestersday">Yesterday</option>
+                            <option value="lastmonth">Last Month</option>
+                            <option value="lastyear">Last Year</option>
+                        </select>
+                    </label>
                 </div>
             </div>
         </div>

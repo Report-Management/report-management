@@ -21,9 +21,6 @@ export const AdminSideBar = () => {
         };
 
         window.addEventListener('resize', handleResize);
-
-        console.log(location.pathname)
-
         return () => {
             window.removeEventListener('resize', handleResize);
         };

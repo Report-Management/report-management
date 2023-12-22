@@ -59,11 +59,7 @@ export class BaseRepository {
             }
             return null
         })
-        if (response !== null) {
-            return response.data;
-        }
-
-        return null;
+        return response !== null;
     }
 
     async put(url, data, config) {

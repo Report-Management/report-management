@@ -1,7 +1,6 @@
 import {Avatar, Dropdown, Navbar} from 'flowbite-react';
 import logo from '../../assets/seo-report.png';
-import {NavLink} from "react-router-dom";
-import {PagesRoute} from "../../routes.jsx";
+import profile from '../../assets/user.png';
 import PropTypes from "prop-types";
 
 export const AdminNavigationBar = (props) => {
@@ -26,7 +25,7 @@ export const AdminNavigationBar = (props) => {
                             <Avatar className="object-none"
                                     alt="User settings"
                                     placeholderInitials="LP"
-                                    img={props.profile}
+                                    img={props.profile ?? profile }
                                     size="md"
                                     rounded bordered/>
                         }
@@ -48,7 +47,7 @@ export const AdminNavigationBar = (props) => {
                         className="object-none"
                         alt="User settings"
                         placeholderInitials="LP"
-                        img={props.profile}
+                        img={props.profile ?? profile }
                         size="md"
                         rounded bordered
                     >

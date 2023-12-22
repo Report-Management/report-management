@@ -29,7 +29,6 @@ function App() {
             setSession(session)
             if (session) {
                 let role = await authRepo.getUserRole(session.user.id);
-                console.log(role)
                 if (role.role === "Admin") navigate(PagesRoute.admin, {replace: true});
                 else navigate(PagesRoute.user, {replace: true});
             } else {

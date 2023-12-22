@@ -19,7 +19,7 @@ export const AdminApprovedReport = (props) => {
                                 img="https://cdn-icons-png.flaticon.com/512/9131/9131478.png" rounded/>}
                             <div className="flex flex-col justify-center items-start">
                                 <div className="text-center font-medium text-sm md:text-md dark:text-white">
-                                    {props.view === "Public" ? props.username : "Anonymous"}
+                                    {props.view === "Public" ? props.username ?? "Anonymous" : "Anonymous"}
                                 </div>
                                 <div className="text-center font-light text-xs dark:text-gray-400">
                                     {props.time}

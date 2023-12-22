@@ -3,38 +3,13 @@ import Masonry from "react-masonry-css";
 import {useEffect} from "react";
 import {ReportRepository} from "./repository.js";
 import {useDispatch, useSelector} from "react-redux";
-import {setLoading, setListReport, setLoadingIndex, removeReport} from "./slice.js";
+import {setLoading, setListReport, setLoadingIndex, removeReport, setTextHiddenIndex, setSummaryIndex} from "./slice.js";
 import {useSearchParams} from 'react-router-dom';
 
 export const AdminShowReportView = () => {
     const {loading, listReports} = useSelector((state) => state.admin_report);
     const dispatch = useDispatch()
     const repository = new ReportRepository()
-
-    // async function handleUpdateApproved(index) {
-    //     if (listReports[index].approval){
-    //         const result = await repository.onUpdateUnApproved(listReports[index].id)
-    //         if (result === null || result === false){
-    //             return
-    //         }
-    //     }
-    //     const result = await repository.onUpdateApproved(listReports[index].id)
-    //     if (result === null || result === false){
-    //         return
-    //     }
-    //     const updatedListPost = listReports.map((item, i) => {
-    //         if (i === index) {
-    //             return {
-    //                 ...item,
-    //                 approval: !item.approval
-    //             };
-    //         }
-    //         return item;
-    //     });
-    //
-    //     dispatch(setListReport(updatedListPost))
-    // }
-
     async function onApproved(index) {
         dispatch(setLoadingIndex({isLoading: true, index}))
         const result = await repository.onUpdateUnApproved(listReports[index].id)
@@ -49,13 +24,28 @@ export const AdminShowReportView = () => {
         dispatch(setLoading(true));
         const result = await repository.getReport(params);
         if (result != null) {
-            console.log(result)
             dispatch(setListReport(result))
             dispatch(setLoading(false));
         }
         dispatch(setLoading(false));
-        console.log(listReports)
     }
+
+    async function getSummary(index) {
+        try {
+            dispatch(setLoadingIndex({ isSummaried: true, index }));
+            const result = await repository.onGetSummary(listReports[index].id);
+
+            if (result) {
+                dispatch(setSummaryIndex({ data: result, index }));
+                dispatch(setTextHiddenIndex({ isNotShowText: true, index }));
+            }
+        } catch (error) {
+            // Handle error appropriately (e.g., log or show an error message)
+        } finally {
+            dispatch(setLoadingIndex({ isSummaried: false, index }));
+        }
+    }
+
 
     const [params] = useSearchParams()
 
@@ -93,6 +83,7 @@ export const AdminShowReportView = () => {
                                     <AdminPostCard
                                         key={item.id}
                                         {...item}
+                                        onSummary={() => getSummary(index)}
                                         onApproved={() => onApproved(index)}/>
                                 </div>
                             ))}

@@ -19,7 +19,7 @@ export const AdminSpamReport = (props) => {
                                 img="https://cdn-icons-png.flaticon.com/512/9131/9131478.png" rounded/>}
                             <div className="flex flex-col justify-center items-start">
                                 <div className="text-center font-medium text-sm md:text-md dark:text-white">
-                                    {props.view === "Public" ? props.username : "Anonymous"}
+                                    {props.view === "Public" ? props.username ?? "Anonymous" : "Anonymous"}
                                 </div>
                                 <div className="text-center font-light text-xs dark:text-gray-400">
                                     {props.time}
@@ -30,7 +30,6 @@ export const AdminSpamReport = (props) => {
                             {
                                 props.isLoading ? <span className="loading loading-spinner text-primary"></span> : props.spam !== true ? <div className="tooltip" data-tip="Click to disapproved"><button className="btn btn-xs btn-success text-white" onClick={props.onHam}>Ham</button></div> : <div className="tooltip" data-tip="Click to Approve"><button className="btn btn-xs text-white bg-warning" onClick={props.onHam}>Spam</button></div>
                             }
-
                         </div>
                     </div>
                 </div>
@@ -51,7 +50,6 @@ export const AdminSpamReport = (props) => {
                         <div className="text-start text-sm md:text-md font-normal dark:text-white">
                                 <span>{props.information}
                                     {props.information.length > 50 ? <span className="link text-blue-500 pl-2" onClick={() => {
-                                        console.log("HelloWordl");
                                     }}>summary</span> : null}
                                 </span>
                         </div>

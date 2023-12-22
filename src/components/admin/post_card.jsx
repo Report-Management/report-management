@@ -2,6 +2,7 @@ import {Avatar, Badge, Card} from "flowbite-react";
 import PropTypes from 'prop-types';
 import {motion} from "framer-motion";
 import {FileDisplay} from "./filedisplay.jsx";
+import {ThreeDots} from "react-loader-spinner";
 
 export const AdminPostCard = (props) => {
     return (<div className="h-auto max-w-full">
@@ -20,7 +21,7 @@ export const AdminPostCard = (props) => {
                                     img="https://cdn-icons-png.flaticon.com/512/9131/9131478.png" rounded/>}
                             <div className="flex flex-col justify-center items-start">
                                 <div className="text-center font-medium text-sm md:text-md dark:text-white">
-                                    {props.view === "Public" ? props.username : "Anonymous"}
+                                    {props.view === "Public" ? props.username ?? "Anonymous" : "Anonymous"}
                                 </div>
                                 <div className="text-center font-light text-xs dark:text-gray-400">
                                     {props.time}
@@ -30,7 +31,11 @@ export const AdminPostCard = (props) => {
                         <div className="text-white rounded-lg text-sm md:text-md font-semibold flex">
                             {
                                 props.isLoading ? <span
-                                    className="loading loading-spinner text-primary"></span> : props.approval === true ? <button className="btn btn-xs btn-success text-white" onClick={props.onApproved}>Approved</button> :  <button className="btn btn-xs text-white bg-red-500" onClick={props.onApproved}>Unapproved</button>
+                                    className="loading loading-spinner text-primary"></span> : props.approval === true ?
+                                    <button className="btn btn-xs btn-success text-white"
+                                            onClick={props.onApproved}>Approved</button> :
+                                    <button className="btn btn-xs text-white bg-red-500"
+                                            onClick={props.onApproved}>Unapproved</button>
                             }
 
                         </div>
@@ -51,12 +56,11 @@ export const AdminPostCard = (props) => {
                     </div>
                     <div className="text-start text-sm md:text-md font-normal dark:text-white">
                         <div className="text-start text-sm md:text-md font-normal dark:text-white">
-                                <span>{props.information}
-                                    {props.information.length > 50 ?
-                                        <span className="link text-blue-500 pl-2" onClick={() => {
-                                            console.log("HelloWordl");
-                                        }}>summary</span> : null}
-                                </span>
+                            <span>{props.information} {
+                                props.information.length > 150 ? props.isSummaried === false ?
+                                    <span className={"link text-blue-500 pl-2" + (props.isNotShowText === true ? "hidden" : "")} onClick={props.onSummary}>summary</span> : <ThreeDots height="10" width="26" radius="6" color="#713ABE" ariaLabel="three-dots-loading" wrapperStyle={{}} wrapperClass="" visible={true}/> :null
+                            }
+                            </span>
                         </div>
 
                     </div>
@@ -80,7 +84,10 @@ AdminPostCard.propTypes = {
     username: PropTypes.string,
     profile: PropTypes.string,
     onApproved: PropTypes.func,
+    isSummaried: PropTypes.bool,
+    isNotShowText: PropTypes.bool,
     isLoading: PropTypes.bool,
+    onSummary: PropTypes.func,
 };
 
 AdminPostCard.defaultProps = {
@@ -91,4 +98,5 @@ AdminPostCard.defaultProps = {
     status: true,
     avatarUrl: "https://cdn-icons-png.flaticon.com/512/9131/9131478.png",
     isLoading: false,
+    isSummaried: false,
 }

@@ -16,9 +16,9 @@ export const createAdminApprovedReportSlice = createSlice({
             state.listReports = action.payload;
         },
         setLoadingIndex: (state, action) => {
-            const {isLoading, index} = action.payload;
+            const {isSummaried, index} = action.payload;
             if (state.listReports[index]) {
-                state.listReports[index].isLoading = isLoading;
+                state.listReports[index].isSummaried = isSummaried;
             }
         },
         removeReport: (state, action) => {

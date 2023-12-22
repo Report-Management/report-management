@@ -8,9 +8,7 @@ export class ReportRepository extends BaseRepository {
 
 
     async getReport(param) {
-        console.log(param)
         const response = await this.get("/show" + param)
-        
         const data = await this.checkError(response)
         const list_report = []
         if (data !== null) {
@@ -27,7 +25,9 @@ export class ReportRepository extends BaseRepository {
                     time: report.time,
                     username: report.username,
                     profile: report.profile,
-                    isLoading: false
+                    isLoading: false,
+                    isNotShowText: false,
+                    isSummaried: false,
                 })
             })
             return list_report
@@ -45,6 +45,11 @@ export class ReportRepository extends BaseRepository {
         const response = await this.put(`/unmarkApproved?id=${id}`)
         const data = await this.checkError(response)
         return data !== null
+    }
+
+    async onGetSummary(id) {
+        const response = await this.get(`/getSummary/${id}`)
+        return await this.checkError(response);
     }
 
 }

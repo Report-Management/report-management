@@ -1,4 +1,4 @@
-import { Badge, Button, Card, Label, Modal, Select, Spinner, TextInput} from "flowbite-react";
+import { Badge, Card, Modal, Spinner} from "flowbite-react";
 import {AdminCreateUserRepository, AdminUserRepository,} from "./repository.js";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
@@ -7,8 +7,8 @@ import {toast} from "react-toastify";
 import {Loading} from "../../../components/index.jsx";
 import man from "../../../assets/user.png";
 import {MdDelete} from "react-icons/md";
-import {BiHide, BiShow} from "react-icons/bi";
 import {motion} from "framer-motion";
+import {PiPasswordBold} from "react-icons/pi";
 
 export const AdminCreateUserView = () => {
     const [openModal, setOpenModal] = useState(false);
@@ -29,7 +29,7 @@ export const AdminCreateUserView = () => {
         const result = await authRepo.createAccount(
             username,
             email,
-            password,
+            password.toString(),
             userRole,
         )
         dispatch(setLoading(false))
@@ -44,7 +44,6 @@ export const AdminCreateUserView = () => {
 
     function handleRoleChange(e) {
         dispatch(setUserRole(e.target.value))
-        console.log(userRole)
     }
 
     async function fetchUsers() {
@@ -54,7 +53,6 @@ export const AdminCreateUserView = () => {
             const result = await adminRepo.getUsers();
             if (result !== null) {
                 dispatch(setListUsers(result));
-                console.log(result);
             }
         } catch (error) {
             console.error("Error fetching users:", error);
@@ -98,7 +96,21 @@ export const AdminCreateUserView = () => {
     }
 
     async function onDeleteUser(e) {
+        e.preventDefault();
+        const adminRepo = new AdminUserRepository();
+        const result = await adminRepo.onDeleteUser(userId);
+        if (result === true){
+            toast.success("Deleted")
+            setUserModal(false)
+            fetchUsers();
+        }
+
+    }
+
+    function onGeneratePassword(e){
         e.preventDefault()
+        const password = Math.floor(100000 + Math.random() * 900000);
+        dispatch(setPassword(password))
     }
 
     if(loading) return (
@@ -108,11 +120,12 @@ export const AdminCreateUserView = () => {
         <div className="p-5 px-10">
             <div className="py-2 font-bold flex flex-row justify-between">
                 <h1 className="text-2xl font-bold uppercase text-gray-900 dark:text-white">Create Account</h1>
-                <Button
+                <button
+                    className="btn bg-gray-200 dark:bg-white dark:text-black hover:bg-white"
                     onClick={onOpenModal}
                 >
                     Add Account
-                </Button>
+                </button>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                 {listUsers.map((user, index) => (
@@ -146,6 +159,18 @@ export const AdminCreateUserView = () => {
                     </motion.div>
                 ))}
             </div>
+            <dialog id="my_modal_4" className="modal">
+                <div className="modal-box w-11/12 max-w-lg">
+                    <h3 className="font-bold text-lg">Confirm</h3>
+                    <p className="py-4 text-lg">Are you sure to remove this user ?</p>
+                    <div className="modal-action">
+                        <form method="dialog" className="space-x-3">
+                            <button className="btn">Close</button>
+                            <button className="btn bg-warning" onClick={onDeleteUser}>Confirm</button>
+                        </form>
+                    </div>
+                </div>
+            </dialog>
             <Modal key={1} show={openUser} size="md" onClose={() => setUserModal(false)}>
                 <Modal.Header> User Information </Modal.Header>
                 <Modal.Body>
@@ -154,103 +179,94 @@ export const AdminCreateUserView = () => {
                         src={image ?? man}
                         alt="profile"
                     />
-                    <div className="py-2 space-y-3">
+                    <div className="py-2 space-y-3 max-w-lg">
                         <div className="pb-2 space-y-1">
                             <div className="text-purple-800 dark:text-purple-300 font-semibold font-sans text-xl truncate"> { username } </div>
                             <div className="text-gray-500 dark:text-white font-normal text-sm truncate"> { email } </div>
                         </div>
-                        <Select id="role" value={userRole} onChange={handleRoleChange}>
+                        <select id="role" value={userRole} onChange={handleRoleChange} className="select w-full bg-gray-100 dark:bg-gray-700 dark:border-2 dark:border-gray-500">
                             <option value="User">User</option>
                             <option value="Admin">Admin</option>
-                        </Select>
+                        </select>
                         <div className="flex flex-row justify-between items-center space-x-3 pt-3">
-                            <Button className="bg-red-500 w-1/4" color="none">
+                            <button className="btn bg-red-500 w-1/4" onClick={()=>document.getElementById('my_modal_4').showModal()}>
                                 <MdDelete size="24" color="white" />
-                            </Button>
-                            <Button className="w-full" type="submit" onClick={onUpdateUser}>
+                            </button>
+                            <button className="btn btn-warning flex-1 max-w-xs" type="submit" onClick={onUpdateUser}>
                                 Update
-                            </Button>
+                            </button>
                         </div>
                     </div>
                 </Modal.Body>
             </Modal>
-            <Modal key={2} show={openModal} size="md" onClose={onCloseModal} popup>
-                <Modal.Header/>
+            <Modal key={2} show={openModal} size="md" onClose={onCloseModal}>
+                <Modal.Header> Create Account </Modal.Header>
                 <Modal.Body>
-                    <div className="space-y-4">
-                        <h3 className="text-xl font-medium text-gray-900 dark:text-white">Create Account</h3>
-                        <div>
-                            <div className="mb-2 block">
-                                <Label htmlFor="username" value="Username"/>
+                    <form onSubmit={handleSubmit}>
+                        <div className="space-y-4">
+                            <div>
+                                <div className="mb-2 block">
+                                    <label htmlFor="username">Username</label>
+                                </div>
+                                <input
+                                    id="username"
+                                    type="text"
+                                    className="input w-full bg-gray-100 dark:bg-gray-800"
+                                    placeholder="username"
+                                    value={username}
+                                    onChange={(e) => dispatch(setUsername(e.target.value))}
+                                    required
+                                />
                             </div>
-                            <TextInput
-                                id="username"
-                                placeholder="username"
-                                value={username}
-                                onChange={(e) => dispatch(setUsername(e.target.value))}
-                                required
-                            />
-                        </div>
-                        <div>
-                            <div className="mb-2 block">
-                                <Label htmlFor="email" value="Email"/>
+                            <div>
+                                <div className="mb-2 block">
+                                    <label htmlFor="email">Email</label>
+                                </div>
+                                <input
+                                    id="email"
+                                    type="email"
+                                    className="input w-full bg-gray-100 dark:bg-gray-800"
+                                    placeholder="name@rupp.edu.kh"
+                                    value={email}
+                                    onChange={(e) => dispatch(setEmail(e.target.value))}
+                                    required
+                                />
                             </div>
-                            <TextInput
-                                id="email"
-                                placeholder="name@rupp.edu.kh"
-                                value={email}
-                                onChange={(e) => dispatch(setEmail(e.target.value))}
-                                required
-                            />
-                        </div>
-                        <div>
-                            <div className="mb-2 flex flex-row justify-between">
-                                <Label htmlFor="password" value="Password" />
-                                {isShowPass ? (
-                                    <BiShow
-                                        size="24"
-                                        color="gray"
-                                        onClick={() => {
-                                            setShowPassword(!isShowPass)
-                                            console.log(isShowPass)
-                                        }}
+                            <div>
+                                <div className="mb-2 flex flex-row justify-between">
+                                    <label htmlFor="password">Password</label>
+                                </div>
+                                <div className="flex flex-row items-center space-x-2">
+                                    <input
+                                        id="password"
+                                        type="text"
+                                        className="input w-full max-w-xs bg-gray-100 dark:bg-gray-800"
+                                        required
+                                        placeholder="••••••••"
+                                        value={password}
+                                        onChange={(e) => dispatch(setPassword(e.target.value))}
                                     />
-                                ) : (
-                                    <BiHide
-                                        size="24"
-                                        color="gray"
-                                        onClick={() => {
-                                            setShowPassword(!isShowPass)
-                                            console.log(isShowPass)
-                                        }}
-                                    />
-                                )}
+                                    <button className="btn" onClick={onGeneratePassword}>
+                                        <PiPasswordBold />
+                                    </button>
+                                </div>
                             </div>
-                            <TextInput
-                                id="password"
-                                type={isShowPass ? "text" : "password"}
-                                placeholder="••••••••"
-                                value={password}
-                                onChange={(e) => dispatch(setPassword(e.target.value))}
-                                required/>
+                            <div className="flex flex-col justify-center items-start space-y-1">
+                                <label htmlFor="role"> Role </label>
+                                <select className="select bg-gray-100 dark:bg-gray-800 w-full" value={userRole}  onChange={handleRoleChange}>
+                                    <option value="User">User</option>
+                                    <option value="Admin">Admin</option>
+                                </select>
+                            </div>
+                            <button
+                                type="submit"
+                                className="w-full justify-center btn bg-blue-700 text-white hover:bg-blue-600"
+                                disabled={loading}
+                            >
+                                {loading ? <Spinner color="success"/> : <p> Submit </p>}
+                            </button>
                         </div>
-                        <div>
-                            <Label htmlFor="role" value="Role"/>
-                            <Select id="role" value={userRole} onChange={handleRoleChange}>
-                                <option value="User">User</option>
-                                <option value="Admin">Admin</option>
-                            </Select>
-                        </div>
-                        <Button
-                            type="submit"
-                            className="w-full justify-center"
-                            size="md"
-                            disabled={loading}
-                            onClick={handleSubmit}
-                        >
-                            {loading ? <Spinner color="success"/> : <p> Submit </p>}
-                        </Button>
-                    </div>
+                    </form>
                 </Modal.Body>
             </Modal>
         </div>
