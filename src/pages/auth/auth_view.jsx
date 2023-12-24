@@ -3,6 +3,7 @@ import 'react-toastify/dist/ReactToastify.min.css';
 import React from "react";
 
 export const AuthView = () => {
+
     return (
         <div
             className="bg-no-repeat bg-cover bg-center relative"
