@@ -12,12 +12,16 @@ export const AdminShowReportView = () => {
     const repository = new ReportRepository()
     async function onApproved(index) {
         dispatch(setLoadingIndex({isLoading: true, index}))
-        const result = await repository.onUpdateUnApproved(listReports[index].id)
+        const result = await repository.onUpdateApproved(listReports[index].id)
         if (result != null) {
-            dispatch(setLoadingIndex({isLoading: false, index}))
-            dispatch(removeReport(index))
+            setTimeout(() => {
+                dispatch(setLoadingIndex({isLoading: false, index}))
+                dispatch(removeReport(index))
+            }, 2000);
         }
-        dispatch(setLoadingIndex({isLoading: false, index}))
+        setTimeout(() => {
+            dispatch(setLoadingIndex({isLoading: false, index}))
+        }, 2000);
     }
 
     async function getReports(params) {
@@ -40,7 +44,6 @@ export const AdminShowReportView = () => {
                 dispatch(setTextHiddenIndex({ isNotShowText: true, index }));
             }
         } catch (error) {
-            // Handle error appropriately (e.g., log or show an error message)
         } finally {
             dispatch(setLoadingIndex({ isSummaried: false, index }));
         }

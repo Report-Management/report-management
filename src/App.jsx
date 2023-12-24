@@ -1,6 +1,6 @@
 import './App.css'
 import {useEffect, useState} from "react";
-import {AuthView, ForgetForm, Loading, LoginForm, PagesRoute, ReportView, SearchView, UserView} from "./xcore";
+import {AuthView, ForgetForm, Loading, LoginForm, PagesRoute, ReportView, UserView} from "./xcore";
 import {Route, Routes, useNavigate} from "react-router-dom";
 import {ToastContainer} from "react-toastify";
 import {supabaseSession} from "./core/index.js";
@@ -14,6 +14,7 @@ import {AdminCreateUserView} from "./pages/admin/create_user/index.jsx";
 import {AdminDashboardView} from "./pages/admin/dashboard/index.jsx";
 import {AdminSpamView} from "./pages/admin/spam/index.jsx";
 import {AdminApprovedView} from "./pages/admin/approved/index.jsx";
+import {MyReportView} from "./pages/user/myreport/page.jsx";
 
 function App() {
     const [loading, setLoading] = useState(true);
@@ -70,7 +71,8 @@ function App() {
                     <Route path={PagesRoute.user} element={<ReportView />}/>
                     <Route path={PagesRoute.done} element={<DoneView/>}/>
                     <Route path={PagesRoute.create} element={<CreateReportView/>}/>
-                    <Route path={PagesRoute.search} element={<SearchView />} />
+                    {/*<Route path={PagesRoute.search} element={<SearchView />} />*/}
+                    <Route path={PagesRoute.myreport} element={<MyReportView />} />
                 </Route>
                 <Route path={PagesRoute.admin} element={<AdminView/>}>
                     <Route exact path={PagesRoute.admin + "/:type?"} element={<AdminShowReportView />} />

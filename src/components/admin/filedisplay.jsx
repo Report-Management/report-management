@@ -1,3 +1,6 @@
+import { PhotoProvider, PhotoView } from 'react-photo-view';
+import 'react-photo-view/dist/react-photo-view.css';
+
 
 export const FileDisplay = ({ fileUrl }) => {
     const checkSupabaseURLType = (url) => {
@@ -27,17 +30,20 @@ export const FileDisplay = ({ fileUrl }) => {
 
         if (fileType === 'image') {
             return <div className="rounded-lg overflow-hidden">
-                <img
-                    src={fileUrl}
-                    alt="Post image"
-                    className="w-full h-auto transform ease-in-out duration-500 hover:scale-110"
-                    style={{ transitionDuration: '0.5s' }}
-                />
+                <PhotoProvider>
+                    <PhotoView src={fileUrl}>
+                        <img
+                            src={fileUrl}
+                            alt="Post image"
+                            className="w-full h-auto"
+                        />
+                    </PhotoView>
+                </PhotoProvider>
             </div>;
         } else if (fileType === 'video') {
             return (
                 <div className="max-w-full rounded-lg">
-                    <video controls width="500" className="rounded-lg">
+                    <video controls className="rounded-lg w-full">
                         <source src={fileUrl} type="video/mp4" />
                         Your browser does not support the video tag or the video format.
                     </video>

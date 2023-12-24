@@ -1,10 +1,10 @@
 import {useEffect, useState} from "react";
 import {supabaseSession} from "../../core/index.js";
 import {Outlet, useNavigate} from "react-router-dom";
-import {UserSideBar} from "../../components/index.jsx";
+import {Loading, UserSideBar} from "../../components/index.jsx";
 import {ButtonNavigationBar, NavigationBar} from "../../components/index.jsx";
 import {PagesRoute} from "../../routes.jsx";
-import {AuthRepository} from "../auth/auth_repository.js";
+import {UserRepository} from "./repository.js";
 
 export const UserView = () => {
     const navigate = useNavigate();
@@ -15,10 +15,32 @@ export const UserView = () => {
             }
         })
     }, []);
-    const profile = {
-        username: 'Jane Cooper',
-        email: 'lim.phanith.2821@rupp.edu.kh',
-        img: 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'
+    const [username, setUsername] = useState();
+    const [profile, setProfile] = useState();
+    const [email, setEmail] = useState();
+    const [isLoading, setLoading] = useState(false)
+
+    async function getInfo() {
+        setLoading(true)
+        const adminRepository = new UserRepository();
+        const result = await adminRepository.getInfo();
+        if (result !== null) {
+            setEmail(result.email)
+            setUsername(result.username)
+            setProfile(result.profilePhoto)
+            setLoading(false)
+        }
+        setLoading(false)
+    }
+
+    useEffect(() => {
+        getInfo()
+    }, []);
+
+    if (isLoading) {
+        return <div className="h-screen">
+            <Loading />
+        </div>
     }
     return (
         <div className="container mx-auto max-w-7xl">
@@ -29,7 +51,14 @@ export const UserView = () => {
 
                 <div className="w-full flex flex-col items-center justify-center">
                     <div className="w-full sticky top-0 z-20">
-                        <NavigationBar {...profile} />
+                        <NavigationBar
+                            username={username}
+                            profile={profile}
+                            email={email}
+                        />
+                    </div>
+                    <div>
+
                     </div>
                     <div className="flex-1 overflow-y-auto no-scrollbar w-full">
                         <Outlet />

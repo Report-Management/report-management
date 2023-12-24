@@ -1,6 +1,6 @@
 import {Avatar, Button, Dropdown, Modal, Navbar} from 'flowbite-react';
 import logo from '../../assets/seo-report.png';
-import {NavLink, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {PagesRoute} from "../../routes.jsx";
 import PropTypes from "prop-types";
 import {supabaseSession} from "../../core/index.js";
@@ -116,5 +116,5 @@ NavigationBar.propTypes = {
 NavigationBar.defaultProps = {
     username: 'Bonnie Green',
     email: 'name@rupp.edu.kh',
-    img: "https://i.pravatar.cc/150?img=3"
+    img: "https://cdn-icons-png.flaticon.com/512/13530/13530580.png"
 }

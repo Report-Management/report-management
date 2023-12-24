@@ -3,13 +3,14 @@ import { Sidebar} from 'flowbite-react';
 import { TbReportAnalytics } from 'react-icons/tb';
 import { AiOutlineFileDone } from 'react-icons/ai';
 import { Button, Modal } from 'flowbite-react';
-import { BiMessageSquareAdd, BiSearchAlt} from 'react-icons/bi';
+import { BiMessageSquareAdd} from 'react-icons/bi';
 import logo from '../../assets/seo-report.png';
-import {NavLink, useLocation, useNavigate} from "react-router-dom";
+import { useLocation, useNavigate} from "react-router-dom";
 import {PagesRoute} from "../../routes.jsx";
 import {supabaseSession} from "../../core/index.js";
 import {CiLogout} from "react-icons/ci";
 import {HiOutlineExclamationCircle} from "react-icons/hi";
+import {FaBoxOpen} from "react-icons/fa";
 
 export const UserSideBar = () => {
     const [isCollapsed, setCollapsed] = useState(window.innerWidth < 768);
@@ -42,7 +43,7 @@ export const UserSideBar = () => {
     return (
         <>
             <Sidebar aria-label="Sidebar with logo branding example" collapsed={isCollapsed}>
-                <Sidebar.Logo href={PagesRoute.user} img={logo} imgAlt="Report" className="font-bold font-mono text-purple-600" onClick={
+                <Sidebar.Logo href={PagesRoute.user} img={logo} imgAlt="Report" className="font-rubik font-light text-purple-600" onClick={
                     () => {
                         navigate(PagesRoute.user, { replace: true });
                     }
@@ -51,20 +52,20 @@ export const UserSideBar = () => {
                 </Sidebar.Logo>
                 <Sidebar.Items>
                     <Sidebar.ItemGroup>
-                        <Sidebar.Item
-                            icon={BiSearchAlt}
-                            active={PagesRoute.user.concat('/', PagesRoute.search) === location.pathname}
-                            className={`font-medium ${PagesRoute.user.concat('/', PagesRoute.search) === location.pathname ? 'text-purple-600' : ''}`}
-                            onClick={() => {
-                                navigate(PagesRoute.search, { replace: true })
-                            }}
-                        >
-                            Search
-                        </Sidebar.Item>
+                        {/*<Sidebar.Item*/}
+                        {/*    icon={BiSearchAlt}*/}
+                        {/*    active={PagesRoute.user.concat('/', PagesRoute.search) === location.pathname}*/}
+                        {/*    className={`font-medium cursor-pointer ${PagesRoute.user.concat('/', PagesRoute.search) === location.pathname ? 'text-purple-600' : ''}`}*/}
+                        {/*    onClick={() => {*/}
+                        {/*        navigate(PagesRoute.search, { replace: true })*/}
+                        {/*    }}*/}
+                        {/*>*/}
+                        {/*    Search*/}
+                        {/*</Sidebar.Item>*/}
                         <Sidebar.Item
                             icon={BiMessageSquareAdd}
                             active={PagesRoute.user.concat('/', PagesRoute.create) === location.pathname}
-                            className={`font-medium ${PagesRoute.user.concat('/', PagesRoute.create) === location.pathname ? 'text-purple-600' : ''}`}
+                            className={`font-medium cursor-pointer ${PagesRoute.user.concat('/', PagesRoute.create) === location.pathname ? 'text-purple-600' : ''}`}
                             onClick={() => {
                                 navigate(PagesRoute.create, { replace: true })
                             }}
@@ -76,7 +77,7 @@ export const UserSideBar = () => {
                                 TbReportAnalytics
                             }
                             active={PagesRoute.user === location.pathname}
-                            className={`font-medium ${PagesRoute.home === location.pathname ? 'text-purple-600' : ''}`}
+                            className={`font-medium cursor-pointer ${PagesRoute.home === location.pathname ? 'text-purple-600' : ''}`}
                             onClick={() => {
                                 navigate(PagesRoute.user, { replace: true })
                             }}
@@ -86,12 +87,22 @@ export const UserSideBar = () => {
                         <Sidebar.Item
                             icon={AiOutlineFileDone}
                             active={PagesRoute.user.concat('/', PagesRoute.done) === location.pathname}
-                            className={`font-medium ${PagesRoute.user.concat('/', PagesRoute.done) === location.pathname ? 'text-purple-600' : ''}`}
+                            className={`font-medium cursor-pointer ${PagesRoute.user.concat('/', PagesRoute.done) === location.pathname ? 'text-purple-600' : ''}`}
                             onClick={() => {
                                 navigate(PagesRoute.done, { replace: true })
                             }}
                         >
                             Done
+                        </Sidebar.Item>
+                        <Sidebar.Item
+                            icon={FaBoxOpen}
+                            active={PagesRoute.user.concat('/', PagesRoute.myreport) === location.pathname}
+                            className={`font-medium cursor-pointer ${PagesRoute.user.concat('/', PagesRoute.myreport) === location.pathname ? 'text-purple-600' : ''}`}
+                            onClick={() => {
+                                navigate(PagesRoute.myreport, { replace: true })
+                            }}
+                        >
+                            MyReport
                         </Sidebar.Item>
                         <Sidebar.Item
                             icon={CiLogout}

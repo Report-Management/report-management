@@ -65,7 +65,7 @@ AdminNavigationBar.propTypes = {
 }
 
 AdminNavigationBar.defaultProps = {
-    username: 'Minato Namikaze',
+    username: 'User Name',
     email: 'name@rupp.edu.kh',
     profile: 'https://i.pinimg.com/originals/9f/c3/c2/9fc3c2d2989592e70c9464b23195a11c.jpg',
 }

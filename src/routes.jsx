@@ -7,6 +7,7 @@ export class PagesRoute {
     static done = "done";
     static create = "create_report";
     static search = "search";
+    static myreport = "myreport";
 
 
     // Admin Route
