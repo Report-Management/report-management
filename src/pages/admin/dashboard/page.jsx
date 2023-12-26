@@ -33,6 +33,7 @@ export const AdminDashboardView = () => {
         const dashboardRepository = new DashboardRepository();
         const result = await dashboardRepository.getReportSolve();
         if (result !== null) {
+            console.log(result)
             setReportSolve(result);
         }
     }
@@ -57,23 +58,29 @@ export const AdminDashboardView = () => {
 
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                await setLoading(true);
-                await getReportSolve();
-                await getReportMonth();
-                await getReportCategoryYear();
-                await getReportSpam();
-                await getReportDetail();
+        // const fetchData = async () => {
+        //     try {
+        //         setLoading(true);
+                // await getReportSolve();
+                // await getReportMonth();
+                // await getReportCategoryYear();
+                // await getReportSpam();
+                // await getReportDetail();
         
-            } catch (error) {
-                console.error("Error fetching data:", error);
-            } finally {
-                await setLoading(false);
-            }
-        };
+        //     } catch (error) {
+        //         console.error("Error fetching data:", error);
+        //     } finally {
+        //         setLoading(false);
+        //     }
+        // };
     
-        fetchData();
+        // fetchData();
+        getReportSolve();
+        getReportMonth();
+        getReportCategoryYear();
+        getReportSpam();
+        getReportDetail();
+
     }, []);
 
     const reportDetails = [
@@ -157,10 +164,10 @@ export const AdminDashboardView = () => {
                             <div className="h-full">
                                 <div className="flex h-full">
                                     <div className="flex-auto h-full" style={{ flexBasis: '50%' }}>
-                                        <PieChart   {...dataPieOne}
-                                            // title={dataPieOne.title}
-                                            // xLabels={dataPieOne.xLabels}
-                                            // datasets={dataPieOne.datasets}
+                                        <PieChart  
+                                            title={dataReportSolve.title}
+                                            xLabels={dataReportSolve.xLabels}
+                                            datasets={dataReportSolve.datasets}
                                         />
                                     </div>
                                     <div className="flex-auto h-full" style={{ flexBasis: '50%' }}>
@@ -178,7 +185,6 @@ export const AdminDashboardView = () => {
                             <div className="h-full">
                                 <div className="grid grid-cols-2 gap-3 h-full">
                                     {reportDetails.map((item, index) => (
-                                        
                                         <div key={index} className="h-full flex items-center justify-center">
                                             <Card className="w-full h-full flex flex-col justify-center items-center">
                                                 <div className="text-gray-400 font-nunito font-bold">{item.label}</div>
