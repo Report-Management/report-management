@@ -51,11 +51,11 @@ export const AdminView = () => {
                             email={email}
                         />
                     </div>
-                    {isAdminPath && (
-                        <div className="w-full">
-                            <AdminFilter/>
-                        </div>
-                    )}
+                    {/*{isAdminPath && (*/}
+                    {/*    <div className="w-full">*/}
+                    {/*        <AdminFilter/>*/}
+                    {/*    </div>*/}
+                    {/*)}*/}
                     <div className="flex-1 overflow-y-auto no-scrollbar w-full">
                         <Outlet/>
                     </div>

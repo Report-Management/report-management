@@ -7,8 +7,8 @@ export class ReportRepository extends BaseRepository {
     }
 
 
-    async getReport(param) {
-        const response = await this.get("/show" + param)
+    async getReport() {
+        const response = await this.get("/show")
         const data = await this.checkError(response)
         const list_report = []
         if (data !== null) {

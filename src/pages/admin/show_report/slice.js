@@ -45,8 +45,21 @@ export const createAdminReportSlice = createSlice({
                 state.listReports.splice(index, 1);
             }
         },
+        removeReportID: (state, action) => {
+            const reportIdToRemove = action.payload;
+
+            // Find the index of the report with the matching ID
+            const indexToRemove = state.listReports.findIndex(report => report.id === reportIdToRemove);
+
+            // Check if the report with the specified ID exists
+            if (indexToRemove !== -1) {
+                // Remove the report with the specified ID
+                state.listReports.splice(indexToRemove, 1);
+            }
+        },
+
     },
 });
 
-export const { setLoading, setListReport, setLoadingIndex, removeReport, setTextHiddenIndex, setSummaryIndex} = createAdminReportSlice.actions;
+export const { setLoading, setListReport, setLoadingIndex, removeReport, setTextHiddenIndex, setSummaryIndex, removeReportID} = createAdminReportSlice.actions;
 export default createAdminReportSlice.reducer;

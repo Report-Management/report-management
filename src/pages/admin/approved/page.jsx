@@ -2,11 +2,12 @@ import Masonry from "react-masonry-css";
 import {AdminApprovedReport, Loading} from "../../../components/index.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import {removeReport, setListReport, setLoading, setLoadingIndex} from "./slice.js";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {ApprovedReportRepository} from "./repository.js";
 
 export const AdminApprovedView = () => {
     const { loading, listReports } = useSelector((state) => state.approved_report);
+    const [listReport, setListReports] = useState(listReports)
     const dispatch = useDispatch()
     const repository = new ApprovedReportRepository()
     const breakpointColumnsObj = {
@@ -16,12 +17,24 @@ export const AdminApprovedView = () => {
         640: 1,
     };
 
+    function isLoadingID(id, loadingValue) {
+        setListReports(prevFilter =>
+            prevFilter.map(item =>
+                item.id === id ? {...item, isLoading: loadingValue} : item
+            )
+        )
+    }
+
+    function remove_by_id(id) {
+        setListReports(prevFilter => prevFilter.filter(item => item.id !== id));
+    }
+
     async function getReports() {
         dispatch(setLoading(true));
         const result = await repository.getReportApproved()
         if (result != null) {
-            console.log(result)
             dispatch(setListReport(result))
+            setListReports(result)
             dispatch(setLoading(false));
         }
         dispatch(setLoading(false));
@@ -29,24 +42,24 @@ export const AdminApprovedView = () => {
     }
 
 
-    async function onCompleted(index) {
-        dispatch(setLoadingIndex({isLoading: true, index}))
-        const result = await repository.updateCompleted(listReports[index].id)
+    async function onCompleted(id) {
+        isLoadingID(id, true)
+        const result = await repository.updateCompleted(id)
         if (result != null) {
-            dispatch(setLoadingIndex({isLoading: false, index}))
-            dispatch(removeReport(index))
+            isLoadingID(id, false)
+            remove_by_id(id)
         }
-        dispatch(setLoadingIndex({isLoading: false, index}))
+        isLoadingID(id, false)
     }
 
-    async function onApproved(index) {
-        dispatch(setLoadingIndex({isLoading: true, index}))
-        const result = await repository.updateUnapproved(listReports[index].id)
+    async function onApproved(id) {
+        isLoadingID(id, true)
+        const result = await repository.updateUnapproved(id)
         if (result != null) {
-            dispatch(setLoadingIndex({isLoading: false, index}))
-            dispatch(removeReport(index))
+            isLoadingID(id, false)
+            remove_by_id(id)
         }
-        dispatch(setLoadingIndex({isLoading: false, index}))
+        isLoadingID(id, false)
     }
 
     useEffect(() => {
@@ -59,17 +72,17 @@ export const AdminApprovedView = () => {
     return (
         <div className="p-3 container mx-auto max-h-screen h-full">
             {
-                listReports.length === 0 ?
+                listReport.length === 0 ?
                     <div className="container mx-auto h-full flex justify-center items-center"> No Record</div> : <Masonry
                         breakpointCols={breakpointColumnsObj}
                         className="flex w-auto"
                         columnClassName="px-2">
-                        {listReports.map((item, index) => (
-                            <div key={item.id} className="w-full mb-6">
+                        {listReport.map((item, index) => (
+                            <div key={index} className="w-full mb-6">
                                 <AdminApprovedReport
                                     {...item}
-                                    onApproved={() => onApproved(index)}
-                                    onCompleted={() => onCompleted(index)}/>
+                                    onApproved={() => onApproved(item.id)}
+                                    onCompleted={() => onCompleted(item.id)}/>
                             </div>
                         ))}
                     </Masonry>
