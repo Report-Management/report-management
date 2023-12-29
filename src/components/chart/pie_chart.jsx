@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Chart from "react-apexcharts";
+import { data } from "autoprefixer";
 
 export const PieChart = (props) => {
     const chartOptions = {

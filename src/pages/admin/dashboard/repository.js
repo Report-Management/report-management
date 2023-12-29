@@ -6,28 +6,43 @@ export class DashboardRepository extends BaseRepository {
         super("dashboard");
     }
 
-    async getReportMonth() {
-        const response = await this.get("/month?year=2023")
+    async getReportMonth(year) {
+        const response = await this.get("/month?year="+year)
+        return await this.checkError(response)
+    }
+
+    async getReportYear() {
+        const response = await this.get("/year")
         return await this.checkError(response)
     }
     
-    async getReportCategoryYear() {
-        const response = await this.get("/category?year=2023")
+    async getReportCategoryYear(year) {
+        const response = await this.get("/category?year="+year)
         return await this.checkError(response)
     }
 
-    async getReportSolve() {
-        const response = await this.get("/solve")
+    async getReportCategoryAll() {
+        const response = await this.get("/category/all")
         return await this.checkError(response)
     }
 
-    async getReportSpam() {
-        const response = await this.get("/spam")
+    async getReportSolve(year, month) {
+        const response = await this.get("/solve?year="+year+"&month="+month)
+        return await this.checkError(response)
+    }
+
+    async getReportSpam(year, month) {
+        const response = await this.get("/spam?year="+year+"&month="+month)
         return await this.checkError(response)
     }
 
     async getReportDetail() {
         const response = await this.get("/detail")
+        return await this.checkError(response)
+    }
+
+    async getDate() {
+        const response = await this.get("/date")
         return await this.checkError(response)
     }
 
