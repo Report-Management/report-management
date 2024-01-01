@@ -16,10 +16,25 @@ export const createAdminApprovedReportSlice = createSlice({
             state.listReports = action.payload;
         },
         setLoadingIndex: (state, action) => {
+            const {isLoading, index} = action.payload;
+            if (state.listReports[index]) {
+                state.listReports[index].isLoading = isLoading;
+            }
+        },
+        setLoadingSummaried: (state, action) => {
             const {isSummaried, index} = action.payload;
             if (state.listReports[index]) {
                 state.listReports[index].isSummaried = isSummaried;
             }
+        },
+        setSummaryIndex: (state, action) => {
+            const { data, index } = action.payload;
+            return {
+                ...state,
+                listReports: state.listReports.map((report, i) =>
+                    i === index ? { ...report, summaryText: data } : report
+                ),
+            };
         },
         removeReport: (state, action) => {
             const index = action.payload;
@@ -30,5 +45,5 @@ export const createAdminApprovedReportSlice = createSlice({
     },
 });
 
-export const { setLoading, setListReport, setLoadingIndex, removeReport} = createAdminApprovedReportSlice.actions;
+export const { setLoading, setListReport, setLoadingIndex, removeReport, setLoadingSummaried, setSummaryIndex} = createAdminApprovedReportSlice.actions;
 export default createAdminApprovedReportSlice.reducer;

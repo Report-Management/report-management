@@ -25,6 +25,8 @@ export class DoneReportRepository extends BaseRepository {
                     username: report.username,
                     profile: report.profile,
                     isLoading: false,
+                    summaryText: null,
+                    isSummaried: false,
                 })
             })
             return list_report
@@ -38,4 +40,9 @@ export class DoneReportRepository extends BaseRepository {
         return data != null;
     }
 
+
+    async onGetSummary(id) {
+        const response = await this.get(`/getSummary/${id}`)
+        return await this.checkError(response);
+    }
 }

@@ -1,5 +1,5 @@
 import './App.css'
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {AuthView, ForgetForm, Loading, LoginForm, PagesRoute, ReportView, UserView} from "./xcore";
 import {Route, Routes, useNavigate} from "react-router-dom";
 import {ToastContainer} from "react-toastify";

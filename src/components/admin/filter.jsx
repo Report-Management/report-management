@@ -46,7 +46,7 @@ export const AdminFilter = () => {
     };
 
     return (
-        <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-2 mx-6 flex flex-col md:flex-row space-x-2 justify-between items-center">
+        <div className="bg-gray-50 dark:bg-gray-800 rounded-lg mx-6 flex flex-col md:flex-row space-x-2 justify-between items-center">
             <div className="w-full md:w-64 space-y-2">
                 <div className="md:hidden flex flex-row justify-between">
                     <Label htmlFor="type" value="Type"/>

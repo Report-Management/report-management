@@ -21,21 +21,27 @@ export const createAdminReportSlice = createSlice({
                 state.listReports[index].isLoading = isLoading;
             }
         },
-        setTextHiddenIndex: (state, action) => {
-            const { isNotShowText, index } = action.payload;
-            return {
-                ...state,
-                listReports: state.listReports.map((report, i) =>
-                    i === index ? { ...report, isNotShowText } : report
-                ),
-            };
+        setLoadingSummaried: (state, action) => {
+            const {isSummaried, index} = action.payload;
+            if (state.listReports[index]) {
+                state.listReports[index].isSummaried = isSummaried;
+            }
         },
         setSummaryIndex: (state, action) => {
             const { data, index } = action.payload;
             return {
                 ...state,
                 listReports: state.listReports.map((report, i) =>
-                    i === index ? { ...report, information: data } : report
+                    i === index ? { ...report, summaryText: data } : report
+                ),
+            };
+        },
+        setTextHiddenIndex: (state, action) => {
+            const { isNotShowText, index } = action.payload;
+            return {
+                ...state,
+                listReports: state.listReports.map((report, i) =>
+                    i === index ? { ...report, isNotShowText } : report
                 ),
             };
         },
@@ -48,5 +54,5 @@ export const createAdminReportSlice = createSlice({
     },
 });
 
-export const { setLoading, setListReport, setLoadingIndex, removeReport, setTextHiddenIndex, setSummaryIndex} = createAdminReportSlice.actions;
+export const { setLoading, setListReport, setLoadingIndex, removeReport, setTextHiddenIndex, setSummaryIndex, setLoadingSummaried} = createAdminReportSlice.actions;
 export default createAdminReportSlice.reducer;

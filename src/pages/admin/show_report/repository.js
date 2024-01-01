@@ -26,7 +26,7 @@ export class ReportRepository extends BaseRepository {
                     username: report.username,
                     profile: report.profile,
                     isLoading: false,
-                    isNotShowText: false,
+                    summaryText: null,
                     isSummaried: false,
                 })
             })
@@ -49,6 +49,8 @@ export class ReportRepository extends BaseRepository {
 
     async onGetSummary(id) {
         const response = await this.get(`/getSummary/${id}`)
+        console.log("Show summary")
+        console.log(response)
         return await this.checkError(response);
     }
 

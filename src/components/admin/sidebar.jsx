@@ -1,15 +1,17 @@
 import {useState, useEffect} from 'react';
 import {Button, Modal, Sidebar} from 'flowbite-react';
-import {TbReportAnalytics} from 'react-icons/tb';
-import {AiOutlineFileDone} from 'react-icons/ai';
-import {BiLogOut, BiMessageSquareAdd, BiSolidDashboard} from 'react-icons/bi';
+import {BiLogOut} from 'react-icons/bi';
 import logo from '../../assets/seo-report.png';
 import {useLocation, useNavigate} from "react-router-dom";
 import {PagesRoute} from "../../routes.jsx";
 import {supabaseSession} from "../../core/index.js";
 import {HiOutlineExclamationCircle} from "react-icons/hi";
 import {RiSpam2Fill} from "react-icons/ri";
-import {FaStickyNote} from "react-icons/fa";
+import {FaListCheck} from "react-icons/fa6";
+import {GoReport} from "react-icons/go";
+import {MdOutlineDoneAll} from "react-icons/md";
+import {SiGoogleanalytics} from "react-icons/si";
+import {IoMdPersonAdd} from "react-icons/io";
 
 export const AdminSideBar = () => {
     const [isCollapsed, setCollapsed] = useState(window.innerWidth < 768);
@@ -47,7 +49,7 @@ export const AdminSideBar = () => {
                 <Sidebar.Items>
                     <Sidebar.ItemGroup>
                         <Sidebar.Item
-                            icon={BiSolidDashboard}
+                            icon={SiGoogleanalytics}
                             active={PagesRoute.admin.concat('/', PagesRoute.dashboard) === location.pathname}
                             className={`font-medium cursor-pointer ${PagesRoute.admin.concat('/', PagesRoute.dashboard) === location.pathname ? 'text-purple-600' : ''}`}
                             onClick={() => {
@@ -57,19 +59,17 @@ export const AdminSideBar = () => {
                             Dashboard
                         </Sidebar.Item>
                         <Sidebar.Item
-                            icon={
-                                TbReportAnalytics
-                            }
+                            icon={GoReport}
                             active={PagesRoute.admin === location.pathname}
                             className={`font-medium cursor-pointer ${PagesRoute.admin === location.pathname ? 'text-purple-600' : ''}`}
                             onClick={() => {
                                 navigate(PagesRoute.admin, {replace: true})
                             }}
                         >
-                            Reports
+                            Report
                         </Sidebar.Item>
                         <Sidebar.Item
-                            icon={FaStickyNote}
+                            icon={FaListCheck}
                             active={PagesRoute.admin.concat('/', PagesRoute.approved) === location.pathname}
                             className={`font-medium cursor-pointer ${PagesRoute.admin.concat('/', PagesRoute.approved) === location.pathname ? 'text-purple-600' : ''}`}
                             onClick={() => {
@@ -79,24 +79,14 @@ export const AdminSideBar = () => {
                             Approved
                         </Sidebar.Item>
                         <Sidebar.Item
-                            icon={AiOutlineFileDone}
+                            icon={MdOutlineDoneAll}
                             active={PagesRoute.admin.concat('/', PagesRoute.done_report) === location.pathname}
                             className={`font-medium cursor-pointer ${PagesRoute.admin.concat('/', PagesRoute.done_report) === location.pathname ? 'text-purple-600' : ''}`}
                             onClick={() => {
                                 navigate(PagesRoute.done_report, {replace: true})
                             }}
                         >
-                            Done
-                        </Sidebar.Item>
-                        <Sidebar.Item
-                            icon={BiMessageSquareAdd}
-                            active={PagesRoute.admin.concat('/', PagesRoute.create_user) === location.pathname}
-                            className={`font-medium cursor-pointer ${PagesRoute.admin.concat('/', PagesRoute.create_user) === location.pathname ? 'text-purple-600' : ''}`}
-                            onClick={() => {
-                                navigate(PagesRoute.create_user, {replace: true})
-                            }}
-                        >
-                            Create Account
+                            Completed
                         </Sidebar.Item>
                         <Sidebar.Item
                             icon={RiSpam2Fill}
@@ -108,8 +98,16 @@ export const AdminSideBar = () => {
                         >
                             Spam
                         </Sidebar.Item>
-
-
+                        <Sidebar.Item
+                            icon={IoMdPersonAdd}
+                            active={PagesRoute.admin.concat('/', PagesRoute.create_user) === location.pathname}
+                            className={`font-medium cursor-pointer ${PagesRoute.admin.concat('/', PagesRoute.create_user) === location.pathname ? 'text-purple-600' : ''}`}
+                            onClick={() => {
+                                navigate(PagesRoute.create_user, {replace: true})
+                            }}
+                        >
+                            Create Account
+                        </Sidebar.Item>
                         <Sidebar.Item
                             icon={BiLogOut}
                             className="font-medium cursor-pointer"

@@ -1,6 +1,7 @@
 import {Outlet} from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.min.css';
 import React from "react";
+import backgroundImage from '../../assets/rupp.jpg';
 
 export const AuthView = () => {
 
@@ -8,8 +9,7 @@ export const AuthView = () => {
         <div
             className="bg-no-repeat bg-cover bg-center relative"
             style={{
-                backgroundImage:
-                    "url(https://scontent.fpnh5-4.fna.fbcdn.net/v/t39.30808-6/238260663_552766142824568_684155443061435535_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=783fdb&_nc_eui2=AeE1mZdOLO4ONO5sH1oS7SCD5DSFVsonPqPkNIVWyic-ox4ZrRD3xIYFb4ivCYg644-vliuRtKcOjdCwyyQXZ8x7&_nc_ohc=JG836mfz8eoAX970VVG&_nc_ht=scontent.fpnh5-4.fna&oh=00_AfC7S4I9JfA9akxBLLM4qI-UP5Ps00eY_6cycDS0iXD3Ng&oe=658C9E5F)"
+                backgroundImage: `url(${backgroundImage})`,
             }}
         >
             <div className="absolute bg-gradient-to-b from-blue-800 to-blue-900 opacity-50 inset-0 z-0"/>

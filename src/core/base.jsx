@@ -15,13 +15,11 @@ export class BaseRepository {
         });
     }
 
-
     async checkSupabaseError(response) {
         if (response.error) {
             toast.error(response.error.message);
             return null
         }
-        console.log(response.data)
         return response.data;
     }
 
