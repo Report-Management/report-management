@@ -15,6 +15,7 @@ import {AdminDashboardView} from "./pages/admin/dashboard/index.jsx";
 import {AdminSpamView} from "./pages/admin/spam/index.jsx";
 import {AdminApprovedView} from "./pages/admin/approved/index.jsx";
 import {MyReportView} from "./pages/user/myreport/page.jsx";
+import {NotFoundPage} from "./pages/notfound/index.jsx";
 
 function App() {
     const [loading, setLoading] = useState(true);
@@ -33,7 +34,7 @@ function App() {
                 if (role.role === "Admin") navigate(PagesRoute.admin, {replace: true});
                 else navigate(PagesRoute.user, {replace: true});
             } else {
-                navigate(-1);
+                navigate('/', {replace: true});
             }
         })
 
@@ -44,7 +45,7 @@ function App() {
                 if (role.role === "Admin") navigate(PagesRoute.admin, {replace: true});
                 else navigate(PagesRoute.user, {replace: true});
             } else {
-                navigate(-1);
+                navigate('/', {replace: true});
             }
         })
 
@@ -71,7 +72,6 @@ function App() {
                     <Route path={PagesRoute.user} element={<ReportView />}/>
                     <Route path={PagesRoute.done} element={<DoneView/>}/>
                     <Route path={PagesRoute.create} element={<CreateReportView/>}/>
-                    {/*<Route path={PagesRoute.search} element={<SearchView />} />*/}
                     <Route path={PagesRoute.myreport} element={<MyReportView />} />
                 </Route>
                 <Route path={PagesRoute.admin} element={<AdminView/>}>
@@ -82,6 +82,7 @@ function App() {
                     <Route path={PagesRoute.dashboard} element={<AdminDashboardView />}/>
                     <Route path={PagesRoute.spam_report} element={<AdminSpamView />} />
                 </Route>
+                <Route path="*" element={<NotFoundPage />}/>
             </Routes>
         </main>
     );
