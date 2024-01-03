@@ -70,6 +70,10 @@ export class AdminDashboardView extends Component {
             // console.log(result.thisMonth);
             // console.log(result.allYear);
             this.setState({
+                thisYear: result.thisYear,
+                thisMonth: result.thisMonth,
+                allYear: result.allYear,
+                allMonth: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
                 bar1: result.allYear,
                 bar1Label: result.thisYear,
                 bar2: result.allYear,
@@ -100,6 +104,12 @@ export class AdminDashboardView extends Component {
         if (item === 0 && this.state.pie1MonthLabel !== 0) {
             this.setState({ pie1MonthLabel: 0 });
         }
+        if (item === this.state.thisYear) {
+            this.setState({ pie1Month: this.state.thisMonth });
+            this.setState({ pie1MonthLabel: 0 });
+        } else {
+            this.setState({ pie1Month: this.state.allMonth })
+        }
         this.setState({ pie1YearLabel: item });
         await this.getReportSolve(item, this.state.pie1MonthLabel);
     }
@@ -113,6 +123,12 @@ export class AdminDashboardView extends Component {
         if (item === 0 && this.state.pie2MonthLabel !== 0) {
             this.setState({ pie2MonthLabel: 0 });
         }
+        if (item === this.state.thisYear) {
+            this.setState({ pie2Month: this.state.thisMonth });
+            this.setState({ pie2MonthLabel: 0 });
+        } else {
+            this.setState({ pie2Month: this.state.allMonth })
+        }
         this.setState({ pie2YearLabel: item });
         await this.getReportSpam(item, this.state.pie2MonthLabel);
     }
@@ -122,35 +138,34 @@ export class AdminDashboardView extends Component {
         await this.getReportSpam(this.state.pie2YearLabel, item);
     }
 
-    getData = async () => {
-        await this.getDate();
-        if (this.state.date !== null) {
-            await this.getReport(this.state.bar1Label);
-            if (this.state.dataReportMonth !== null) {
-                await this.getReportCategory(this.state.bar2Label);
-                if (this.state.dataReportCategoryYear !== null) {
-                    await this.getReportSolve(this.state.pie1YearLabel, this.state.pie1MonthLabel);
-                    if (this.state.dataReportSolve !== null) {
-                        await this.getReportSpam(this.state.pie2YearLabel, this.state.pie2MonthLabel);
-                        if (this.state.dataReportSpam !== null) {
-                            await this.getReportDetail();
-                            if (this.state.dataReportDetail !== null) {
-                                this.setState({ loading: false });
-                            }
-                        }
-                    }
-                }
-            }
+    checkData = () => {
+        if (this.state.dataReportMonth === undefined
+            || this.state.dataReportCategoryYear === undefined
+            || this.state.dataReportSolve === undefined
+            || this.state.dataReportSpam === undefined
+            || this.state.dataReportDetail === undefined) {
+            this.setState({ loading: true });
+        } else {
+            this.setState({ loading: false });
         }
     }
 
+    getData = async () => {
+        await this.getDate();
+        await this.getReport(this.state.bar1Label);
+        await this.getReportCategory(this.state.bar2Label);
+        await this.getReportSolve(this.state.pie1YearLabel, this.state.pie1MonthLabel);
+        await this.getReportSpam(this.state.pie2YearLabel, this.state.pie2MonthLabel);
+        await this.getReportDetail();
+        await this.checkData();
+    }
 
     async componentDidMount() {
         await this.getData();
     }
 
     render() {
-        const { loading, reportDetails, data, dataCategory, dataPieOne, dataPieSecond, dataReportMonth, dataReportCategoryYear, dataReportSolve, dataReportSpam, dataReportDetail } = this.state;
+        const { loading, dataReportMonth, dataReportCategoryYear, dataReportSolve, dataReportSpam, dataReportDetail } = this.state;
 
         if (loading) {
             return <Loading /> // Render a loading message or spinner
