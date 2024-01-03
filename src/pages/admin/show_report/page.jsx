@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import {ReportRepository} from "./repository.js";
 import {useDispatch, useSelector} from "react-redux";
 import {setLoading, setListReport, setLoadingIndex, removeReport, setSummaryIndex, setLoadingSummaried} from "./slice.js";
-import {useSearchParams} from 'react-router-dom';
+import { useSearchParams} from 'react-router-dom';
 
 export const AdminShowReportView = () => {
     const {loading, listReports} = useSelector((state) => state.admin_report);
@@ -25,7 +25,7 @@ export const AdminShowReportView = () => {
     }
 
     async function getReports(params) {
-        dispatch(setLoading(true));
+        console.log("getReports")
         const result = await repository.getReport(params);
         if (result != null) {
             dispatch(setListReport(result))
@@ -35,10 +35,8 @@ export const AdminShowReportView = () => {
     }
 
     async function getSummary(index) {
-        console.log(listReports[index].id)
         dispatch(setLoadingSummaried({isSummaried: true, index}));
         const result = await repository.onGetSummary(listReports[index].id);
-        console.log(result)
         if (result) {
             dispatch(setSummaryIndex({data: result, index}));
             dispatch(setLoadingSummaried({isSummaried: false, index}));
@@ -47,7 +45,6 @@ export const AdminShowReportView = () => {
     }
 
     const [params] = useSearchParams()
-
     useEffect(() => {
         const paramsObject = Object.fromEntries([...params])
         const queryString = Object.keys(paramsObject).map(key => {
@@ -66,9 +63,9 @@ export const AdminShowReportView = () => {
             <div className="p-3 container mx-auto max-h-screen h-full">
                 {
                     listReports.length === 0 ?
-                        <div className="container mx-auto h-full flex justify-center items-center"> No Record</div> :
+                        <div className="container mx-auto h-full flex justify-center items-center"> No Record </div> :
                         <div className="flex flex-row justify-center items-center">
-                            <div className="max-w-2xl max-auto">
+                            <div className="max-w-2xl max-auto w-full">
                                 {listReports.map((item, index) => (
                                     <div key={item.id} className="w-full mb-6">
                                         <AdminPostCard

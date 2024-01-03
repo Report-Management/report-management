@@ -70,8 +70,8 @@ export const AdminFilter = () => {
                     </div>
                     <select id="category" value={category} onChange={handleCategoryChange} className="select select-bordered">
                         <option value="all">All</option>
-                        <option value="FacilityAndEnv">FacultyAndEnv</option>
-                        <option value="AdministrativeAndStuff">AdministrativeAndStuff</option>
+                        <option value="FacilityAndEnv">FacilityAndEnv</option>
+                        <option value="AdminstrativeAndStuffs">AdminstrativeAndStuffs</option>
                         <option value="HealthAndSafety">HealthAndSafety</option>
                         <option value="BehavioralIssues">BehavioralIssues</option>
                         <option value="Academic">Academic</option>
@@ -118,7 +118,7 @@ export const AdminFilter = () => {
                         <select id="category" value={category} onChange={handleCategoryChange} className="select select-bordered">
                             <option value="all">All</option>
                             <option value="FacilityAndEnv">FacultyAndEnv</option>
-                            <option value="AdministrativeAndStuff">AdministrativeAndStuff</option>
+                            <option value="AdminstrativeAndStuffs">AdminstrativeAndStuffs</option>
                             <option value="HealthAndSafety">HealthAndSafety</option>
                             <option value="BehavioralIssues">BehavioralIssues</option>
                             <option value="Academic">Academic</option>

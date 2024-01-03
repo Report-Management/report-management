@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react';
-import {Button, Modal, Sidebar} from 'flowbite-react';
+import {Modal, Sidebar} from 'flowbite-react';
 import {BiLogOut} from 'react-icons/bi';
 import logo from '../../assets/seo-report.png';
 import {useLocation, useNavigate} from "react-router-dom";
@@ -133,12 +133,12 @@ export const AdminSideBar = () => {
                             Are you sure you want to logout ?
                         </h3>
                         <div className="flex justify-center gap-4">
-                            <Button color="failure" onClick={onLogout}>
+                            <button className="btn btn-error text-white" onClick={onLogout}>
                                 {"Yes, I'm sure"}
-                            </Button>
-                            <Button color="gray" onClick={() => setOpenModal(false)}>
+                            </button>
+                            <button className="btn bg-gray-500 text-white" onClick={() => setOpenModal(false)}>
                                 No, cancel
-                            </Button>
+                            </button>
                         </div>
                     </div>
                 </Modal.Body>

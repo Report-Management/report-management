@@ -1,44 +1,62 @@
-import {Outlet, useLocation} from "react-router-dom";
+import {Outlet, useLocation, useNavigate} from "react-router-dom";
 import {AdminSideBar, Loading} from "../../components/index.jsx";
 import {AdminNavigationBar} from "../../components/index.jsx";
 import {AdminFilter} from "../../components/index.jsx";
 import {AdminRepository} from "./repository.js";
 import {useEffect, useState} from "react";
+import {supabaseSession} from "../../core/index.js";
+import {PagesRoute} from "../../routes.jsx";
+import {AuthRepository} from "../auth/auth_repository.js";
 
 export const AdminView = () => {
     const location = useLocation();
     const isAdminPath = location.pathname === '/admin';
-    const [username, setUsername] = useState();
-    const [profile, setProfile] = useState();
-    const [email, setEmail] = useState();
+    const [username, setUsername] = useState(null);
+    const [profile, setProfile] = useState(null);
+    const [email, setEmail] = useState(null);
     const [isLoading, setLoading] = useState(false)
+    const authRepo = new AuthRepository();
+    const navigate = useNavigate();
 
     async function getInfo() {
-        setLoading(true)
         const adminRepository = new AdminRepository();
         const result = await adminRepository.getInfo();
         if (result !== null) {
             setEmail(result.email)
             setUsername(result.username)
             setProfile(result.profilePhoto)
-            setLoading(false)
         }
         setLoading(false)
     }
 
     useEffect(() => {
+        setLoading(true)
+        supabaseSession.auth.getSession().then(async ({data: {session}}) => {
+            if (!session) {
+                navigate(PagesRoute.root, { replace: true });
+                return null
+            } else {
+                let role = await authRepo.getUserRole(session.user.id);
+                if (role.role === "User") {
+                    navigate(PagesRoute.user, { replace: true });
+                    return null
+                }
+            }
+        })
         getInfo()
     }, []);
 
     if (isLoading) {
-        return <div className="h-screen">
-            <Loading />
-        </div>
+        return (
+            <div className="h-screen overflow-y-hidden">
+                <Loading/>
+            </div>
+        )
     }
 
     return (
         <div>
-            <div className="flex h-screen">
+        <div className="flex h-screen">
                 <div className="hidden md:block">
                     <AdminSideBar/>
                 </div>

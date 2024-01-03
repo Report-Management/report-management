@@ -1,6 +1,7 @@
 export class PagesRoute {
     static root = "/";
     static forget = "forget";
+    static reset = "/reset";
 
     // User Route
     static user = "/user";
@@ -16,9 +17,7 @@ export class PagesRoute {
     static create_user = "create_user";
     static done_report = "done_report";
     static spam_report = "spam_report";
-    static approved = "approved"
-
-
+    static approved = "approved";
 
 }
 

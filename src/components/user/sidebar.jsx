@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Sidebar} from 'flowbite-react';
 import { TbReportAnalytics } from 'react-icons/tb';
 import { AiOutlineFileDone } from 'react-icons/ai';
-import { Button, Modal } from 'flowbite-react';
+import { Modal } from 'flowbite-react';
 import { BiMessageSquareAdd} from 'react-icons/bi';
 import logo from '../../assets/seo-report.png';
 import { useLocation, useNavigate} from "react-router-dom";
@@ -23,9 +23,6 @@ export const UserSideBar = () => {
         };
 
         window.addEventListener('resize', handleResize);
-
-        console.log(location.pathname)
-
         return () => {
             window.removeEventListener('resize', handleResize);
         };
@@ -67,7 +64,7 @@ export const UserSideBar = () => {
                             active={PagesRoute.user.concat('/', PagesRoute.create) === location.pathname}
                             className={`font-medium cursor-pointer ${PagesRoute.user.concat('/', PagesRoute.create) === location.pathname ? 'text-purple-600' : ''}`}
                             onClick={() => {
-                                navigate(PagesRoute.create, { replace: true })
+                                navigate(PagesRoute.create, {replace: true})
                             }}
                         >
                             Create
@@ -77,9 +74,9 @@ export const UserSideBar = () => {
                                 TbReportAnalytics
                             }
                             active={PagesRoute.user === location.pathname}
-                            className={`font-medium cursor-pointer ${PagesRoute.home === location.pathname ? 'text-purple-600' : ''}`}
+                            className={`font-medium cursor-pointer ${PagesRoute.user === location.pathname ? 'text-purple-600' : ''}`}
                             onClick={() => {
-                                navigate(PagesRoute.user, { replace: true })
+                                navigate(PagesRoute.user, {replace: true})
                             }}
                         >
                             Reports
@@ -89,17 +86,17 @@ export const UserSideBar = () => {
                             active={PagesRoute.user.concat('/', PagesRoute.done) === location.pathname}
                             className={`font-medium cursor-pointer ${PagesRoute.user.concat('/', PagesRoute.done) === location.pathname ? 'text-purple-600' : ''}`}
                             onClick={() => {
-                                navigate(PagesRoute.done, { replace: true })
+                                navigate(PagesRoute.done, {replace: true})
                             }}
                         >
-                            Done
+                            Completed
                         </Sidebar.Item>
                         <Sidebar.Item
                             icon={FaBoxOpen}
                             active={PagesRoute.user.concat('/', PagesRoute.myreport) === location.pathname}
                             className={`font-medium cursor-pointer ${PagesRoute.user.concat('/', PagesRoute.myreport) === location.pathname ? 'text-purple-600' : ''}`}
                             onClick={() => {
-                                navigate(PagesRoute.myreport, { replace: true })
+                                navigate(PagesRoute.myreport, {replace: true})
                             }}
                         >
                             MyReport
@@ -122,12 +119,12 @@ export const UserSideBar = () => {
                             Are you sure you want to logout ?
                         </h3>
                         <div className="flex justify-center gap-4">
-                            <Button color="failure" onClick={onLogout}>
+                            <button className="btn btn-error text-white" onClick={onLogout}>
                                 {"Yes, I'm sure"}
-                            </Button>
-                            <Button color="gray" onClick={() => setOpenModal(false)}>
+                            </button>
+                            <button className="btn bg-gray-500 text-white" onClick={() => setOpenModal(false)}>
                                 No, cancel
-                            </Button>
+                            </button>
                         </div>
                     </div>
                 </Modal.Body>

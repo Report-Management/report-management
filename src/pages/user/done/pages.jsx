@@ -34,7 +34,7 @@ export const DoneView = () => {
         <>
             <div className="container space-y-2 max-h-screen flex flex-col p-3 items-center min-w-lg">
                 {listReport.map((data, index) => (
-                    <div key={index} className="w-full max-w-[60%] min-w-lg">
+                    <div key={index} className="w-full md:max-w-[60%] min-w-lg">
                         <div>
                             <DonePostCard
                                 key={index}

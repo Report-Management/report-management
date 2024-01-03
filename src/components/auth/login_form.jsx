@@ -3,7 +3,6 @@ import {motion} from "framer-motion";
 import {useDispatch, useSelector} from "react-redux";
 import {setEmail, setLoading, setPassword} from "../../pages/auth/auth_slice.js";
 import {AuthRepository} from "../../pages/auth/auth_repository.js";
-import { useState } from "react";
 import {PagesRoute} from "../../routes.jsx";
 import {Link} from "react-router-dom";
 

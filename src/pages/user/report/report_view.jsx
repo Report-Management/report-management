@@ -16,6 +16,7 @@ export const ReportView = () => {
     }, []);
 
     async function fetchReport() {
+        console.log("getReports")
         setLoading(true);
         const result = await reportRepository.getApprovedReport()
         if (result !== null) {
@@ -84,7 +85,7 @@ export const ReportView = () => {
             </div>
             <div className="container space-y-2 max-h-screen flex flex-col p-3 items-center min-w-lg">
                 {listReport.map((data, index) => (
-                    <div key={index} className="w-full max-w-[60%] min-w-lg">
+                    <div key={index} className="w-full md:max-w-[60%] min-w-lg">
                         <div>
                             <PostCard
                                 key={index}

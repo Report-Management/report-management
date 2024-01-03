@@ -99,7 +99,7 @@ export const AdminApprovedReport = (props) => {
                                 {
                                     props.isLoading ? <span className="loading loading-spinner text-primary"></span> :
                                         <div className="flex flex-row justify-end items-center space-x-2 ">
-                                            <ApprovedButton key={props.id} approval={props.approval} onApproved={props.onApproved}/>
+                                            <ApprovedButton key={modalId} approval={props.approval} onApproved={props.onApproved}/>
                                             <CompletedButton key={props.id} completed={props.completed} onCompleted={props.onCompleted}/>
                                         </div>
                                 }

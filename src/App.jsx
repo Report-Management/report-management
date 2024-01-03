@@ -16,6 +16,8 @@ import {AdminSpamView} from "./pages/admin/spam/index.jsx";
 import {AdminApprovedView} from "./pages/admin/approved/index.jsx";
 import {MyReportView} from "./pages/user/myreport/page.jsx";
 import {NotFoundPage} from "./pages/notfound/index.jsx";
+import {ResetView} from "./pages/reset/page.jsx";
+import ProtectedRoute from "./protection/protection.jsx";
 
 function App() {
     const [loading, setLoading] = useState(true);
@@ -26,15 +28,13 @@ function App() {
     const navigate = useNavigate()
     const authRepo = new AuthRepository();
     useEffect(() => {
-
         supabaseSession.auth.getSession().then(async ({data: {session}}) => {
+            console.log("App");
             setSession(session)
             if (session) {
                 let role = await authRepo.getUserRole(session.user.id);
                 if (role.role === "Admin") navigate(PagesRoute.admin, {replace: true});
                 else navigate(PagesRoute.user, {replace: true});
-            } else {
-                navigate('/', {replace: true});
             }
         })
 
@@ -44,8 +44,6 @@ function App() {
                 let role = await authRepo.getUserRole(session.user.id);
                 if (role.role === "Admin") navigate(PagesRoute.admin, {replace: true});
                 else navigate(PagesRoute.user, {replace: true});
-            } else {
-                navigate('/', {replace: true});
             }
         })
 
@@ -53,7 +51,6 @@ function App() {
     }, [])
 
     if (loading) {
-
         return <div className="container mx-auto max-h-screen h-screen overflow-hidden">
             <Loading/>;
         </div>
@@ -64,25 +61,30 @@ function App() {
                 autoClose={2000}
             />
             <Routes>
+                <Route path={PagesRoute.reset} element={<ResetView/>}/>
                 <Route exact path={PagesRoute.root} element={<AuthView/>}>
-                    <Route path={PagesRoute.root} element={<LoginForm/>}/>
+                    <Route index element={<LoginForm/>}/>
                     <Route path={PagesRoute.forget} element={<ForgetForm/>}/>
+                    <Route path="*" element={<NotFoundPage/>}/>
                 </Route>
-                <Route path={PagesRoute.user} element={<UserView/>}>
-                    <Route path={PagesRoute.user} element={<ReportView />}/>
-                    <Route path={PagesRoute.done} element={<DoneView/>}/>
-                    <Route path={PagesRoute.create} element={<CreateReportView/>}/>
-                    <Route path={PagesRoute.myreport} element={<MyReportView />} />
+                <Route element={<ProtectedRoute/>}>
+                    <Route path={PagesRoute.admin} element={<AdminView/>}>
+                        <Route index element={<AdminShowReportView/>}/>
+                        <Route path={PagesRoute.approved} element={<AdminApprovedView/>}/>
+                        <Route path={PagesRoute.done_report} element={<AdminDoneView/>}/>
+                        <Route path={PagesRoute.create_user} element={<AdminCreateUserView/>}/>
+                        <Route path={PagesRoute.dashboard} element={<AdminDashboardView/>}/>
+                        <Route path={PagesRoute.spam_report} element={<AdminSpamView/>}/>
+                        <Route path="*" element={<NotFoundPage/>}/>
+                    </Route>
+                    <Route path={PagesRoute.user} element={<UserView/>}>
+                        <Route index element={<ReportView/>}/>
+                        <Route path={PagesRoute.done} element={<DoneView/>}/>
+                        <Route path={PagesRoute.create} element={<CreateReportView/>}/>
+                        <Route path={PagesRoute.myreport} element={<MyReportView/>}/>
+                    </Route>
                 </Route>
-                <Route path={PagesRoute.admin} element={<AdminView/>}>
-                    <Route exact path={PagesRoute.admin + "/:type?"} element={<AdminShowReportView />} />
-                    <Route path={PagesRoute.approved} element={<AdminApprovedView />} />
-                    <Route path={PagesRoute.done_report} element={<AdminDoneView />} />
-                    <Route path={PagesRoute.create_user} element={<AdminCreateUserView />}/>
-                    <Route path={PagesRoute.dashboard} element={<AdminDashboardView />}/>
-                    <Route path={PagesRoute.spam_report} element={<AdminSpamView />} />
-                </Route>
-                <Route path="*" element={<NotFoundPage />}/>
+                <Route path={PagesRoute.reset} element={<ResetView/>}/>
             </Routes>
         </main>
     );

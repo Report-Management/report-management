@@ -35,7 +35,7 @@ export const AdminSpamReport = (props) => {
                                 </div>
                                 <div className="text-white rounded-lg text-sm md:text-md font-semibold flex">
                                     {
-                                        props.isLoading ? <span className="loading loading-spinner text-primary"></span> : <SmallSpamButton spam={props.span} onHam={props.onHam}/>
+                                        props.isLoading ? <span className="loading loading-spinner text-primary"></span> : <SmallSpamButton key={props.id} spam={props.span} onHam={props.onHam}/>
                                     }
                                 </div>
                             </div>
@@ -91,7 +91,7 @@ export const AdminSpamReport = (props) => {
                         {/* Status */}
                         <div className="text-white rounded-lg text-sm md:text-md font-semibold flex">
                             {
-                                props.isLoading ? <span className="loading loading-spinner text-primary"></span> : <SmallSpamButton spam={props.span} onHam={props.onHam}/>
+                                props.isLoading ? <span className="loading loading-spinner text-primary"></span> : <SmallSpamButton key={modalId} spam={props.span} onHam={props.onHam}/>
                             }
                         </div>
                     </div>

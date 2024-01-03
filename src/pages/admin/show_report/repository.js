@@ -49,8 +49,6 @@ export class ReportRepository extends BaseRepository {
 
     async onGetSummary(id) {
         const response = await this.get(`/getSummary/${id}`)
-        console.log("Show summary")
-        console.log(response)
         return await this.checkError(response);
     }
 

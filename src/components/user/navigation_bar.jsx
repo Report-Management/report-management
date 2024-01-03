@@ -1,14 +1,15 @@
-import {Avatar, Button, Dropdown, Modal, Navbar} from 'flowbite-react';
+import {Avatar, Dropdown, Modal, Navbar} from 'flowbite-react';
 import logo from '../../assets/seo-report.png';
 import {useNavigate} from "react-router-dom";
 import {PagesRoute} from "../../routes.jsx";
 import PropTypes from "prop-types";
 import {supabaseSession} from "../../core/index.js";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {HiOutlineExclamationCircle} from "react-icons/hi";
 
 export const NavigationBar = (props) => {
     const navigator = useNavigate();
+
     const onLogout = async () => {
         const {error} = await supabaseSession.auth.signOut();
         navigator(PagesRoute.root, {replace: true});
@@ -18,16 +19,6 @@ export const NavigationBar = (props) => {
     }
 
     const [openModal, setOpenModal] = useState(false);
-    const [selectedDropdownOption, setSelectedDropdownOption] = useState(null);
-    const handleDropdownSelect = (option) => {
-        setSelectedDropdownOption(option);
-        console.log(selectedDropdownOption)
-    };
-
-    useEffect(() => {
-        console.log(selectedDropdownOption)
-    }, [selectedDropdownOption]);
-
     return (
         <nav className="h-1/2 w-full">
             <Navbar className="w-full px-8 bg-gray-50 dark:bg-gray-800">
@@ -43,7 +34,7 @@ export const NavigationBar = (props) => {
                 </div>
                 <div className="md:flex md:flex-row justify-between items-center md:w-full">
                     <div className="hidden md:block">
-                        <span className="text-lg font-semibold">LIM Phanith</span>
+                        <span className="text-lg font-semibold"> {props.username }</span>
                     </div>
                     <div className="hidden md:block">
                         <Avatar
@@ -93,12 +84,12 @@ export const NavigationBar = (props) => {
                             Are you sure you want to logout ?
                         </h3>
                         <div className="flex justify-center gap-4">
-                            <Button color="failure" onClick={onLogout}>
+                            <button className="btn btn-error text-white" onClick={onLogout}>
                                 {"Yes, I'm sure"}
-                            </Button>
-                            <Button color="gray" onClick={() => setOpenModal(false)}>
+                            </button>
+                            <button className="btn bg-gray-500 text-white" onClick={() => setOpenModal(false)}>
                                 No, cancel
-                            </Button>
+                            </button>
                         </div>
                     </div>
                 </Modal.Body>
@@ -116,5 +107,5 @@ NavigationBar.propTypes = {
 NavigationBar.defaultProps = {
     username: 'Bonnie Green',
     email: 'name@rupp.edu.kh',
-    img: "https://cdn-icons-png.flaticon.com/512/13530/13530580.png"
+    img: "https://cdn-icons-png.flaticon.com/512/3177/3177440.png"
 }

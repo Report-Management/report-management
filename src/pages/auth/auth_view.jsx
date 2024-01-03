@@ -1,10 +1,8 @@
 import {Outlet} from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.min.css';
-import React from "react";
 import backgroundImage from '../../assets/rupp.jpg';
 
 export const AuthView = () => {
-
     return (
         <div
             className="bg-no-repeat bg-cover bg-center relative"
