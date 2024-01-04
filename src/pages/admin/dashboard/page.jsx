@@ -40,7 +40,7 @@ export class AdminDashboardView extends Component {
 
     getReportSolve = async (year, month) => {
         const dashboardRepository = new DashboardRepository();
-        const result = await dashboardRepository.getReportSolve(year, month);
+        const result = await dashboardRepository.getReportSolve(year, this.convert_months(month));
         if (result !== null) {
             this.setState({ dataReportSolve: result });
         }
@@ -48,7 +48,7 @@ export class AdminDashboardView extends Component {
 
     getReportSpam = async (year, month) => {
         const dashboardRepository = new DashboardRepository();
-        const result = await dashboardRepository.getReportSpam(year, month);
+        const result = await dashboardRepository.getReportSpam(year, this.convert_months(month));
         if (result !== null) {
             this.setState({ dataReportSpam: result });
         }
@@ -66,14 +66,11 @@ export class AdminDashboardView extends Component {
         const dashboardRepository = new DashboardRepository();
         const result = await dashboardRepository.getDate();
         if (result !== null) {
-            // console.log(result.thisYear);
-            // console.log(result.thisMonth);
-            // console.log(result.allYear);
             this.setState({
                 thisYear: result.thisYear,
                 thisMonth: result.thisMonth,
                 allYear: result.allYear,
-                allMonth: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+                allMonth: ["All", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
                 bar1: result.allYear,
                 bar1Label: result.thisYear,
                 bar2: result.allYear,
@@ -81,11 +78,11 @@ export class AdminDashboardView extends Component {
                 pie1Year: result.allYear,
                 pie1YearLabel: 0,
                 pie1Month: result.thisMonth,
-                pie1MonthLabel: 0,
+                pie1MonthLabel: "All",
                 pie2Year: result.allYear,
                 pie2YearLabel: 0,
                 pie2Month: result.thisMonth,
-                pie2MonthLabel: 0,
+                pie2MonthLabel: "All",
             });
         }
     }
@@ -102,11 +99,11 @@ export class AdminDashboardView extends Component {
 
     handlepie1Year = async (item) => {
         if (item === 0 && this.state.pie1MonthLabel !== 0) {
-            this.setState({ pie1MonthLabel: 0 });
+            this.setState({ pie1MonthLabel: "All" });
         }
         if (item === this.state.thisYear) {
             this.setState({ pie1Month: this.state.thisMonth });
-            this.setState({ pie1MonthLabel: 0 });
+            this.setState({ pie1MonthLabel: "All" });
         } else {
             this.setState({ pie1Month: this.state.allMonth })
         }
@@ -121,11 +118,11 @@ export class AdminDashboardView extends Component {
 
     handlepie2Year = async (item) => {
         if (item === 0 && this.state.pie2MonthLabel !== 0) {
-            this.setState({ pie2MonthLabel: 0 });
+            this.setState({ pie2MonthLabel: "All" });
         }
         if (item === this.state.thisYear) {
             this.setState({ pie2Month: this.state.thisMonth });
-            this.setState({ pie2MonthLabel: 0 });
+            this.setState({ pie2MonthLabel: "All" });
         } else {
             this.setState({ pie2Month: this.state.allMonth })
         }
@@ -148,6 +145,11 @@ export class AdminDashboardView extends Component {
         } else {
             this.setState({ loading: false });
         }
+    }
+
+    convert_months(month){
+        const months = {"All":0, "Jan":1, "Feb":2, "Mar":3, "Apr":4, "May":5, "Jun":6,"Jul":7, "Aug":8, "Sep":9, "Oct":10, "Nov":11, "Dec":12}
+        return months[month]
     }
 
     getData = async () => {
@@ -222,9 +224,9 @@ export class AdminDashboardView extends Component {
                                                         <Dropdown.Item key={index} onClick={() => this.handlepie1Year(item)}>{item === 0 ? "All" : item}</Dropdown.Item>
                                                     ))}
                                                 </Dropdown>
-                                                <Dropdown label={this.state.pie1MonthLabel === 0 ? "All" : this.state.pie1MonthLabel} dismissOnClick={false} color="light">
+                                                <Dropdown label={this.state.pie1MonthLabel} dismissOnClick={false} color="light">
                                                     {this.state.pie1Month.map((item, index) => (
-                                                        <Dropdown.Item key={index} onClick={() => this.handlepie1Month(item)}>{item === 0 ? "All" : item}</Dropdown.Item>
+                                                        <Dropdown.Item key={index} onClick={() => this.handlepie1Month(item)}>{item}</Dropdown.Item>
                                                     ))}
                                                 </Dropdown>
                                                 <PieChart
@@ -241,9 +243,9 @@ export class AdminDashboardView extends Component {
                                                         <Dropdown.Item key={index} onClick={() => this.handlepie2Year(item)}>{item === 0 ? "All" : item}</Dropdown.Item>
                                                     ))}
                                                 </Dropdown>
-                                                <Dropdown label={this.state.pie2MonthLabel === 0 ? "All" : this.state.pie2MonthLabel} dismissOnClick={false} color="light">
+                                                <Dropdown label={this.state.pie2MonthLabel} dismissOnClick={false} color="light">
                                                     {this.state.pie2Month.map((item, index) => (
-                                                        <Dropdown.Item key={index} onClick={() => this.handlepie2Month(item)}>{item === 0 ? "All" : item}</Dropdown.Item>
+                                                        <Dropdown.Item key={index} onClick={() => this.handlepie2Month(item)}>{item}</Dropdown.Item>
                                                     ))}
                                                 </Dropdown>
                                                 <PieChart
