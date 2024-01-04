@@ -83,82 +83,84 @@ export const CreateReportView = () => {
     const [openModal, setOpenModal] = useState(false);
     return (
         <div className="w-full p-3 space-y-2">
-            <form onSubmit={onPublic} autoComplete="off">
-                <div className="flex flex-row justify-between items-center">
-                    <div className="text-2xl font-bold pb-2 uppercase font-sans">Create Report</div>
-                    {
-                        loading ? <ThreeDots height="10" width="26" radius="6" color="#713ABE" ariaLabel="three-dots-loading" wrapperStyle={{}} wrapperClass="" visible={true}/> : <button className="rounded-2xl w-32 font-rubik font-bold uppercase btn bg-purple-600 hover:bg-purple-600 text-white" type="submit"> Public </button>
-                    }
-                </div>
-                <div className="space-y-1">
-                    <label className="label" htmlFor="topic"> Topic </label>
-                    <input
-                        id="topic"
-                        type="text"
-                        className="input w-full bg-gray-100 dark:bg-gray-700"
-                        placeholder="topic"
-                        value={header}
-                        onChange={(e) => dispatch(setHeader(e.target.value))}
-                        required
-                    />
-                </div>
-                <label className="form-control space-y-1">
-                    <label className="label" htmlFor="info"> Description </label>
-                    <textarea
-                        id="info"
-                        className="textarea textarea-bordered resize-none h-52 bg-gray-100 dark:bg-gray-700"
-                        required
-                        rows={4}
-                        value={description}
-                        onChange={(e) => dispatch(setDescription(e.target.value))}
-                        placeholder="description..."
-                    >
+            <div className="pt-5 pb-5 px-24 rounded-xl">
+                <form onSubmit={onPublic} autoComplete="off">
+                    <div className="flex flex-row justify-between items-center">
+                        <div className="text-2xl font-bold pb-2 uppercase font-rubik text-purple-600">Create Report</div>
+                        {
+                            loading ? <ThreeDots height="10" width="26" radius="6" color="#713ABE" ariaLabel="three-dots-loading" wrapperStyle={{}} wrapperClass="" visible={true}/> : <button className="w-32 font-rubik font-bold uppercase btn bg-purple-600 hover:bg-purple-600 text-white" type="submit"> Public </button>
+                        }
+                    </div>
+                    <div className="space-y-1">
+                        <label className="label font-rubik uppercase font-semibold" htmlFor="topic"> Topic </label>
+                        <input
+                            id="topic"
+                            type="text"
+                            className="input w-full bg-gray-100 dark:bg-gray-700"
+                            placeholder="Topic"
+                            value={header}
+                            onChange={(e) => dispatch(setHeader(e.target.value))}
+                            required
+                        />
+                    </div>
+                    <label className="form-control space-y-1">
+                        <label className="label font-rubik uppercase font-semibold" htmlFor="info"> Description </label>
+                        <textarea
+                            id="info"
+                            className="textarea textarea-bordered resize-none h-52 bg-gray-100 dark:bg-gray-700"
+                            required
+                            rows={4}
+                            value={description}
+                            onChange={(e) => dispatch(setDescription(e.target.value))}
+                            placeholder="description..."
+                        >
                     </textarea>
-                </label>
-                <div className="max-w-full pt-2">
-                    <div className="mb-2 block">
-                        <label htmlFor="category">Category</label>
+                    </label>
+                    <div className="max-w-full pt-2">
+                        <div className="mb-2 block">
+                            <label htmlFor="category" className="label font-rubik uppercase font-semibold">Category</label>
+                        </div>
+                        <select id="category" className="select w-full bg-gray-100 dark:bg-gray-700"  required value={category} onChange={(e) => dispatch(setCategory(e.target.value))}>
+                            <option value="FacilityAndEnv">FacilityAndEnv</option>
+                            <option value="AdministrativeAndStuff">AdministrativeAndStuff</option>
+                            <option value="HealthAndSafety">HealthAndSafety</option>
+                            <option value="BehavioralIssues">BehavioralIssues</option>
+                            <option value="Academic">Academic</option>
+                            <option value="Community">Community</option>
+                            <option value="SpecialRequest">SpecialRequest</option>
+                            <option value="Other">Other</option>
+                        </select>
                     </div>
-                    <select id="category" className="select w-full bg-gray-100 dark:bg-gray-700"  required value={category} onChange={(e) => dispatch(setCategory(e.target.value))}>
-                        <option value="FacilityAndEnv">FacilityAndEnv</option>
-                        <option value="AdministrativeAndStuff">AdministrativeAndStuff</option>
-                        <option value="HealthAndSafety">HealthAndSafety</option>
-                        <option value="BehavioralIssues">BehavioralIssues</option>
-                        <option value="Academic">Academic</option>
-                        <option value="Community">Community</option>
-                        <option value="SpecialRequest">SpecialRequest</option>
-                        <option value="Other">Other</option>
-                    </select>
-                </div>
-                <div className="max-w-full pt-2">
-                    <div className="mb-2 block">
-                        <label htmlFor="priority"> Priority </label>
+                    <div className="max-w-full pt-2">
+                        <div className="mb-2 block">
+                            <label htmlFor="priority" className="label font-rubik uppercase font-semibold"> Priority </label>
+                        </div>
+                        <select id="priority" className="select w-full bg-gray-100 dark:bg-gray-700" required value={priority} onChange={(e) => dispatch(setPriority(e.target.value))}>
+                            <option value="High">High</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Low">Low</option>
+                        </select>
                     </div>
-                    <select id="priority" className="select w-full bg-gray-100 dark:bg-gray-700" required value={priority} onChange={(e) => dispatch(setPriority(e.target.value))}>
-                        <option value="High">High</option>
-                        <option value="Medium">Medium</option>
-                        <option value="Low">Low</option>
-                    </select>
-                </div>
-                <div className="max-w-full pt-2">
-                    <div className="mb-2 block">
-                        <label htmlFor="view"> View </label>
+                    <div className="max-w-full pt-2">
+                        <div className="mb-2 block">
+                            <label htmlFor="view" className="label font-rubik uppercase font-semibold"> View </label>
+                        </div>
+                        <select id="view" className="select w-full bg-gray-100 dark:bg-gray-700" required value={view} onChange={(e) => dispatch(setView(e.target.value))}>
+                            <option value="Public">Public</option>
+                            <option value="Anonymous">Anonymous</option>
+                        </select>
                     </div>
-                    <select id="view" className="select w-full bg-gray-100 dark:bg-gray-700" required value={view} onChange={(e) => dispatch(setView(e.target.value))}>
-                        <option value="Public">Public</option>
-                        <option value="Anonymous">Anonymous</option>
-                    </select>
-                </div>
-                <div className="pt-2 space-y-1">
-                    <div>
-                        <Label htmlFor="large-file-upload" value="Upload file"/>
+                    <div className="pt-2 space-y-1">
+                        <div>
+                            <Label htmlFor="large-file-upload" className="label font-rubik uppercase font-semibold" value="Upload file"/>
+                        </div>
+                        <div className="flex flex-row space-x-3">
+                            <input id="large-file-upload" type="file" className="file-input w-full bg-gray-100 dark:bg-gray-700" onChange={handleChange}/>
+                            {file ? (<button id="view" type="button" className="bg-black btn text-white" onClick={() => setOpenModal(true)}> View </button>) : null}
+                        </div>
                     </div>
-                    <div className="flex flex-row space-x-3">
-                        <input id="large-file-upload" type="file" className="file-input w-full bg-gray-100 dark:bg-gray-700" onChange={handleChange}/>
-                        {file ? (<button id="view" type="button" className="bg-black btn text-white" onClick={() => setOpenModal(true)}> View </button>) : null}
-                    </div>
-                </div>
-            </form>
+                </form>
+            </div>
             <Modal show={openModal} dismissible onClose={() => setOpenModal(false)} position="center">
                 <Modal.Header className="px-6">Preview</Modal.Header>
                 <Modal.Body>

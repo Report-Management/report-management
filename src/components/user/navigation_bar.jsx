@@ -28,7 +28,7 @@ export const NavigationBar = (props) => {
                             <div className="h-10 sm:h-9">
                                 <img src={logo} className="mr-3 h-10 sm:h-9 mb-3.5" alt="Report"/>
                             </div>
-                            <span className="font-bold font-mono text-xl">REPORTS</span>
+                            <span className="font-bold text-xl font-rubik">REPORTS</span>
                         </div>
                     </Navbar.Brand>
                 </div>
@@ -61,7 +61,7 @@ export const NavigationBar = (props) => {
                                 />
                             }>
                             <Dropdown.Header>
-                                <span className="block text-sm">{ props.username ?? 'Bonnie Green' }</span>
+                                <span className="block text-sm font-rubik">{ props.username ?? 'Bonnie Green' }</span>
                                 <span className="block truncate text-sm font-medium">{ props.email ?? 'name@rupp.edu.kh' }</span>
                             </Dropdown.Header>
                             <Dropdown.Divider/>
@@ -107,5 +107,4 @@ NavigationBar.propTypes = {
 NavigationBar.defaultProps = {
     username: 'Bonnie Green',
     email: 'name@rupp.edu.kh',
-    img: "https://cdn-icons-png.flaticon.com/512/3177/3177440.png"
 }

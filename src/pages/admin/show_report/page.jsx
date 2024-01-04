@@ -24,8 +24,21 @@ export const AdminShowReportView = () => {
         }, 2000);
     }
 
+    async function onMarkSpam(index) {
+        dispatch(setLoadingIndex({isLoading: true, index}))
+        const result = await repository.onMarkSpam(listReports[index].id)
+        if (result != null) {
+            setTimeout(() => {
+                dispatch(setLoadingIndex({isLoading: false, index}))
+                dispatch(removeReport(index))
+            }, 2000);
+        }
+        setTimeout(() => {
+            dispatch(setLoadingIndex({isLoading: false, index}))
+        }, 2000);
+    }
+
     async function getReports(params) {
-        console.log("getReports")
         const result = await repository.getReport(params);
         if (result != null) {
             dispatch(setListReport(result))
@@ -72,7 +85,10 @@ export const AdminShowReportView = () => {
                                             key={item.id}
                                             {...item}
                                             onSummary={() => getSummary(index)}
-                                            onApproved={() => onApproved(index)}/>
+                                            onApproved={() => onApproved(index)}
+                                            onSpam={() => onMarkSpam(index)}
+                                        />
+
                                     </div>
                                 ))}
                             </div>

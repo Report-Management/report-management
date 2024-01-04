@@ -37,6 +37,7 @@ export class BaseRepository {
 
     async get(url, config) {
         const response = await this.base.get(url, config).catch((error) => {
+            console.log(error)
             if (error.response && error.response.data && error.response.data.detail) {
                 toast.error(error.response.data.detail);
             } else {
@@ -65,6 +66,7 @@ export class BaseRepository {
 
     async put(url, data, config) {
         const response = await this.base.put(url, data, config).catch((error) => {
+            console.log(error)
             if (error.response && error.response.data && error.response.data.detail) {
                 toast.error(error.response.data.detail);
             } else {

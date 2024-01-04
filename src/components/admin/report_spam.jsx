@@ -19,11 +19,7 @@ export const AdminSpamReport = (props) => {
                         <div>
                             <div className="flex flex-row justify-between">
                                 <div className="flex justify-start items-center space-x-3">
-                                    {props.profile ?
-                                        <Avatar alt="User settings object-cover" img={props.profile} rounded/> : <Avatar
-                                            alt="User settings"
-                                            size="xs"
-                                            img="https://cdn-icons-png.flaticon.com/512/9131/9131478.png" rounded/>}
+                                    <Avatar alt="User settings object-cover" img={props.profile} rounded/>
                                     <div className="flex flex-col justify-center items-start">
                                         <div className="text-center font-medium text-sm md:text-md dark:text-white">
                                             {props.view === "Public" ? props.username ?? "Anonymous" : "Anonymous"}
@@ -81,7 +77,7 @@ export const AdminSpamReport = (props) => {
                                     img="https://cdn-icons-png.flaticon.com/512/9131/9131478.png" rounded/>}
                             <div className="flex flex-col justify-center items-start">
                                 <div className="text-center font-medium text-sm md:text-md dark:text-white">
-                                    {props.view === "Public" ? props.username ?? "Anonymous" : "Anonymous"}
+                                    { props.username}
                                 </div>
                                 <div className="text-center font-light text-xs dark:text-gray-400">
                                     {props.time}

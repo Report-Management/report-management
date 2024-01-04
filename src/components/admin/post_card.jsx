@@ -18,15 +18,10 @@ export const AdminPostCard = (props) => {
                         <div>
                             <div className="flex flex-row justify-between">
                                 <div className="flex justify-start items-center space-x-3 w-full" onClick={() => document.getElementById(modalId).showModal()}>
-                                    {props.profile ?
-                                        <Avatar alt="User settings object-cover" img={props.profile} rounded/> :
-                                        <Avatar
-                                            alt="User settings"
-                                            size="xs"
-                                            img="https://cdn-icons-png.flaticon.com/512/9131/9131478.png" rounded/>}
+                                    <Avatar alt="User settings object-cover" img={props.profile} rounded/>
                                     <div className="flex flex-col justify-center items-start">
                                         <div className="text-center font-medium text-sm md:text-md dark:text-white">
-                                            {props.view === "Public" ? props.username ?? "Anonymous" : "Anonymous"}
+                                            {props.username}
                                         </div>
                                         <div className="text-center font-light text-xs dark:text-gray-400">
                                             {props.time}
@@ -42,7 +37,6 @@ export const AdminPostCard = (props) => {
                                             <button className="btn btn-sm text-white bg-red-500"
                                                     onClick={props.onApproved}>Unapproved</button>
                                     }
-
                                 </div>
                             </div>
                         </div>
@@ -82,15 +76,10 @@ export const AdminPostCard = (props) => {
                     {/* Profile */}
                     <div className="flex flex-row justify-between">
                         <div className="flex justify-start items-center space-x-3">
-                            {props.profile ?
-                                <Avatar alt="User settings object-cover" img={props.profile} rounded/> :
-                                <Avatar
-                                    alt="User settings"
-                                    size="xs"
-                                    img="https://cdn-icons-png.flaticon.com/512/9131/9131478.png" rounded/>}
+                            <Avatar alt="User settings object-cover" img={props.profile} rounded/>
                             <div className="flex flex-col justify-center items-start">
                                 <div className="text-center font-medium text-sm md:text-md dark:text-white">
-                                    {props.view === "Public" ? props.username ?? "Anonymous" : "Anonymous"}
+                                    {props.username}
                                 </div>
                                 <div className="text-center font-light text-xs dark:text-gray-400">
                                     {props.time}
@@ -99,15 +88,32 @@ export const AdminPostCard = (props) => {
                         </div>
                         {/* Status */}
                         <div className="text-white rounded-lg text-sm md:text-md font-semibold flex">
-                            {
-                                props.isLoading ? <span
-                                    className="loading loading-spinner text-primary"></span> : props.approval === true ?
-                                    <button className="btn btn-md btn-success text-white"
-                                            onClick={props.onApproved}>Approved</button> :
-                                    <button className="btn btn-md text-white bg-red-500"
-                                            onClick={props.onApproved}>Unapproved</button>
-                            }
 
+                            {
+                                props.isLoading ? <span className="loading loading-spinner text-primary"></span> :
+                                        <div className="space-x-2">
+                                            {
+                                                props.spam !== true ?
+                                                    <div className="tooltip" data-tip="change to spam">
+                                                        <button
+                                                            className="btn btn-md btn-success text-white dark:text-black"
+                                                            onClick={props.onSpam}>Ham
+                                                        </button>
+                                                    </div> : <div className="tooltip" data-tip="change to ham">
+                                                        <button className="btn btn-md text-white bg-warning dark:text-black"
+                                                                onClick={props.onSpam}>Spam
+                                                        </button>
+                                                    </div>
+                                            }
+                                            {
+                                                props.approval === true ?
+                                                    <button className="btn btn-md btn-success text-white"
+                                                            onClick={props.onApproved}>Approved</button> :
+                                                    <button className="btn btn-md text-white bg-red-500"
+                                                            onClick={props.onApproved}>Unapproved</button>
+                                            }
+                                        </div>
+                            }
                         </div>
                     </div>
                     <div className="pt-3">
@@ -214,28 +220,23 @@ export const AdminPostCard = (props) => {
 
 AdminPostCard.propTypes = {
     id: PropTypes.string,
-    category:
-    PropTypes.string,
-    priority:
-    PropTypes.string,
-    header:
-    PropTypes.string,
-    information:
-    PropTypes.string,
-    approval:
-    PropTypes.bool,
-    view:
-    PropTypes.string,
-    file:
-    PropTypes.string,
+    category: PropTypes.string,
+    priority: PropTypes.string,
+    header: PropTypes.string,
+    information: PropTypes.string,
+    approval: PropTypes.bool,
+    view: PropTypes.string,
+    file: PropTypes.string,
     time: PropTypes.string,
     username: PropTypes.string,
+    spam: PropTypes.bool,
     profile: PropTypes.string,
     onApproved: PropTypes.func,
     isLoading: PropTypes.bool,
     onSummary: PropTypes.func,
     isSummaried: PropTypes.bool,
     summaryText: PropTypes.string,
+    onSpam: PropTypes.func,
 };
 
 AdminPostCard.defaultProps = {

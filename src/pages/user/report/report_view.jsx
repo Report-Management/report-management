@@ -1,7 +1,6 @@
 import {Loading, PostCard} from "../../../components/index.jsx";
 import {useEffect, useState} from "react";
 import {UserReportRepository} from "./repository.js";
-import {FileDisplay} from "../../../components/admin/filedisplay.jsx";
 import {FaSearch, FaTimes} from "react-icons/fa";
 
 export const ReportView = () => {
@@ -16,7 +15,6 @@ export const ReportView = () => {
     }, []);
 
     async function fetchReport() {
-        console.log("getReports")
         setLoading(true);
         const result = await reportRepository.getApprovedReport()
         if (result !== null) {
@@ -85,33 +83,22 @@ export const ReportView = () => {
             </div>
             <div className="container space-y-2 max-h-screen flex flex-col p-3 items-center min-w-lg">
                 {listReport.map((data, index) => (
-                    <div key={index} className="w-full md:max-w-[60%] min-w-lg">
+                    <div key={data.id} className="w-full md:max-w-[60%] min-w-lg">
                         <div>
                             <PostCard
-                                key={index}
+                                key={data.id}
                                 username={data.username}
                                 time={data.time}
                                 header={data.header}
                                 information={data.information}
                                 approved={data.approved}
-                                profile={data.profilePhoto}
+                                profile={data.profile}
                                 file={data.file}
                                 category={data.category}
                                 priority={data.priority}
                                 onClick={() => document.getElementById(index.toString()).showModal()}
                             />
                         </div>
-                        <dialog key={index} id={index.toString()} className="modal">
-                            <div className="modal-box">
-                                <form method="dialog">
-                                    <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕
-                                    </button>
-                                </form>
-                                <div className="p-3">
-                                    {data.file ? <FileDisplay fileUrl={data.file}/> : null}
-                                </div>
-                            </div>
-                        </dialog>
                     </div>
                 ))}
             </div>

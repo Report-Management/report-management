@@ -16,12 +16,9 @@ export const LoginForm = () => {
         const authRepository = new AuthRepository();
         const result = await authRepository.getLogin(email, password);
         if(result === null) {
-            console.log("Failed to login")
             dispatch(setLoading(false))
             return
         }
-        console.log("Login success")
-        console.log(result)
         dispatch(setLoading(false))
     };
 

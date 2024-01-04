@@ -8,8 +8,7 @@ import {Loading} from "../../../components/index.jsx";
 import man from "../../../assets/user.png";
 import {MdDelete} from "react-icons/md";
 import {motion} from "framer-motion";
-import {PiPasswordBold} from "react-icons/pi";
-
+import {PiPasswordBold} from "react-icons/pi"
 export const AdminCreateUserView = () => {
     const [openModal, setOpenModal] = useState(false);
     const [isShowPass, setShowPassword] = useState(true);

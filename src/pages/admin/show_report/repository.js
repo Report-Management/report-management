@@ -23,6 +23,7 @@ export class ReportRepository extends BaseRepository {
                     view: report.view,
                     file: report.file,
                     time: report.time,
+                    spam: report.spam,
                     username: report.username,
                     profile: report.profile,
                     isLoading: false,
@@ -49,6 +50,11 @@ export class ReportRepository extends BaseRepository {
 
     async onGetSummary(id) {
         const response = await this.get(`/getSummary/${id}`)
+        return await this.checkError(response);
+    }
+
+    async onMarkSpam(id) {
+        const response = await this.put(`/markSpam?id=${id}`)
         return await this.checkError(response);
     }
 

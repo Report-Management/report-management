@@ -40,10 +40,13 @@ function App() {
 
         const {data: {subscription},} = supabaseSession.auth.onAuthStateChange(async (_event, session) => {
             setSession(session)
-            if (session) {
+            if( _event === "SIGNED_IN") {
                 let role = await authRepo.getUserRole(session.user.id);
                 if (role.role === "Admin") navigate(PagesRoute.admin, {replace: true});
                 else navigate(PagesRoute.user, {replace: true});
+
+            } else if (_event === "SIGNED_OUT") {
+                navigate(PagesRoute.root, {replace: true});
             }
         })
 
@@ -78,7 +81,7 @@ function App() {
                         <Route path="*" element={<NotFoundPage/>}/>
                     </Route>
                     <Route path={PagesRoute.user} element={<UserView/>}>
-                        <Route index element={<ReportView/>}/>
+                        <Route index element={<ReportView />}/>
                         <Route path={PagesRoute.done} element={<DoneView/>}/>
                         <Route path={PagesRoute.create} element={<CreateReportView/>}/>
                         <Route path={PagesRoute.myreport} element={<MyReportView/>}/>

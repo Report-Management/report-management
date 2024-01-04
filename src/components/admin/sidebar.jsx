@@ -41,7 +41,7 @@ export const AdminSideBar = () => {
     return (
         <>
             <Sidebar aria-label="Sidebar with logo branding example" collapsed={isCollapsed}>
-                <Sidebar.Logo href={PagesRoute.admin} img={logo} imgAlt="Report" className="font-bold font-mono text-purple-600" onClick={() => {
+                <Sidebar.Logo href={PagesRoute.admin} img={logo} imgAlt="Report" className="font-bold font-rubik text-purple-600" onClick={() => {
                     navigate(PagesRoute.admin, {replace: true});
                 }}>
                     ADMIN

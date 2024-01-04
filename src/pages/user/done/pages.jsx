@@ -43,7 +43,7 @@ export const DoneView = () => {
                                 header={data.header}
                                 information={data.information}
                                 completed={data.completed}
-                                profile={data.profilePhoto}
+                                profile={data.profile}
                                 file={data.file}
                                 category={data.category}
                                 priority={data.priority}
