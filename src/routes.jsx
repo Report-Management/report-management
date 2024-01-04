@@ -1,7 +1,7 @@
 export class PagesRoute {
     static root = "/";
     static forget = "forget";
-    static reset = "/reset";
+    static reset = "/reset-password";
 
     // User Route
     static user = "/user";

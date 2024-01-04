@@ -10,7 +10,9 @@ export class BaseRepository {
         this.base.defaults.timeout = 60000;
         this.base.interceptors.request.use((config) => {
             const token = JSON.parse(localStorage.getItem('sb-uazzhgvzukwpifcufyfg-auth-token'));
-            config.headers["Authorization"] = "Bearer " + token.access_token;
+            if (token && token.access_token) {
+                config.headers["Authorization"] = "Bearer " + token.access_token;
+            }
             return config;
         });
     }
@@ -50,6 +52,7 @@ export class BaseRepository {
 
     async post(url, data, config) {
         const response = await this.base.post(url, data, config).catch((error) => {
+            console.log(error)
             if (error.response && error.response.data && error.response.data.detail) {
                 toast.error(error.response.data.detail);
             } else {

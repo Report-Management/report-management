@@ -18,6 +18,7 @@ import {MyReportView} from "./pages/user/myreport/page.jsx";
 import {NotFoundPage} from "./pages/notfound/index.jsx";
 import {ResetView} from "./pages/reset/page.jsx";
 import ProtectedRoute from "./protection/protection.jsx";
+import {ResetPasswordView} from "./pages/reset/reset-password/page.jsx";
 
 function App() {
     const [loading, setLoading] = useState(true);
@@ -29,7 +30,6 @@ function App() {
     const authRepo = new AuthRepository();
     useEffect(() => {
         supabaseSession.auth.getSession().then(async ({data: {session}}) => {
-            console.log("App");
             setSession(session)
             if (session) {
                 let role = await authRepo.getUserRole(session.user.id);
@@ -84,7 +84,9 @@ function App() {
                         <Route path={PagesRoute.myreport} element={<MyReportView/>}/>
                     </Route>
                 </Route>
-                <Route path={PagesRoute.reset} element={<ResetView/>}/>
+                <Route path="/reset-password" element={<ResetView />}>
+                    <Route index element={<ResetPasswordView />} />
+                </Route>
             </Routes>
         </main>
     );

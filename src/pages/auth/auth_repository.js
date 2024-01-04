@@ -15,24 +15,19 @@ export class AuthRepository extends BaseRepository {
         return await this.checkSupabaseError(response)
     }
 
-    async getLogout() {
-        const response = await supabaseSession.auth.signOut()
-        return await this.checkSupabaseError(response)
-    }
-
     async getUserRole(id) {
         const response = await this.get("/check/" + id)
         return await this.checkError(response)
     }
 
-    async getMicrosoftLogin() {
-        const response = await supabaseSession.auth.signIn({
-            provider: 'microsoft',
-            options: {
-                scopes: 'email',
-            },
-        })
-        return await this.checkSupabaseError(response)
-    }response
+    async getVerifyEmail(email) {
+        const body = {
+            "email": email
+        }
+        const response = await this.post("/sent-forget-password/", body)
+        console.log(response)
+        const data = await this.checkError(response)
+        return data !== null
+    }
 }
 
