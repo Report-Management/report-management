@@ -30,6 +30,13 @@ export const MyReportView = () => {
         }
     }
 
+    async function onDeleteReportFile(id) {
+        const result = await reportRepository.removeReportFile(id);
+        if (result){
+            fetchReport();
+        }
+    }
+
     if (loading) {
         return <div className="max-h-screen overflow-hidden h-full">
             <Loading />
@@ -68,6 +75,9 @@ export const MyReportView = () => {
                                 onDelete={() => {
                                     document.getElementById("model_deleted").showModal()
                                     setID(data.id)
+                                }}
+                                remove={() => {
+                                    onDeleteReportFile(data.id)
                                 }}
                             />
                         </div>

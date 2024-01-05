@@ -112,7 +112,8 @@ export const MyReportPostCard = (props) => {
                                         className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
                                         <li onClick={() => document.getElementById(modalId).showModal()}><a>Edit</a>
                                         </li>
-                                        <li onClick={props.onDelete}><a>Delete</a></li>
+                                        {/*<li onClick={props.remove}><a>Remove file</a></li>*/}
+                                        <li onClick={props.onDelete}><a className="text-red-500">Delete</a></li>
                                     </ul>
                                 </div>
 
@@ -292,6 +293,7 @@ MyReportPostCard.propTypes = {
     file: PropTypes.string,
     view: PropTypes.string,
     onDelete: PropTypes.func,
+    remove: PropTypes.func
 };
 
 MyReportPostCard.defaultProps = {

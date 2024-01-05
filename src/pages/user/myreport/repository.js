@@ -45,6 +45,10 @@ export class MyReportRepository extends BaseRepository {
     async updateReportFile(id, from) {
         const response = await this.put(`/updateFile/${id}`, from);
         return await this.checkError(response);
+    }
 
+    async removeReportFile(id) {
+        const response = await this.delete(`deleted_report/${id}`);
+        return await this.checkError(response);
     }
 }

@@ -21,6 +21,7 @@ export class AdminDashboardView extends Component {
         }
         if (result !== null) {
             this.setState({ dataReportMonth: result });
+            this.checkData();
         }
     };
 
@@ -34,6 +35,7 @@ export class AdminDashboardView extends Component {
         }
         if (result !== null) {
             this.setState({ dataReportCategoryYear: result });
+            this.checkData();
         }
     }
 
@@ -42,6 +44,7 @@ export class AdminDashboardView extends Component {
         const result = await dashboardRepository.getReportSolve(year, this.convert_months(month));
         if (result !== null) {
             this.setState({ dataReportSolve: result });
+            this.checkData();
         }
     }
 
@@ -50,6 +53,7 @@ export class AdminDashboardView extends Component {
         const result = await dashboardRepository.getReportSpam(year, this.convert_months(month));
         if (result !== null) {
             this.setState({ dataReportSpam: result });
+            this.checkData();
         }
     }
 
@@ -58,6 +62,7 @@ export class AdminDashboardView extends Component {
         const result = await dashboardRepository.getReportDetail();
         if (result !== null) {
             this.setState({ dataReportDetail: result });
+            this.checkData();
         }
     }
 
@@ -159,7 +164,6 @@ export class AdminDashboardView extends Component {
         this.getReportSolve(this.state.pie1YearLabel, this.state.pie1MonthLabel);
         this.getReportSpam(this.state.pie2YearLabel, this.state.pie2MonthLabel);
         this.getReportDetail();
-        this.checkData();
     }
 
     componentDidMount() {

@@ -1,5 +1,6 @@
 import {Avatar, Dropdown, Modal, Navbar} from 'flowbite-react';
 import logo from '../../assets/seo-report.png';
+import man from '../../assets/man.png'
 import {useNavigate} from "react-router-dom";
 import {PagesRoute} from "../../routes.jsx";
 import PropTypes from "prop-types";
@@ -38,10 +39,8 @@ export const NavigationBar = (props) => {
                     </div>
                     <div className="hidden md:block">
                         <Avatar
-                            className="object-contain"
                             alt="User settings"
-                            placeholderInitials="LP"
-                            img={props.img}
+                            img={props.img ?? man}
                             size="md"
                             rounded bordered
                         />
@@ -52,10 +51,8 @@ export const NavigationBar = (props) => {
                             inline
                             label={
                                 <Avatar
-                                    className="object-none"
                                     alt="User settings"
-                                    placeholderInitials="LP"
-                                    img={props.img}
+                                    img={props.img ?? man}
                                     size="md"
                                     rounded bordered
                                 />
