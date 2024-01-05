@@ -5,6 +5,7 @@ import { DashboardRepository } from "./repository.js";
 import { Loading } from "../../../components";
 import { Dropdown } from 'flowbite-react';
 
+
 export class AdminDashboardView extends Component {
     state = {
         loading: true,
@@ -66,30 +67,38 @@ export class AdminDashboardView extends Component {
         }
     }
 
-    getDate = async () => {
-        const dashboardRepository = new DashboardRepository();
-        const result = await dashboardRepository.getDate();
-        if (result !== null) {
-            this.setState({
-                thisYear: result.thisYear,
-                thisMonth: result.thisMonth,
-                allYear: result.allYear,
-                allMonth: ["All", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                bar1: result.allYear,
-                bar1Label: result.thisYear,
-                bar2: result.allYear,
-                bar2Label: result.thisYear,
-                pie1Year: result.allYear,
-                pie1YearLabel: 0,
-                pie1Month: result.thisMonth,
-                pie1MonthLabel: "All",
-                pie2Year: result.allYear,
-                pie2YearLabel: 0,
-                pie2Month: result.thisMonth,
-                pie2MonthLabel: "All",
-            }, () => {
-                this.getData();
-            });
+    async getDate() {
+        try {
+            const dashboardRepository = new DashboardRepository();
+            const result = await dashboardRepository.getDate();
+
+            if (result !== null) {
+                this.setState(
+                    {
+                        thisYear: result.thisYear,
+                        thisMonth: result.thisMonth,
+                        allYear: result.allYear,
+                        allMonth: ["All", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                        bar1: result.allYear,
+                        bar1Label: result.thisYear,
+                        bar2: result.allYear,
+                        bar2Label: result.thisYear,
+                        pie1Year: result.allYear,
+                        pie1YearLabel: 0,
+                        pie1Month: result.thisMonth,
+                        pie1MonthLabel: "All",
+                        pie2Year: result.allYear,
+                        pie2YearLabel: 0,
+                        pie2Month: result.thisMonth,
+                        pie2MonthLabel: "All",
+                    },
+                    async () => {
+                        await this.getData();
+                    }
+                );
+            }
+        } catch (error) {
+            console.error("Error fetching date:", error);
         }
     }
 
@@ -158,16 +167,18 @@ export class AdminDashboardView extends Component {
         return months[month]
     }
 
-    getData(){
-        this.getReport(this.state.bar1Label);
-        this.getReportCategory(this.state.bar2Label);
-        this.getReportSolve(this.state.pie1YearLabel, this.state.pie1MonthLabel);
-        this.getReportSpam(this.state.pie2YearLabel, this.state.pie2MonthLabel);
-        this.getReportDetail();
+    async getData() {
+        await this.getDate();
+        await this.getReport(this.state.bar1Label);
+        await this.getReportCategory(this.state.bar2Label);
+        await this.getReportSolve(this.state.pie1YearLabel, this.state.pie1MonthLabel);
+        await this.getReportSpam(this.state.pie2YearLabel, this.state.pie2MonthLabel);
+        await this.getReportDetail();
+        this.checkData();
     }
 
-    componentDidMount() {
-        this.getDate();
+    async componentDidMount() {
+        await this.getData();
     }
 
     render() {
