@@ -5,7 +5,7 @@ import { DashboardRepository } from "./repository.js";
 import { Loading } from "../../../components/index.jsx";
 import { Dropdown } from 'flowbite-react';
 
-const AdminDashboardView = () => {
+export const AdminDashboardView = () => {
   const [loading, setLoading] = useState(true);
   const [dataReportMonth, setDataReportMonth] = useState();
   const [dataReportCategoryYear, setDataReportCategoryYear] = useState();
