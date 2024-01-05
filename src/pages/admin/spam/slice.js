@@ -21,6 +21,21 @@ export const createAdminSpamReportSlice = createSlice({
                 state.listReports[index].isLoading = isLoading;
             }
         },
+        setLoadingSummaried: (state, action) => {
+            const {isSummaried, index} = action.payload;
+            if (state.listReports[index]) {
+                state.listReports[index].isSummaried = isSummaried;
+            }
+        },
+        setSummaryIndex: (state, action) => {
+            const { data, index } = action.payload;
+            return {
+                ...state,
+                listReports: state.listReports.map((report, i) =>
+                    i === index ? { ...report, summaryText: data } : report
+                ),
+            };
+        },
         removeReport: (state, action) => {
             const index = action.payload;
             if (index >= 0 && index < state.listReports.length) {
@@ -30,5 +45,5 @@ export const createAdminSpamReportSlice = createSlice({
     },
 });
 
-export const { setLoading, setListReport, setLoadingIndex, removeReport} = createAdminSpamReportSlice.actions;
+export const { setLoading, setListReport, setLoadingIndex, removeReport, setSummaryIndex, setLoadingSummaried} = createAdminSpamReportSlice.actions;
 export default createAdminSpamReportSlice.reducer;

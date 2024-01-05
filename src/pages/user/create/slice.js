@@ -5,6 +5,7 @@ const initialState = {
     description: "",
     category: "",
     priority: "",
+    view: "",
     file: null,
 };
 
@@ -27,9 +28,12 @@ const createReportSlice = createSlice(({
         setPriority(state, action) {
             state.priority = action.payload;
         },
+        setView(state, action) {
+            state.view = action.payload;
+        },
     }
 
 }))
 
 export default createReportSlice.reducer;
-export const {setFile, setHeader, setDescription, setCategory, setPriority} = createReportSlice.actions;
+export const {setFile, setHeader, setDescription, setCategory, setPriority, setView} = createReportSlice.actions;

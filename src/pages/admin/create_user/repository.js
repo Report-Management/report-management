@@ -54,6 +54,8 @@ export class AdminUserRepository extends BaseRepository {
     }
 
     async onDeleteUser(id) {
-        const response = await this.delete("/")
+        const response = await this.delete(`/delete_user/${id}`)
+        const data = await this.checkError(response)
+        return data != null;
     }
 }

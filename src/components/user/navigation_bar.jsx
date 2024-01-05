@@ -1,14 +1,16 @@
-import {Avatar, Button, Dropdown, Modal, Navbar} from 'flowbite-react';
+import {Avatar, Dropdown, Modal, Navbar} from 'flowbite-react';
 import logo from '../../assets/seo-report.png';
-import {NavLink, useNavigate} from "react-router-dom";
+import man from '../../assets/man.png'
+import {useNavigate} from "react-router-dom";
 import {PagesRoute} from "../../routes.jsx";
 import PropTypes from "prop-types";
 import {supabaseSession} from "../../core/index.js";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {HiOutlineExclamationCircle} from "react-icons/hi";
 
 export const NavigationBar = (props) => {
     const navigator = useNavigate();
+
     const onLogout = async () => {
         const {error} = await supabaseSession.auth.signOut();
         navigator(PagesRoute.root, {replace: true});
@@ -18,16 +20,6 @@ export const NavigationBar = (props) => {
     }
 
     const [openModal, setOpenModal] = useState(false);
-    const [selectedDropdownOption, setSelectedDropdownOption] = useState(null);
-    const handleDropdownSelect = (option) => {
-        setSelectedDropdownOption(option);
-        console.log(selectedDropdownOption)
-    };
-
-    useEffect(() => {
-        console.log(selectedDropdownOption)
-    }, [selectedDropdownOption]);
-
     return (
         <nav className="h-1/2 w-full">
             <Navbar className="w-full px-8 bg-gray-50 dark:bg-gray-800">
@@ -37,20 +29,18 @@ export const NavigationBar = (props) => {
                             <div className="h-10 sm:h-9">
                                 <img src={logo} className="mr-3 h-10 sm:h-9 mb-3.5" alt="Report"/>
                             </div>
-                            <span className="font-bold font-mono text-xl">REPORTS</span>
+                            <span className="font-bold text-xl font-rubik">REPORTS</span>
                         </div>
                     </Navbar.Brand>
                 </div>
                 <div className="md:flex md:flex-row justify-between items-center md:w-full">
                     <div className="hidden md:block">
-                        <span className="text-lg font-semibold">LIM Phanith</span>
+                        <span className="text-lg font-semibold"> {props.username }</span>
                     </div>
                     <div className="hidden md:block">
                         <Avatar
-                            className="object-contain"
                             alt="User settings"
-                            placeholderInitials="LP"
-                            img={props.img}
+                            img={props.img ?? man}
                             size="md"
                             rounded bordered
                         />
@@ -61,16 +51,14 @@ export const NavigationBar = (props) => {
                             inline
                             label={
                                 <Avatar
-                                    className="object-none"
                                     alt="User settings"
-                                    placeholderInitials="LP"
-                                    img={props.img}
+                                    img={props.img ?? man}
                                     size="md"
                                     rounded bordered
                                 />
                             }>
                             <Dropdown.Header>
-                                <span className="block text-sm">{ props.username ?? 'Bonnie Green' }</span>
+                                <span className="block text-sm font-rubik">{ props.username ?? 'Bonnie Green' }</span>
                                 <span className="block truncate text-sm font-medium">{ props.email ?? 'name@rupp.edu.kh' }</span>
                             </Dropdown.Header>
                             <Dropdown.Divider/>
@@ -93,12 +81,12 @@ export const NavigationBar = (props) => {
                             Are you sure you want to logout ?
                         </h3>
                         <div className="flex justify-center gap-4">
-                            <Button color="failure" onClick={onLogout}>
+                            <button className="btn btn-error text-white" onClick={onLogout}>
                                 {"Yes, I'm sure"}
-                            </Button>
-                            <Button color="gray" onClick={() => setOpenModal(false)}>
+                            </button>
+                            <button className="btn bg-gray-500 text-white" onClick={() => setOpenModal(false)}>
                                 No, cancel
-                            </Button>
+                            </button>
                         </div>
                     </div>
                 </Modal.Body>
@@ -116,5 +104,4 @@ NavigationBar.propTypes = {
 NavigationBar.defaultProps = {
     username: 'Bonnie Green',
     email: 'name@rupp.edu.kh',
-    img: "https://i.pravatar.cc/150?img=3"
 }

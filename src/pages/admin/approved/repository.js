@@ -26,6 +26,8 @@ export class ApprovedReportRepository extends BaseRepository {
                     username: report.username,
                     profile: report.profile,
                     isLoading: false,
+                    summaryText: null,
+                    isSummaried: false,
                 })
             })
             return list_report
@@ -44,5 +46,10 @@ export class ApprovedReportRepository extends BaseRepository {
         const response = await this.put(`/unmarkApproved?id=${id}`)
         const data = await this.checkError(response)
         return data != null;
+    }
+
+    async onGetSummary(id) {
+        const response = await this.get(`/getSummary/${id}`)
+        return await this.checkError(response);
     }
 }

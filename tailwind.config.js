@@ -10,7 +10,8 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                nunito: ['Nunito', 'sans-serif']
+                nunito: ['Nunito', 'sans-serif'],
+                rubik: ['Rubik', 'sans-serif']
             }
         },
     },
@@ -18,5 +19,8 @@ export default {
         flowbite,
         require("daisyui")
     ],
+    daisyui: {
+        themes: ["light", "dark", "cupcake"],
+    },
 }
 

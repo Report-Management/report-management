@@ -21,6 +21,21 @@ export const createAdminDoneReportSlice = createSlice({
                 state.listReports[index].isLoading = isLoading;
             }
         },
+        setLoadingSummaried: (state, action) => {
+            const {isSummaried, index} = action.payload;
+            if (state.listReports[index]) {
+                state.listReports[index].isSummaried = isSummaried;
+            }
+        },
+        setSummaryIndex: (state, action) => {
+            const { data, index } = action.payload;
+            return {
+                ...state,
+                listReports: state.listReports.map((report, i) =>
+                    i === index ? { ...report, summaryText: data } : report
+                ),
+            };
+        },
         removeReport: (state, action) => {
             const index = action.payload;
             if (index >= 0 && index < state.listReports.length) {
@@ -30,5 +45,5 @@ export const createAdminDoneReportSlice = createSlice({
     },
 });
 
-export const { setLoading, setListReport, setLoadingIndex, removeReport} = createAdminDoneReportSlice.actions;
+export const { setLoading, setListReport, setLoadingIndex, removeReport, setLoadingSummaried, setSummaryIndex} = createAdminDoneReportSlice.actions;
 export default createAdminDoneReportSlice.reducer;
