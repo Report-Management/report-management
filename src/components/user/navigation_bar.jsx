@@ -37,6 +37,7 @@ export const NavigationBar = (props) => {
         const result = await userRepository.updateUsername(name);
         if (result === true) {
             toast.success("Change username successfully")
+            document.getElementById('my_modal_1').close()
             setUsername(name)
         }
     }
@@ -47,6 +48,7 @@ export const NavigationBar = (props) => {
         if (result === true) {
             toast.success("Change profile successfully")
             setUrl(inputUrl)
+            document.getElementById('my_modal_2').close()
         }
     }
 
