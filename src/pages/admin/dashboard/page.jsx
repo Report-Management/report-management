@@ -300,5 +300,3 @@ const AdminDashboardView = () => {
     </div>
   );
 }
-
-export default AdminDashboardView;
