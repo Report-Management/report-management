@@ -19,7 +19,6 @@ export class AdminDashboardView extends Component {
         else {
             result = await dashboardRepository.getReportMonth(year);
         }
-        // console.log(result);
         if (result !== null) {
             this.setState({ dataReportMonth: result });
         }
@@ -83,6 +82,8 @@ export class AdminDashboardView extends Component {
                 pie2YearLabel: 0,
                 pie2Month: result.thisMonth,
                 pie2MonthLabel: "All",
+            }, () => {
+                this.getData();
             });
         }
     }
@@ -152,18 +153,17 @@ export class AdminDashboardView extends Component {
         return months[month]
     }
 
-    getData = async () => {
-        await this.getDate();
-        await this.getReport(this.state.bar1Label);
-        await this.getReportCategory(this.state.bar2Label);
-        await this.getReportSolve(this.state.pie1YearLabel, this.state.pie1MonthLabel);
-        await this.getReportSpam(this.state.pie2YearLabel, this.state.pie2MonthLabel);
-        await this.getReportDetail();
-        await this.checkData();
+    getData(){
+        this.getReport(this.state.bar1Label);
+        this.getReportCategory(this.state.bar2Label);
+        this.getReportSolve(this.state.pie1YearLabel, this.state.pie1MonthLabel);
+        this.getReportSpam(this.state.pie2YearLabel, this.state.pie2MonthLabel);
+        this.getReportDetail();
+        this.checkData();
     }
 
-    async componentDidMount() {
-        await this.getData();
+    componentDidMount() {
+        this.getDate();
     }
 
     render() {
