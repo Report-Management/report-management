@@ -62,7 +62,7 @@ export const UserView = () => {
                     <div className="w-full sticky top-0 z-20">
                         <NavigationBar
                             username={username}
-                            profile={profile}
+                            profilePhoto={profile}
                             email={email}
                         />
                     </div>

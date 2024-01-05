@@ -57,7 +57,7 @@ export const ReportView = () => {
 
     return (
         <>
-            <div className="sticky top-0 z-50 outline-none bg-gray-50 dark:bg-gray-800">
+            <div className="sticky top-0 z-10 outline-none bg-gray-50 dark:bg-gray-800">
                 <div className="p-3">
                     <div className="relative" >
                         <input
