@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { BarChart, PieChart } from "../../../components/chart/index.jsx";
+import { BarChart, PieChart } from "../../../components/chart";
 import { Card } from "flowbite-react";
 import { DashboardRepository } from "./repository.js";
-import { Loading } from "../../../components/index.jsx";
+import { Loading } from "../../../components";
 import { Dropdown } from 'flowbite-react';
 
 export class AdminDashboardView extends Component {
@@ -11,7 +11,6 @@ export class AdminDashboardView extends Component {
     };
 
     getReport = async (year) => {
-        console.log("Get Report")
         const dashboardRepository = new DashboardRepository();
         let result = null;
         if (year === 0) {
@@ -27,7 +26,6 @@ export class AdminDashboardView extends Component {
     };
 
     getReportCategory = async (year) => {
-        console.log("Get Category Report")
         const dashboardRepository = new DashboardRepository();
         let result = null;
         if (year === 0) {
@@ -42,7 +40,6 @@ export class AdminDashboardView extends Component {
     }
 
     getReportSolve = async (year, month) => {
-        console.log("Get Report Solve")
         const dashboardRepository = new DashboardRepository();
         const result = await dashboardRepository.getReportSolve(year, this.convert_months(month));
         if (result !== null) {
@@ -61,7 +58,6 @@ export class AdminDashboardView extends Component {
     }
 
     getReportDetail = async () => {
-        console.log("Get Report Detail")
         const dashboardRepository = new DashboardRepository();
         const result = await dashboardRepository.getReportDetail();
         if (result !== null) {
@@ -71,7 +67,6 @@ export class AdminDashboardView extends Component {
     }
 
     getDate = async () => {
-        console.log("Get Report Date")
         const dashboardRepository = new DashboardRepository();
         const result = await dashboardRepository.getDate();
         if (result !== null) {
