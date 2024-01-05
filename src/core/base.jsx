@@ -37,11 +37,8 @@ export class BaseRepository {
 
     async get(url, config) {
         const response = await this.base.get(url, config).catch((error) => {
-            console.log(error)
             if (error.response && error.response.data && error.response.data.detail) {
                 toast.error(error.response.data.detail);
-            } else {
-                toast.error("An error occurred");
             }
             return null
         })
@@ -53,11 +50,8 @@ export class BaseRepository {
 
     async post(url, data, config) {
         const response = await this.base.post(url, data, config).catch((error) => {
-            console.log(error)
             if (error.response && error.response.data && error.response.data.detail) {
                 toast.error(error.response.data.detail);
-            } else {
-                toast.error("An error occurred");
             }
             return null
         })
@@ -69,8 +63,6 @@ export class BaseRepository {
             console.log(error)
             if (error.response && error.response.data && error.response.data.detail) {
                 toast.error(error.response.data.detail);
-            } else {
-                toast.error("An error occurred");
             }
             return null
         })
@@ -81,8 +73,6 @@ export class BaseRepository {
         const response = await this.base.delete(url, config).catch((error) => {
             if (error.response && error.response.data && error.response.data.detail) {
                 toast.error(error.response.data.detail);
-            } else {
-                toast.error("An error occurred");
             }
             return null
         })
