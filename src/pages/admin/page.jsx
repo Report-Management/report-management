@@ -11,9 +11,9 @@ import {AuthRepository} from "../auth/auth_repository.js";
 export const AdminView = () => {
     const location = useLocation();
     const isAdminPath = location.pathname === '/admin';
-    const [username, setUsername] = useState(null);
-    const [profile, setProfile] = useState(null);
-    const [email, setEmail] = useState(null);
+    const [username, setUsername] = useState('');
+    const [profile, setProfile] = useState('');
+    const [email, setEmail] = useState('');
     const [isLoading, setLoading] = useState(false)
     const authRepo = new AuthRepository();
     const navigate = useNavigate();
@@ -65,7 +65,7 @@ export const AdminView = () => {
                     <div className="w-full sticky top-0 z-20 px-6 md:px-0">
                         <AdminNavigationBar
                             username={username}
-                            profile={profile}
+                            profilePhoto={profile}
                             email={email}
                         />
                     </div>
