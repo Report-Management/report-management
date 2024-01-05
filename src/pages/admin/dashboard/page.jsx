@@ -158,13 +158,18 @@ export class AdminDashboardView extends Component {
         return months[month]
     }
 
-    async getData(){
-        await this.getReport(this.state.bar1Label);
-        await this.getReportCategory(this.state.bar2Label);
-        await this.getReportSolve(this.state.pie1YearLabel, this.state.pie1MonthLabel);
-        await this.getReportSpam(this.state.pie2YearLabel, this.state.pie2MonthLabel);
-        await this.getReportDetail();
+    async getData() {
+        try {
+            await this.getReport(this.state.bar1Label);
+            await this.getReportCategory(this.state.bar2Label);
+            await this.getReportSolve(this.state.pie1YearLabel, this.state.pie1MonthLabel);
+            await this.getReportSpam(this.state.pie2YearLabel, this.state.pie2MonthLabel);
+            await this.getReportDetail();
+        } catch (error) {
+            console.error('Error in getData:', error.message);
+        }
     }
+
 
     componentDidMount() {
         this.getDate();
