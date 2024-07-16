@@ -3,13 +3,13 @@ import {toast} from "react-toastify";
 
 export class BaseRepository {
     constructor(path) {
-        this.baseURL = "https://report-management-api-8ef0940ce088.herokuapp.com/";
+        this.baseURL = "http://0.0.0.0:8000/";
         this.base = axios.create({
             baseURL: this.baseURL + path,
         });
         this.base.defaults.timeout = 60000;
         this.base.interceptors.request.use((config) => {
-            const token = JSON.parse(localStorage.getItem('sb-uazzhgvzukwpifcufyfg-auth-token'));
+            const token = JSON.parse(localStorage.getItem('sb-ynnxablyssvpuufbvgxq-auth-token'));
             if (token && token.access_token) {
                 config.headers["Authorization"] = "Bearer " + token.access_token;
             }
